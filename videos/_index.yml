@@ -1,0 +1,33 @@
+---
+indexpage:
+  title: Guarda video e demo sulle soluzioni multicloud ibride con NetApp
+  lead: Esplora la videoteca di NetApp per soluzioni multicloud ibride, con AWS, Azure
+    e Red Hat OpenShift.  Ogni raccolta evidenzia i principali casi d'uso, scenari
+    di integrazione e flussi di lavoro.
+  tiles:
+  - title: Video sul multicloud ibrido AWS
+    links:
+    - title: Archiviazione connessa agli ospiti
+      url: hmc-aws-videos.html#guest-connected-storage
+    - title: TCO e datastore supplementari
+      url: hmc-aws-videos.html#tco-and-supplemental-datastores
+    - title: Flussi di lavoro di migrazione (HCX)
+      url: hmc-aws-videos.html#migration-workflows-hcx
+  - title: Video sul multicloud ibrido di Azure
+    links:
+    - title: Datastore supplementari
+      url: hmc-azure-videos.html#supplemental-datastores
+    - title: Ripristino dopo un disastro
+      url: hmc-azure-videos.html#disaster-recovery
+    - title: Flussi di lavoro di migrazione (HCX)
+      url: hmc-azure-videos.html#migration-workflows-hcx
+  - title: Video multicloud ibrido di OpenShift
+    links:
+    - title: Istantanee e ripristino
+      url: hmc-openshift-videos.html#snapshots-and-restore
+    - title: Integrazione dello storage
+      url: hmc-openshift-videos.html#storage-integration
+    - title: Failover e fail-back
+      url: hmc-openshift-videos.html#failover-and-fail-back
+    - title: Automazione delle soluzioni
+      url: hmc-openshift-videos.html#solution-automation

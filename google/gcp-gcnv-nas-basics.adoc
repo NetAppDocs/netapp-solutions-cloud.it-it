@@ -1,0 +1,25 @@
+---
+sidebar: sidebar 
+permalink: google/gcp-gcnv-nas-basics.html 
+keywords: nas, basics, gcp, nfs, smb 
+summary: I protocolli NAS sono metodi che consentono a più client su una rete di accedere agli stessi dati su un sistema di archiviazione, come Google Cloud NetApp Volumes su GCP.  NFS e SMB sono i protocolli NAS definiti e operano su base client/server, dove Google Cloud NetApp Volumes funge da server. 
+---
+= Nozioni di base sui protocolli NAS
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+I protocolli NAS sono metodi che consentono a più client su una rete di accedere agli stessi dati su un sistema di archiviazione, come Google Cloud NetApp Volumes su GCP.  NFS e SMB sono i protocolli NAS definiti e operano su base client/server, dove Google Cloud NetApp Volumes funge da server.  I client inviano richieste di accesso, lettura e scrittura al server, il quale è responsabile del coordinamento dei meccanismi di blocco dei file, dell'archiviazione delle autorizzazioni e della gestione delle richieste di identità e autenticazione.
+
+Ad esempio, se un client NAS desidera creare un nuovo file in una cartella, si segue la seguente procedura generale.
+
+. Il client chiede al server informazioni sulla directory (autorizzazioni, proprietario, gruppo, ID file, spazio disponibile e così via); il server risponde con le informazioni se il client e l'utente richiedenti dispongono delle autorizzazioni necessarie sulla cartella padre.
+. Se le autorizzazioni sulla directory consentono l'accesso, il client chiede al server se il nome del file che si sta creando esiste già nel file system.  Se il nome del file è già in uso, la creazione fallisce.  Se il nome del file non esiste, il server comunica al client che può procedere.
+. Il client invia una chiamata al server per creare il file con l'handle della directory e il nome del file e imposta gli orari di accesso e di modifica.  Il server assegna un ID file univoco al file per garantire che non vengano creati altri file con lo stesso ID file.
+. Il client invia una chiamata per verificare gli attributi del file prima dell'operazione WRITE.  Se i permessi lo consentono, il client scrive il nuovo file.  Se il protocollo/applicazione utilizza il blocco, il client chiede al server un blocco per impedire ad altri client di accedere al file mentre è bloccato, in modo da prevenire il danneggiamento dei dati.
+

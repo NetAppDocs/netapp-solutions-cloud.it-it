@@ -1,0 +1,25 @@
+---
+sidebar: sidebar 
+permalink: google/gcp-gcnv-data-encrypt-at-rest.html 
+keywords: aes-256 encryption, cmek 
+summary: Tutti i volumi in Google Cloud NetApp Volumes sono crittografati a riposo mediante crittografia AES-256, il che significa che tutti i dati utente scritti sui supporti vengono crittografati e possono essere decrittografati solo con una chiave per volume. 
+---
+= Crittografia dei dati a riposo
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Tutti i volumi in Google Cloud NetApp Volumes sono crittografati a riposo mediante crittografia AES-256, il che significa che tutti i dati utente scritti sui supporti vengono crittografati e possono essere decrittografati solo con una chiave per volume.
+
+* Per NetApp Volumes-SW vengono utilizzate le chiavi generate da Google.
+* Per NetApp Volumes-Performance, le chiavi per volume vengono archiviate in un gestore chiavi integrato in Google Cloud NetApp Volumes.
+
+
+A partire da novembre 2021, è stata resa disponibile l'anteprima della funzionalità delle chiavi di crittografia gestite dal cliente (CMEK).  Ciò consente di crittografare le chiavi per volume con una chiave master per progetto e per regione ospitata in https://cloud.google.com/kms/docs["Servizio di gestione delle chiavi di Google (KMS)."^] KMS consente di collegare gestori di chiavi esterni.
+
+Per informazioni sulla configurazione di KMS per NetApp Volumes-Performance, vedere https://cloud.google.com/architecture/partners/netapp-cloud-volumes/customer-managed-keys?hl=en_US["Impostazione delle chiavi di crittografia gestite dal cliente"^] .

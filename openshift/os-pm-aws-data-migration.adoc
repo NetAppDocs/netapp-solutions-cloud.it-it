@@ -1,0 +1,49 @@
+---
+sidebar: sidebar 
+permalink: openshift/os-pm-aws-data-migration.html 
+keywords: NetApp Solutions, redhat OpenShift, red hat OpenShift, redhat openshift container platform, ocp, openshift container platform, Advanced Cluster Management, ACM, Hub Cluster, containers, container workloads, VMware, customer managed storage, ONTAP, Ansible Automation Platform, BlueXP 
+summary:  
+---
+= Migrazione dei dati
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Questa pagina mostra le opzioni di migrazione dei dati per i carichi di lavoro dei container sui cluster Managed Red Hat OpenShift utilizzando FSx ONTAP per l'archiviazione persistente.
+
+
+
+== Migrazione dei dati
+
+Il servizio Red Hat OpenShift su AWS e Amazon FSx for NetApp ONTAP (FSx ONTAP) fanno parte del portafoglio di servizi di AWS.  FSx ONTAP è disponibile nelle opzioni Single AZ o Multi-AZ.  L'opzione Multi-Az garantisce la protezione dei dati in caso di guasti della zona di disponibilità.  FSx ONTAP può essere integrato con Trident per fornire storage persistente per le applicazioni sui cluster ROSA.
+
+
+
+=== Integrazione di FSx ONTAP con Trident utilizzando il grafico Helm
+
+.Integrazione del cluster ROSA con Amazon FSx ONTAP
+video::621ae20d-7567-4bbf-809d-b01200fa7a68[panopto]
+La migrazione delle applicazioni container comporta:
+
+* Volumi persistenti: questo può essere ottenuto utilizzando BlueXP.  Un'altra opzione è quella di utilizzare Trident Protect per gestire le migrazioni delle applicazioni container dall'ambiente locale a quello cloud.  L'automazione può essere utilizzata per lo stesso scopo.
+* Metadati dell'applicazione: questo può essere ottenuto utilizzando OpenShift GitOps (Argo CD).
+
+
+
+
+=== Failover e fail-back delle applicazioni sul cluster ROSA utilizzando FSx ONTAP per l'archiviazione persistente
+
+Il video seguente è una dimostrazione di scenari di failover e fail-back delle applicazioni utilizzando BlueXP e Argo CD.
+
+.Failover e fail-back delle applicazioni sul cluster ROSA
+video::e9a07d79-42a1-4480-86be-b01200fa62f5[panopto]
+
+
+=== Soluzione di protezione e migrazione dei dati per carichi di lavoro OpenShift Container
+
+image:rhhc-rosa-with-fsxn.png["Figura che mostra il dialogo di input/output o che rappresenta il contenuto scritto"]

@@ -1,0 +1,57 @@
+---
+sidebar: sidebar 
+permalink: vmware/vmw-aws-vmc-storage.html 
+keywords: aws, netapp, fsxn, storage, options, nfs, supplemental, cvo 
+summary: Lo storage NetApp può essere collegato al servizio Azure VMware come storage connesso come guest o come storage supplementare. 
+---
+= Amazon Web Services: opzioni per l'utilizzo dello storage NetApp
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Lo storage NetApp può essere collegato ad Amazon Web Services come storage guest connesso o supplementare.
+
+
+
+== Amazon FSx for NetApp ONTAP (FSx ONTAP) come datastore NFS supplementare
+
+Amazon FSx ONTAP offre eccellenti opzioni per distribuire e gestire carichi di lavoro applicativi insieme ai servizi file, riducendo al contempo il TCO rendendo i requisiti dei dati uniformi al livello applicativo.  Qualunque sia il caso d'uso, scegli VMware Cloud on AWS insieme ad Amazon FSx ONTAP per ottenere rapidamente i vantaggi del cloud, un'infrastruttura e operazioni coerenti da locale ad AWS, portabilità bidirezionale dei carichi di lavoro e capacità e prestazioni di livello aziendale.  Si tratta dello stesso processo e delle stesse procedure note utilizzate per collegare l'archiviazione.
+
+Per maggiori informazioni, visitare:
+
+* link:vmw-aws-vmc-nfs-ds-overview.html["FSx ONTAP come datastore NFS supplementare: panoramica"]
+* link:vmw-aws-vmc-nfs-ds-config.html["Amazon FSx per ONTAP come datastore supplementare"]
+
+
+
+
+== Amazon FSx for NetApp ONTAP come storage connesso agli ospiti
+
+Amazon FSx ONTAP è un servizio completamente gestito che fornisce un archivio file altamente affidabile, scalabile, ad alte prestazioni e ricco di funzionalità, basato sul famoso file system ONTAP di NetApp.  FSx ONTAP combina le caratteristiche, le prestazioni, le capacità e le operazioni API note dei file system NetApp con l'agilità, la scalabilità e la semplicità di un servizio AWS completamente gestito.
+
+FSx ONTAP offre uno storage di file condiviso ricco di funzionalità, veloce e flessibile, ampiamente accessibile da istanze di elaborazione Linux, Windows e macOS in esecuzione su AWS o in locale.  FSx ONTAP offre storage su unità a stato solido (SSD) ad alte prestazioni con latenze inferiori al millisecondo.  Con FSx ONTAP puoi raggiungere livelli di prestazioni SSD per il tuo carico di lavoro, pagando per l'archiviazione SSD solo una piccola parte dei tuoi dati.
+
+Gestire i dati con FSx ONTAP è più semplice perché puoi creare snapshot, clonare e replicare i tuoi file con un semplice clic.  Inoltre, FSx ONTAP suddivide automaticamente i dati in livelli di storage più economici ed elastici, riducendo la necessità di provisioning o gestione della capacità.
+
+FSx ONTAP fornisce inoltre storage altamente disponibile e durevole con backup completamente gestiti e supporto per il disaster recovery tra regioni.  Per semplificare la protezione e la sicurezza dei dati, FSx ONTAP supporta le più diffuse applicazioni antivirus e di sicurezza dei dati.
+
+Per maggiori informazioni, visitarelink:vmw-aws-vmc-guest-storage.html#fsx-ontap["FSx ONTAP come storage connesso agli ospiti"]
+
+
+
+== Cloud Volumes ONTAP (CVO) come storage connesso agli ospiti
+
+Cloud Volumes ONTAP, o CVO, è la soluzione leader del settore per la gestione dei dati cloud basata sul software di archiviazione ONTAP di NetApp, disponibile in modo nativo su Amazon Web Services (AWS), Microsoft Azure e Google Cloud Platform (GCP).
+
+Si tratta di una versione software-defined di ONTAP che utilizza storage cloud-native, consentendo di avere lo stesso software di storage nel cloud e in locale, riducendo la necessità di riqualificare il personale IT su metodi completamente nuovi per gestire i dati.
+
+CVO offre ai clienti la possibilità di spostare senza problemi i dati dall'edge al data center, al cloud e viceversa, riunendo il cloud ibrido, il tutto gestito tramite una console di gestione a pannello unico, NetApp Cloud Manager.
+
+Grazie alla sua progettazione, CVO offre prestazioni estreme e funzionalità avanzate di gestione dei dati per soddisfare anche le applicazioni più esigenti nel cloud.
+
+Per maggiori informazioni, visitarelink:vmw-aws-vmc-guest-storage.html#aws-cvo["CVO come Guest Connected Storage"] .

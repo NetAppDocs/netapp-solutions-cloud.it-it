@@ -1,0 +1,99 @@
+---
+sidebar: sidebar 
+permalink: openshift/os-solutions-versions.html 
+keywords: NetApp Solutions, hybrid cloud, container workloads, containers, Red Hat OpenShift, RedHat OpenShift, vmware, ROSA, ACC, Trident Protect, Advanced Cluster Management, ACM, Hub Cluster 
+summary:  
+---
+= Versioni di vari componenti utilizzati nella convalida della soluzione
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+La soluzione testa e convalida la migrazione e la protezione centralizzata dei dati con la piattaforma container OpenShift, OpenShift Advanced Cluster Manager, NetApp ONTAP e NetApp Trident Protect.
+
+Gli scenari 1, 2 e 3 della soluzione sono stati convalidati utilizzando le versioni come mostrato nella tabella seguente:
+
+[cols="25%, 75%"]
+|===
+
+
+| *Componente* | *Versione* 
+
+
+| *VMware* | vSphere Client versione 8.0.0.10200 VMware ESXi, 8.0.0, 20842819 
+
+
+| *Cruiser Hub* | OpenShift 4.11.34 
+
+
+| *Cluster di origine e destinazione* | OpenShift 4.12.9 in locale e in AWS 
+
+
+| * NetApp Trident* | Server e client Trident 23.04.0 
+
+
+| * NetApp Trident Protect* | Trident Protect 22.11.0-82 
+
+
+| * NetApp ONTAP* | ONTAP 9.12.1 
+
+
+| *AWS FSx ONTAP* | Singolo AZ 
+|===
+Lo scenario 4 della soluzione è stato convalidato utilizzando le versioni come mostrato nella tabella seguente:
+
+[cols="25%, 75%"]
+|===
+
+
+| *Componente* | *Versione* 
+
+
+| *VMware* | vSphere Client versione 8.0.2.00000 VMware ESXi, 8.0.2, 22380479 
+
+
+| *Cruiser Hub* | OpenShift 4.13.13 
+
+
+| *Cluster di origine e destinazione* | OpenShift 4.13.12 in locale e in Google Cloud 
+
+
+| * NetApp Trident* | Trident Server e Client 23.07.0 
+
+
+| * NetApp ONTAP* | ONTAP 9.12.1 
+
+
+| * Cloud Volumes ONTAP* | Singola AZ, Singolo nodo, 9.14.0 
+|===
+Lo scenario 5 della soluzione è stato convalidato utilizzando le versioni come mostrato nella tabella seguente:
+
+[cols="25%, 75%"]
+|===
+
+
+| *Componente* | *Versione* 
+
+
+| *VMware* | vSphere Client versione 8.0.2.00000 VMware ESXi, 8.0.2, 22380479 
+
+
+| *Cluster di origine e destinazione* | OpenShift 4.13.25 in locale e in Azure 
+
+
+| * NetApp Trident* | Trident Server e Client e Astra Control Provisioner 23.10.0 
+
+
+| * NetApp Trident Protect* | Trident Protect 23.10 
+
+
+| * NetApp ONTAP* | ONTAP 9.12.1 
+
+
+| * Cloud Volumes ONTAP* | Singola AZ, Singolo nodo, 9.14.0 
+|===

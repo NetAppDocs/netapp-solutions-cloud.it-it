@@ -1,0 +1,232 @@
+---
+sidebar: sidebar 
+permalink: vmware/evs-mount-fsxn-iscsi.html 
+keywords: Amazon, AWS, EVS, Elastic VMware Service, ONTAP, FSx, iscsi 
+summary: Questa sezione illustra i passaggi per configurare un datastore iSCSI utilizzando FSx per ONTAP. 
+---
+= Procedura di distribuzione per l'utilizzo di FSx per ONTAP come datastore iSCSI
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Questa sezione illustra i passaggi per configurare un datastore iSCSI utilizzando FSx per ONTAP.
+
+
+
+== Prerequisiti
+
+Prima di effettuare il provisioning e collegare FSx per ONTAP come datastore iSCSI, è necessario innanzitutto distribuire un ambiente di virtualizzazione Amazon EVS.  Per ulteriori informazioni, consultare la documentazione nella guida introduttiva ad Amazon EVS.  Questa sezione presuppone inoltre che sia stato distribuito un file system FSx per ONTAP ; consultare la sezione Approccio dettagliato sopra per i passaggi appropriati.
+
+
+
+== Fasi di distribuzione di alto livello
+
+L'implementazione del file system FSx for ONTAP da utilizzare come datastore iSCSI per Amazon EVS e la creazione della connettività tra i due servizi includeranno i seguenti passaggi:
+
+* Configurazione di una scheda di rete iSCSI per ciascun host ESXi.
+* Creazione e configurazione del file system FSx per ONTAP , volume, LUN, ecc.
+* Connessione degli host ESXi al server del file system FSx for ONTAP .
+* Creazione di un file system di macchina virtuale (VMFS) per datastore iSCSI.
+
+
+
+
+== Aggiungi adattatore di rete iSCSI
+
+I seguenti passaggi devono essere eseguiti su ciascun host ESXi nel tuo ambiente.
+
+. Accedere al client vSphere e selezionare l'host ESXi.  Nella scheda Configura, seleziona "Aggiungi adattatore software", quindi seleziona "Aggiungi adattatore iSCSI" dal menu a discesa, come mostrato qui:
++
+image:evs-mount-fsxn-025.png["Figura che rappresenta il dialogo per il passaggio precedente"]
+
+. Una volta completata l'installazione, ti troverai nella schermata Schede di archiviazione.  Selezionare "Riscansiona adattatore" dalla barra dei menu.  Registrare l'IQN dell'adattatore iSCSI: iqn.xxxx.  Questo valore verrà utilizzato in seguito nella fase di mappatura LUN.
++
+image:evs-mount-fsxn-026.png["Figura che rappresenta il dialogo per il passaggio precedente"]
+
+
+
+
+
+== Creare un volume FSx per ONTAP
+
+. Vai alla console AWS, accedi alla pagina del tuo file system FSx for ONTAP e fai clic su "Crea volume".
++
+image:evs-mount-fsxn-027.png["Figura che rappresenta il dialogo per il passaggio precedente"]
+
+. Selezionare l'SVM in cui si desidera creare il volume.
++
+image:evs-mount-fsxn-028.png["Figura che rappresenta il dialogo per il passaggio precedente"]
+
+. Nella pagina "Dettagli volume", inserisci i dettagli come mostrato nello screenshot qui sotto.  Una volta terminato, fare clic su "Crea" per impostare il volume.  Selezionare "Abilitato" per attivare le funzionalità di efficienza di archiviazione ONTAP (compressione, deduplicazione e compattazione).
++
+image:evs-mount-fsxn-029.png["Figura che rappresenta il dialogo per il passaggio precedente"]
+
+. Per l'opzione di suddivisione in livelli di archiviazione, seleziona "Solo snapshot" dal menu a discesa e imposta un periodo di raffreddamento per la politica di suddivisione in livelli.  L'impostazione predefinita è 31 giorni, ma in questo esempio abbiamo impostato un periodo di raffreddamento di due giorni.
++
+image:evs-mount-fsxn-030.png["Figura che rappresenta il dialogo per il passaggio precedente"]
+
+. Una volta creato il volume, utilizzare ONTAP CLI per impostare i seguenti valori:
++
+[cols="50%, 50%"]
+|===
+| *Collocamento* | *Configurazione* 
+
+
+| Garanzia di volume | Nessuno (thin provisioning) 
+
+
+| riserva frazionaria | 0% 
+
+
+| snap_reserve | 0% 
+
+
+| Autodimensionamento | crescere_ridurre 
+
+
+| Efficienza di archiviazione | Abilitato 
+
+
+| Politica di suddivisione in livelli del volume | Solo istantanea 
+
+
+| Aggiornamento dell'ora di accesso (-atime-update) | Falso 
+
+
+| Lettura minima anticipata (-min-readahead) | Falso 
+
+
+| Politica di snapshot | Nessuno 
+
+
+| Prenotazione dello spazio LUN | Disabili 
+
+
+| Assegnazione dello spazio LUN | Abilitato 
+|===
+
+
+
+
+== Creare un LUN, un igroup e mappare il LUN
+
+In questa sezione mostreremo come creare la LUN che apparirà come disco in vSphere.  Mostreremo anche come creare un gruppo di iniziatori (igroup), ovvero l'elenco degli iniziatori che hanno accesso alla LUN.  L'igroup consentirà l'accesso alla LUN dagli host vSphere ESXi.  Infine, mostreremo come mappare l'igroup sulla LUN.
+
+. Per accedere alla CLI ONTAP , stabilire una sessione SSH sulla porta di gestione del file system FSx for ONTAP o SVM eseguendo il seguente comando:
++
+....
+[~]$ ssh fsxadmin@management_endpoint_ip
+....
+. Creare il LUN.  Assicurati di abilitare l'allocazione e la prenotazione dello spazio.  La dimensione dovrebbe essere fino al 90% della dimensione del volume:
++
+....
+Fsxid::> lun create -vserver fsx -path /vol/DemoDS02/lun_name -size 1.8T -ostype vmware -space-allocation enabled -space-reservation disabled
+....
+. Creare l'igroup e aggiungere l'IQN di tutti gli host ESXi all'interno del cluster.
++
+....
+Fsxid::> lun igroup create -vserver fsx -igroup evs1 -protocol iscsi -ostype vmware -initiator iqn.1998-01.com.vmware:esxi01.evs.local:1060882244:64,iqn.1998-01.com.vmware:esxi02.evs.local:1911302492:64,iqn.1998-01.com.vmware:esxi03.evs.local:2069609753:64,iqn.1998-01.com.vmware:esxi04.evs.local:1165297648:64
+....
+. Mappare la LUN con il seguente codice:
++
+....
+Fsxid::> lun mapping create -vserver fsx -path /vol/DemoDS02/lun1 -igroup evs1 -lun-id 2
+....
+. Esaminare la mappatura LUN e verificare che lo stato sia stato modificato in "mappato".  Si tratta di un doppio controllo necessario per assicurarsi che la LUN sia in uno stato mappato:
++
+....
+Fsxid::> lun show
+Vserver   Path                            State   Mapped   Type        Size
+--------- ------------------------------- ------- -------- -------- --------
+fsx       /vol/DemoDS02/lun1              online  mapped   vmware     1.80TB
+....
+
+
+
+
+== Ottenere informazioni sulla configurazione iSCSI dall'SVM
+
+. Eseguire iSCSI Show e registrare il nome della destinazione.  Verrà utilizzato nella scoperta vSphere dei dischi FSx for ONTAP (Nota: questo nome di destinazione è univoco per la tua SVM):
++
+....
+Fsxid::> iscsi show -vserver fsx
+                 Vserver: fsx
+             Target Name: iqn.1992-08.com.netapp:sn.c083e374f1b711ef9d9f8123a3ebcf46:vs.3
+            Target Alias: fsx
+   Administrative Status: up
+....
+. Registrare gli indirizzi IP iSCSI:
++
+....
+Fsxid::> network interface show -vserver fsx -data-protocol iscsi -fields address
+vserver lif       address
+------- -------   -----------
+fsx     iscsi_1   10.0.10.134
+fsx     iscsi_2   10.0.10.227
+....
+
+
+
+
+== Scopri il server iSCSI FSx per ONTAP
+
+Ora che abbiamo mappato la LUN, possiamo individuare il server iSCSI FSx for ONTAP per l'SVM.  Tieni presente che per ogni host ESXi presente nel tuo SDDC dovrai ripetere i passaggi elencati qui.
+
+. Innanzitutto, assicurarsi che il gruppo di sicurezza collegato al file system FSx for ONTAP (ovvero quello collegato all'ENI) consenta le porte iSCSI.
++
+Per un elenco completo delle porte del protocollo iSCSI e come applicarle, fare riferimento alink:https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/limit-access-security-groups.html["Controllo degli accessi al file system con Amazon VPC"] .
+
+. Nel client vSphere, vai su Host ESXi > Schede di archiviazione > Rilevamento statico e fai clic su "Aggiungi".
+. Immettere l'indirizzo IP del server iSCSI indicato sopra (la porta è 3260).  Il nome della destinazione iSCSI è l'IQN del comando iSCSI show.  Fare clic su "OK" per procedere.
++
+image:evs-mount-fsxn-031.png["Figura che rappresenta il dialogo per il passaggio precedente"]
+
+. La procedura guidata si chiuderà e verrà visualizzata la schermata Datastore Static Discovery.  Nella tabella presente in questa pagina potrai verificare che l'obiettivo sia stato scoperto.
++
+image:evs-mount-fsxn-032.png["Figura che rappresenta il dialogo per il passaggio precedente"]
+
+
+
+
+
+== Creare un datastore iSCSI
+
+Ora che abbiamo individuato il server iSCSI, possiamo creare un datastore iSCSI.
+
+. Nel client vSphere, vai alla scheda Datastore e seleziona l'SDDC in cui desideri distribuire il datastore.  Fare clic con il pulsante destro del mouse e selezionare l'icona Archiviazione (indicata dalla freccia verde nello screenshot qui sotto), quindi selezionare "Nuovo Datastore" dal menu a discesa:
++
+image:evs-mount-fsxn-033.png["Figura che rappresenta il dialogo per il passaggio precedente"]
+
+. Ora ti troverai nella procedura guidata Nuovo Datastore.  Nel passaggio "Tipo", selezionare l'opzione VMFS.
+. Nella fase "Selezione nome e dispositivo":
++
+.. Fornisci un nome per il tuo datastore.
+.. Seleziona l'host ESXi a cui vuoi connetterti al datastore.
+.. Selezionare il disco rilevato (LUN) e fare clic su "Avanti".
++
+image:evs-mount-fsxn-034.png["Figura che rappresenta il dialogo per il passaggio precedente"]
+
+
+
+. Nel passaggio "Versione VMFS", seleziona "VMFS 6".
++
+image:evs-mount-fsxn-035.png["Figura che rappresenta il dialogo per il passaggio precedente"]
+
+. Nel passaggio "Configurazione partizione", lasciare invariate le impostazioni predefinite, inclusa l'opzione "Usa tutte le partizioni disponibili".  Fare clic su "Avanti" per procedere.
++
+image:evs-mount-fsxn-036.png["Figura che rappresenta il dialogo per il passaggio precedente"]
+
+. Nella fase "Pronto per il completamento", assicurati che le impostazioni siano corrette.  Una volta terminato, clicca su "FINISH" per completare la configurazione.
++
+image:evs-mount-fsxn-037.png["Figura che rappresenta il dialogo per il passaggio precedente"]
+
+. Torna alla pagina Dispositivi e verifica che il datastore sia stato collegato.
++
+image:evs-mount-fsxn-038.png["Figura che rappresenta il dialogo per il passaggio precedente"]
+
+

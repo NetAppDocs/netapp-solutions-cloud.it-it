@@ -1,0 +1,62 @@
+= 
+:allow-uri-read: 
+
+
+[role="tabbed-block"]
+====
+.AWS / VMC
+--
+Questa sezione descrive come configurare e gestire VMware Cloud su AWS SDDC e utilizzarlo in combinazione con le opzioni disponibili per la connessione dello storage NetApp .
+
+
+NOTE: L'archiviazione in-guest è l'unico metodo supportato per connettere Cloud Volumes ONTAP ad AWS VMC.
+
+Il processo di configurazione può essere suddiviso nei seguenti passaggi:
+
+* Distribuisci e configura VMware Cloud per AWS
+* Connetti VMware Cloud a FSx ONTAP
+
+
+Visualizza il dettagliolink:../vmware/vmw-aws-vmc-setup.html["passaggi di configurazione per VMC"] .
+
+Visualizza il dettagliolink:../vmware/vmw-aws-vmc-setup.html["passaggi di configurazione per VMC"] .
+
+--
+.Azzurro / AVS
+--
+Questa sezione descrive come configurare e gestire Azure VMware Solution e come utilizzarla in combinazione con le opzioni disponibili per la connessione dello storage NetApp .
+
+
+NOTE: L'archiviazione in-guest è l'unico metodo supportato per connettere Cloud Volumes ONTAP ad Azure VMware Solution.
+
+Il processo di configurazione può essere suddiviso nei seguenti passaggi:
+
+* Registra il fornitore di risorse e crea un cloud privato
+* Connettiti a un gateway di rete virtuale ExpressRoute nuovo o esistente
+* Convalida la connettività di rete e accedi al cloud privato
+
+
+Visualizza il dettagliolink:azure-setup.html["passaggi di configurazione per AVS"] .
+
+Visualizza il dettagliolink:azure-setup.html["passaggi di configurazione per AVS"] .
+
+--
+.GCP / GCVE
+--
+Questa sezione descrive come configurare e gestire GCVE e come utilizzarlo in combinazione con le opzioni disponibili per la connessione dello storage NetApp .
+
+
+NOTE: L'archiviazione in-guest è l'unico metodo supportato per connettere Cloud Volumes ONTAP e Google Cloud NetApp Volumes a GCVE.
+
+Il processo di configurazione può essere suddiviso nei seguenti passaggi:
+
+* Distribuisci e configura GCVE
+* Abilita l'accesso privato a GCVE
+
+
+Visualizza il dettagliolink:gcp-setup.html["passaggi di configurazione per GCVE"] .
+
+Visualizza il dettagliolink:gcp-setup.html["passaggi di configurazione per GCVE"] .
+
+--
+====

@@ -1,0 +1,33 @@
+---
+sidebar: sidebar 
+permalink: google/gcp-gcnv-arch-overview.html 
+keywords: architecture overview, control plane, data plane 
+summary: 'Per fidarsi di una soluzione cloud è fondamentale comprenderne l"architettura e il modo in cui è protetta.  Questa sezione illustra diversi aspetti dell"architettura di Google Cloud NetApp Volumes in Google per contribuire ad alleviare potenziali preoccupazioni sulla protezione dei dati, nonché per evidenziare le aree in cui potrebbero essere necessari ulteriori passaggi di configurazione per ottenere la distribuzione più sicura.' 
+---
+= Panoramica
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Per fidarsi di una soluzione cloud è fondamentale comprenderne l'architettura e il modo in cui è protetta.  Questa sezione illustra diversi aspetti dell'architettura di Google Cloud NetApp Volumes in Google per contribuire ad alleviare potenziali preoccupazioni sulla protezione dei dati, nonché per evidenziare le aree in cui potrebbero essere necessari ulteriori passaggi di configurazione per ottenere la distribuzione più sicura.
+
+L'architettura generale di Google Cloud NetApp Volumes può essere suddivisa in due componenti principali: il piano di controllo e il piano dati.
+
+
+
+== Piano di controllo
+
+Il piano di controllo in Google Cloud NetApp Volumes è l'infrastruttura backend gestita dagli amministratori Google Cloud NetApp Volumes e dal software di automazione nativo NetApp .  Questo piano è completamente trasparente per gli utenti finali e include networking, hardware di storage, aggiornamenti software e così via per contribuire a fornire valore a una soluzione residente nel cloud come Google Cloud NetApp Volumes.
+
+
+
+== Piano dati
+
+Il piano dati in Google Cloud NetApp Volumes include i volumi di dati effettivi e la configurazione complessiva Google Cloud NetApp Volumes (ad esempio controllo degli accessi, autenticazione Kerberos e così via).  Il piano dati è interamente sotto il controllo degli utenti finali e dei consumatori della piattaforma Google Cloud NetApp Volumes .
+
+Esistono differenze sostanziali nel modo in cui ogni aereo viene messo in sicurezza e gestito.  Le sezioni seguenti illustrano queste differenze, a partire da una panoramica dell'architettura Google Cloud NetApp Volumes .

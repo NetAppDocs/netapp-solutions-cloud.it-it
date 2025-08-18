@@ -1,0 +1,333 @@
+---
+sidebar: sidebar 
+permalink: vmware/vmw-azure-avs-nfs-ds-config.html 
+keywords:  
+summary:  
+---
+= Creazione di un datastore NFS supplementare in Azure
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Il supporto per i datastore NFS è stato introdotto con ESXi versione 3 nelle distribuzioni on-premise, ampliando notevolmente le capacità di archiviazione di vSphere.
+
+L'esecuzione di vSphere su NFS è un'opzione ampiamente adottata per le distribuzioni di virtualizzazione in locale perché offre prestazioni e stabilità elevate.  Se disponi di un'ampia quantità di storage collegato alla rete (NAS) in un data center locale, dovresti prendere in considerazione l'implementazione di una soluzione SDDC di Azure VMware in Azure con datastore di file Azure NetApp per superare le sfide di capacità e prestazioni.
+
+Azure NetApp Files è basato sul software di gestione dati NetApp ONTAP , leader del settore e altamente disponibile.  I servizi Microsoft Azure sono raggruppati in tre categorie: fondamentali, tradizionali e specializzati.  Azure NetApp Files rientra nella categoria specializzata ed è supportato da hardware già distribuito in molte regioni.  Grazie all'elevata disponibilità (HA) integrata, Azure NetApp Files protegge i tuoi dati dalla maggior parte delle interruzioni e ti offre un SLA leader del settore di https://azure.microsoft.com/support/legal/sla/netapp/v1_1/["99,99%"^] tempo di attività.
+
+Prima dell'introduzione della funzionalità di datastore Azure NetApp Files , l'operazione di scalabilità orizzontale per i clienti che pianificavano di ospitare carichi di lavoro ad alta intensità di prestazioni e di archiviazione richiedeva l'espansione sia delle capacità di elaborazione che di archiviazione.
+
+Tieni presente i seguenti aspetti:
+
+* Le configurazioni di cluster non bilanciate non sono consigliate in un cluster SDDC.  Pertanto, espandere lo storage significa aggiungere più host, il che implica un TCO maggiore.
+* È possibile un solo ambiente vSAN.  Pertanto, tutto il traffico di archiviazione compete direttamente con i carichi di lavoro di produzione.
+* Non è possibile fornire più livelli di prestazioni per allineare requisiti, prestazioni e costi delle applicazioni.
+* È facile raggiungere i limiti della capacità di archiviazione per vSAN basati su host cluster. Integrando le offerte PaaS (Platform-as-a-Service) native di Azure, come Azure NetApp Files , come datastore, i clienti hanno la possibilità di ridimensionare in modo indipendente il proprio storage separatamente e di aggiungere nodi di elaborazione al cluster SDDC solo quando necessario.  Questa capacità supera le sfide sopra menzionate.
+
+
+Azure NetApp Files consente inoltre di distribuire più datastore, il che aiuta a imitare un modello di distribuzione locale posizionando le macchine virtuali nel datastore appropriato e assegnando il livello di servizio richiesto per soddisfare i requisiti di prestazioni del carico di lavoro.  Grazie alla capacità unica del supporto multiprotocollo, l'archiviazione guest è un'opzione aggiuntiva per carichi di lavoro di database come SQL e Oracle, sfruttando anche la capacità supplementare del datastore NFS per ospitare i VMDK rimanenti.  Oltre a ciò, la funzionalità nativa di snapshot consente di eseguire backup rapidi e ripristini granulari.
+
+
+NOTE: Contattare Azure e NetApp Solution Architects per la pianificazione e il dimensionamento dello storage e per determinare il numero necessario di host.  NetApp consiglia di identificare i requisiti di prestazioni di storage prima di finalizzare il layout del datastore per distribuzioni di test, POC e produzione.
+
+
+
+== Architettura dettagliata
+
+Da una prospettiva di alto livello, questa architettura descrive come ottenere connettività cloud ibrida e portabilità delle app tra ambienti locali e Azure.  Descrive inoltre l'utilizzo di Azure NetApp Files come datastore NFS supplementare e come opzione di archiviazione in-guest per macchine virtuali guest ospitate sulla soluzione Azure VMware.
+
+image:vmware-dr-001.png["Figura che mostra il dialogo di input/output o che rappresenta il contenuto scritto"]
+
+
+
+== Dimensionamento
+
+L'aspetto più importante nella migrazione o nel ripristino di emergenza è determinare la dimensione corretta per l'ambiente di destinazione.  È molto importante capire quanti nodi sono necessari per eseguire un'operazione di trasferimento da un ambiente locale alla soluzione Azure VMware.
+
+Per il dimensionamento, utilizzare i dati storici dell'ambiente locale tramite RVTools (preferito) o altri strumenti come Live Optics o Azure Migrate.  RVTools è uno strumento ideale per acquisire vCPU, vMem, vDisk e tutte le informazioni necessarie, comprese le VM accese o spente, per caratterizzare l'ambiente di destinazione.
+
+Per eseguire RVtools, completare i seguenti passaggi:
+
+. Scarica e installa RVTools.
+. Esegui RVTools, inserisci le informazioni richieste per connetterti al tuo vCenter Server locale e premi Accedi.
+. Esportare l'inventario in un foglio di calcolo Excel.
+. Modifica il foglio di calcolo e rimuovi dalla scheda vInfo tutte le VM che non sono candidate ideali. Questo approccio fornisce un output chiaro sui requisiti di archiviazione che può essere utilizzato per dimensionare correttamente il cluster Azure VMware SDDC con il numero richiesto di host.
+
+
+
+NOTE: Le VM guest utilizzate con storage interno devono essere calcolate separatamente; tuttavia, Azure NetApp Files può facilmente coprire la capacità di storage aggiuntiva, mantenendo così basso il TCO complessivo.
+
+
+
+== Distribuzione e configurazione della soluzione Azure VMware
+
+Come per le soluzioni on-premise, la pianificazione di una soluzione Azure VMware è fondamentale per un ambiente di produzione di successo per la creazione di macchine virtuali e la migrazione.
+
+Questa sezione descrive come configurare e gestire AVS per l'utilizzo in combinazione con Azure NetApp Files come archivio dati con archiviazione interna.
+
+Il processo di configurazione può essere suddiviso in tre parti:
+
+* Registra il fornitore di risorse e crea un cloud privato.
+* Connettersi a un gateway di rete virtuale ExpressRoute nuovo o esistente.
+* Convalida la connettività di rete e accedi al cloud privato.  Fare riferimento a questolink:vmw-azure-avs-overview.html["collegamento"^] per una guida dettagliata al processo di provisioning SDDC della soluzione Azure VMware.
+
+
+
+
+== Configurare Azure NetApp Files con Azure VMware Solution
+
+La nuova integrazione tra Azure NetApp Files consente di creare datastore NFS tramite le API/CLI del provider di risorse della soluzione Azure VMware con volumi Azure NetApp Files e di montare i datastore sui cluster desiderati in un cloud privato.  Oltre a ospitare i VMDK delle VM e delle app, i volumi di file di Azure NetApp possono anche essere montati dalle VM create nell'ambiente SDDC della soluzione Azure VMware.  I volumi possono essere montati sul client Linux e mappati su un client Windows, perché Azure NetApp Files supporta i protocolli Server Message Block (SMB) e Network File System (NFS).
+
+
+NOTE: Per prestazioni ottimali, distribuire Azure NetApp Files nella stessa zona di disponibilità del cloud privato.  La collocazione con il percorso rapido Express Route garantisce le migliori prestazioni, con una latenza di rete minima.
+
+Per collegare un volume di file Azure NetApp come datastore VMware di un cloud privato di Azure VMware Solution, assicurarsi che siano soddisfatti i seguenti prerequisiti.
+
+.Prerequisiti
+[%collapsible%open]
+====
+. Utilizzare az login e verificare che l'abbonamento sia registrato nella funzionalità CloudSanExperience nello spazio dei nomi Microsoft.AVS.
+
+
+....
+az login –tenant xcvxcvxc- vxcv- xcvx- cvxc- vxcvxcvxcv
+az feature show --name "CloudSanExperience" --namespace "Microsoft.AVS"
+....
+. Se non è registrato, registralo.
+
+
+....
+az feature register --name "CloudSanExperience" --namespace "Microsoft.AVS"
+....
+
+NOTE: La registrazione può richiedere circa 15 minuti.
+
+. Per verificare lo stato della registrazione, eseguire il seguente comando.
+
+
+....
+az feature show --name "CloudSanExperience" --namespace "Microsoft.AVS" --query properties.state
+....
+. Se la registrazione rimane bloccata in uno stato intermedio per più di 15 minuti, annullare la registrazione e poi registrare nuovamente il flag.
+
+
+....
+az feature unregister --name "CloudSanExperience" --namespace "Microsoft.AVS"
+az feature register --name "CloudSanExperience" --namespace "Microsoft.AVS"
+....
+. Verificare che l'abbonamento sia registrato nella funzionalità AnfDatastoreExperience nello spazio dei nomi Microsoft.AVS.
+
+
+....
+az feature show --name "AnfDatastoreExperience" --namespace "Microsoft.AVS" --query properties.state
+....
+. Verificare che l'estensione VMware sia installata.
+
+
+....
+az extension show --name vmware
+....
+. Se l'estensione è già installata, verificare che la versione sia 3.0.0.  Se è installata una versione precedente, aggiornare l'estensione.
+
+
+....
+az extension update --name vmware
+....
+. Se l'estensione non è già installata, installala.
+
+
+....
+az extension add --name vmware
+....
+====
+.Creare e montare volumi Azure NetApp Files
+[%collapsible%open]
+====
+. Accedi al portale di Azure e accedi ad Azure NetApp Files.  Verificare l'accesso al servizio Azure NetApp Files e registrare il provider di risorse Azure NetApp Files utilizzando `az provider register` `--namespace Microsoft.NetApp –wait` comando.  Dopo la registrazione, crea un account NetApp .  Fare riferimento a questo https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-create-netapp-account["collegamento"^] per i passaggi dettagliati.
+
+
+image:vmware-dr-002.png["Figura che mostra il dialogo di input/output o che rappresenta il contenuto scritto"]
+
+. Dopo aver creato un account NetApp , impostare i pool di capacità con il livello di servizio e le dimensioni richiesti.  Per informazioni dettagliate, fare riferimento a questo https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-set-up-capacity-pool["collegamento"^] .
+
+
+image:vmware-dr-003.png["Figura che mostra il dialogo di input/output o che rappresenta il contenuto scritto"]
+
+|===
+| Punti da ricordare 
+
+
+ a| 
+* NFSv3 è supportato per gli archivi dati su Azure NetApp Files.
+* Utilizzare il livello Premium o standard per carichi di lavoro con capacità limitata e il livello Ultra per carichi di lavoro con prestazioni limitate, ove necessario, integrando al contempo l'archiviazione vSAN predefinita.
+
+
+|===
+. Configurare una subnet delegata per Azure NetApp Files e specificare questa subnet durante la creazione dei volumi.  Per i passaggi dettagliati per creare una subnet delegata, fare riferimento a questo https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-delegate-subnet["collegamento"^] .
+. Aggiungere un volume NFS per il datastore utilizzando la lama Volumi sotto la lama Pool di capacità.
+
+
+image:vmware-dr-004.png["Figura che mostra il dialogo di input/output o che rappresenta il contenuto scritto"]
+
+Per informazioni sulle prestazioni del volume Azure NetApp Files in base alle dimensioni o alla quota, vederelink:https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-performance-considerations["Considerazioni sulle prestazioni per Azure NetApp Files"^] .
+
+====
+.Aggiungi il datastore dei file Azure NetApp al cloud privato
+[%collapsible%open]
+====
+
+NOTE: Il volume Azure NetApp Files può essere collegato al cloud privato tramite il portale di Azure.  Segui questolink:https://learn.microsoft.com/en-us/azure/azure-vmware/attach-azure-netapp-files-to-azure-vmware-solution-hosts?tabs=azure-portal["collegamento da Microsoft"] per un approccio passo passo all'utilizzo del portale di Azure per montare un archivio dati di file Azure NetApp .
+
+Per aggiungere un datastore di file Azure NetApp a un cloud privato, completare i seguenti passaggi:
+
+. Dopo aver registrato le funzionalità richieste, collegare un datastore NFS al cluster cloud privato della soluzione Azure VMware eseguendo il comando appropriato.
+. Creare un datastore utilizzando un volume ANF esistente nel cluster cloud privato della soluzione Azure VMware.
+
+
+....
+C:\Users\niyaz>az vmware datastore netapp-volume create --name ANFRecoDSU002 --resource-group anfavsval2 --cluster Cluster-1 --private-cloud ANFDataClus --volume-id /subscriptions/0efa2dfb-917c-4497-b56a-b3f4eadb8111/resourceGroups/anfavsval2/providers/Microsoft.NetApp/netAppAccounts/anfdatastoreacct/capacityPools/anfrecodsu/volumes/anfrecodsU002
+{
+  "diskPoolVolume": null,
+  "id": "/subscriptions/0efa2dfb-917c-4497-b56a-b3f4eadb8111/resourceGroups/anfavsval2/providers/Microsoft.AVS/privateClouds/ANFDataClus/clusters/Cluster-1/datastores/ANFRecoDSU002",
+  "name": "ANFRecoDSU002",
+  "netAppVolume": {
+    "id": "/subscriptions/0efa2dfb-917c-4497-b56a-b3f4eadb8111/resourceGroups/anfavsval2/providers/Microsoft.NetApp/netAppAccounts/anfdatastoreacct/capacityPools/anfrecodsu/volumes/anfrecodsU002",
+    "resourceGroup": "anfavsval2"
+  },
+  "provisioningState": "Succeeded",
+  "resourceGroup": "anfavsval2",
+  "type": "Microsoft.AVS/privateClouds/clusters/datastores"
+}
+
+. List all the datastores in a private cloud cluster.
+
+....
+  C:\Utenti\niyaz>az vmware datastore list --resource-group anfavsval2 --cluster Cluster-1 --private-cloud ANFDataClus [ { "diskPoolVolume": null, "id": "/subscriptions/0efa2dfb-917c-4497-b56a-b3f4eadb8111/resourceGroups/anfavsval2/providers/Microsoft.AVS/privateClouds/ANFDataClus/clusters/Cluster-1/datastores/ANFRecoDS001", "name": "ANFRecoDS001", "netAppVolume": { "id": "/subscriptions/0efa2dfb-917c-4497-b56a-b3f4eadb8111/resourceGroups/anfavsval2/providers/Microsoft. NetApp/netAppAccounts/anfdatastoreacct/capacityPools/anfrecods/volumes/ANFRecoDS001", "resourceGroup": "anfavsval2" }, "provisioningState": "Riuscito", "resourceGroup": "anfavsval2", "type": "Microsoft.AVS/privateClouds/clusters/datastores" }, { "diskPoolVolume": null, "id": "/subscriptions/0efa2dfb-917c-4497-b56a-b3f4eadb8111/resourceGroups/anfavsval2/providers/Microsoft.AVS/privateClouds/ANFDataClus/clusters/Cluster-1/datastores/ANFRecoDSU002", "name": "ANFRecoDSU002", "netAppVolume": { "id": "/subscriptions/0efa2dfb-917c-4497-b56a-b3f4eadb8111/resourceGroups/anfavsval2/providers/Microsoft. NetApp/netAppAccounts/anfdatastoreacct/capacityPools/anfrecodsu/volumes/anfrecodsU002", "resourceGroup": "anfavsval2" }, "provisioningState": "Riuscito", "resourceGroup": "anfavsval2", "type": "Microsoft.AVS/privateClouds/clusters/datastores" } ]
+
+. Una volta stabilita la connettività necessaria, i volumi vengono montati come datastore.
+
+
+image:vmware-dr-005.png["Figura che mostra il dialogo di input/output o che rappresenta il contenuto scritto"]
+
+====
+
+
+== Ottimizzazione delle dimensioni e delle prestazioni
+
+Azure NetApp Files supporta tre livelli di servizio: Standard (16 MBps per terabyte), Premium (64 MBps per terabyte) e Ultra (128 MBps per terabyte). Per ottenere prestazioni ottimali del carico di lavoro del database è importante predisporre il volume della giusta dimensione. Con Azure NetApp Files, le prestazioni del volume e il limite di velocità effettiva vengono determinati in base ai seguenti fattori:
+
+* Il livello di servizio del pool di capacità a cui appartiene il volume
+* La quota assegnata al volume
+* Il tipo di qualità del servizio (QoS) (automatico o manuale) del pool di capacità
+
+
+image:vmware-dr-006.png["Figura che mostra il dialogo di input/output o che rappresenta il contenuto scritto"]
+
+Per ulteriori informazioni, vedere  https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-service-levels["Livelli di servizio per Azure NetApp Files"^] .
+
+Fare riferimento a questolink:https://learn.microsoft.com/en-us/azure/azure-netapp-files/performance-benchmarks-azure-vmware-solution["collegamento da Microsoft"] per benchmark dettagliati delle prestazioni che possono essere utilizzati durante un esercizio di dimensionamento.
+
+|===
+| Punti da ricordare 
+
+
+ a| 
+* Per ottenere capacità e prestazioni ottimali, utilizzare il livello Premium o Standard per i volumi del datastore.  Se sono richieste prestazioni elevate, è possibile utilizzare il livello Ultra.
+* Per i requisiti di montaggio guest, utilizzare il livello Premium o Ultra e per i requisiti di condivisione file per le VM guest, utilizzare i volumi di livello Standard o Premium.
+
+
+|===
+
+
+== Considerazioni sulle prestazioni
+
+È importante comprendere che con NFS versione 3 è presente un solo canale attivo per la connessione tra l'host ESXi e una singola destinazione di archiviazione.  Ciò significa che, sebbene possano essere disponibili connessioni alternative per il failover, la larghezza di banda per un singolo datastore e l'archiviazione sottostante sono limitate a ciò che una singola connessione può fornire.
+
+Per sfruttare una maggiore larghezza di banda disponibile con i volumi Azure NetApp Files , un host ESXi deve disporre di più connessioni alle destinazioni di archiviazione.  Per risolvere questo problema, è possibile configurare più datastore, ognuno dei quali utilizza connessioni separate tra l'host ESXi e lo storage.
+
+Per una larghezza di banda maggiore, come best practice, creare più datastore utilizzando più volumi ANF, creare VMDK e suddividere i volumi logici tra i VMDK.
+
+Fare riferimento a questolink:https://learn.microsoft.com/en-us/azure/azure-netapp-files/performance-benchmarks-azure-vmware-solution["collegamento da Microsoft"] per benchmark dettagliati delle prestazioni che possono essere utilizzati durante un esercizio di dimensionamento.
+
+|===
+| Punti da ricordare 
+
+
+ a| 
+* Per impostazione predefinita, la soluzione Azure VMware consente otto datastore NFS.  È possibile aumentare tale valore tramite una richiesta di supporto.
+* Sfrutta ER Fastpath insieme a Ultra SKU per una maggiore larghezza di banda e una minore latenza.  Ulteriori informazioni
+* Con le funzionalità di rete "Base" nei file di Azure NetApp , la connettività dalla soluzione Azure VMware è vincolata dalla larghezza di banda del circuito ExpressRoute e del gateway ExpressRoute.
+* Per i volumi Azure NetApp Files con funzionalità di rete "Standard", è supportato ExpressRoute FastPath.  Se abilitato, FastPath invia il traffico di rete direttamente ai volumi Azure NetApp Files , bypassando il gateway e garantendo una maggiore larghezza di banda e una minore latenza.
+
+
+|===
+
+
+== Aumento delle dimensioni del datastore
+
+La riorganizzazione del volume e le modifiche dinamiche del livello di servizio sono completamente trasparenti per l'SDDC.  In Azure NetApp Files, queste funzionalità garantiscono ottimizzazioni continue di prestazioni, capacità e costi.  Aumentare le dimensioni dei datastore NFS ridimensionando il volume dal portale di Azure o utilizzando l'interfaccia della riga di comando.  Al termine, accedi a vCenter, vai alla scheda del datastore, fai clic con il pulsante destro del mouse sul datastore appropriato e seleziona Aggiorna informazioni sulla capacità.  Questo approccio può essere utilizzato per aumentare la capacità del datastore e per aumentarne le prestazioni in modo dinamico, senza tempi di inattività.  Questo processo è inoltre completamente trasparente per le applicazioni.
+
+|===
+| Punti da ricordare 
+
+
+ a| 
+* La riorganizzazione del volume e la capacità di livello di servizio dinamico consentono di ottimizzare i costi dimensionandoli per carichi di lavoro stabili, evitando così l'eccesso di risorse.
+* VAAI non è abilitato.
+
+
+|===
+
+
+== Carichi di lavoro
+
+.Migrazione
+[%collapsible%open]
+====
+Uno dei casi d'uso più comuni è la migrazione.  Utilizzare VMware HCX o vMotion per spostare le VM in sede.  In alternativa, è possibile utilizzare Rivermeadow per migrare le VM nei datastore Azure NetApp Files .
+
+====
+.Protezione dei dati
+[%collapsible%open]
+====
+Tra i grandi punti di forza dei datastore ANF rientrano il backup delle VM e il loro rapido ripristino.  Utilizza le copie snapshot per creare copie rapide della tua VM o del tuo datastore senza compromettere le prestazioni, quindi inviale all'archiviazione di Azure per una protezione dei dati a lungo termine o a un'area secondaria utilizzando la replica tra aree per scopi di disaster recovery.  Questo approccio riduce al minimo lo spazio di archiviazione e la larghezza di banda della rete memorizzando solo le informazioni modificate.
+
+Utilizzare copie snapshot Azure NetApp Files per la protezione generale e utilizzare strumenti applicativi per proteggere i dati transazionali, ad esempio SQL Server o Oracle, residenti nelle VM guest.  Queste copie Snapshot sono diverse dagli snapshot VMware (di coerenza) e sono adatte per una protezione a lungo termine.
+
+
+NOTE: Con i datastore ANF, l'opzione Ripristina su nuovo volume può essere utilizzata per clonare un intero volume di datastore e il volume ripristinato può essere montato come un altro datastore sugli host all'interno di AVS SDDC.  Dopo aver montato un datastore, le VM al suo interno possono essere registrate, riconfigurate e personalizzate come se fossero VM clonate singolarmente.
+
+.BlueXP backup and recovery per macchine virtuali
+[%collapsible%open]
+=====
+BlueXP backup and recovery per macchine virtuali fornisce un'interfaccia utente grafica del client Web vSphere su vCenter per proteggere le macchine virtuali di Azure VMware Solution e i datastore dei file di Azure NetApp tramite criteri di backup.  Queste policy possono definire la pianificazione, la conservazione e altre funzionalità.  La funzionalità BlueXP backup and recovery per macchine virtuali può essere implementata utilizzando il comando Esegui.
+
+È possibile installare i criteri di configurazione e protezione completando i seguenti passaggi:
+
+. Installare il BlueXP backup and recovery per macchine virtuali nel cloud privato Azure VMware Solution utilizzando il comando Esegui.
+. Aggiungere le credenziali di abbonamento cloud (valore client e segreto), quindi aggiungere un account di abbonamento cloud (account NetApp e gruppo di risorse associato) che contenga le risorse che si desidera proteggere.
+. Creare una o più policy di backup che gestiscano la conservazione, la frequenza e altre impostazioni per i backup dei gruppi di risorse.
+. Crea un contenitore per aggiungere una o più risorse che devono essere protette con criteri di backup.
+. In caso di errore, ripristinare l'intera VM o singoli VMDK specifici nella stessa posizione.
+
+
+
+NOTE: Grazie alla tecnologia Azure NetApp Files Snapshot, i backup e i ripristini sono molto rapidi.
+
+image:vmware-dr-007.png["Figura che mostra il dialogo di input/output o che rappresenta il contenuto scritto"]
+
+=====
+.Ripristino di emergenza con Azure NetApp Files, JetStream DR e Azure VMware Solution
+[%collapsible%open]
+=====
+Il disaster recovery sul cloud è un modo resiliente ed economico per proteggere i carichi di lavoro da interruzioni del sito ed eventi di danneggiamento dei dati (ad esempio, ransomware).  Utilizzando il framework VMware VAIO, i carichi di lavoro VMware locali possono essere replicati nell'archiviazione BLOB di Azure e ripristinati, consentendo una perdita di dati minima o quasi nulla e un RTO prossimo allo zero.  JetStream DR può essere utilizzato per ripristinare senza problemi i carichi di lavoro replicati da locale ad AVS e in particolare ad Azure NetApp Files.  Consente un disaster recovery conveniente utilizzando risorse minime nel sito DR e un archivio cloud conveniente.  JetStream DR automatizza il ripristino nei datastore ANF tramite Azure Blob Storage.  JetStream DR recupera VM indipendenti o gruppi di VM correlate nell'infrastruttura del sito di ripristino in base alla mappatura di rete e fornisce un ripristino puntuale per la protezione dal ransomware.
+
+link:vmw-azure-avs-dr-jetstream.html["Soluzione DR con ANF, JetStream e AVS"] .
+
+=====
+====

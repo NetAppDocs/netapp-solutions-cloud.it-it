@@ -1,0 +1,68 @@
+---
+sidebar: sidebar 
+permalink: vmware/vmw-aws-vmc-nfs-ds-overview.html 
+keywords:  
+summary:  
+---
+= TR-4938: Montare Amazon FSx ONTAP come datastore NFS con VMware Cloud su AWS
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Questo documento descrive come montare Amazon FSx ONTAP come datastore NFS con VMware Cloud su AWS.
+
+
+
+== Introduzione
+
+Ogni organizzazione di successo è in cammino verso la trasformazione e la modernizzazione.  Come parte di questo processo, le aziende solitamente sfruttano i propri investimenti VMware esistenti per sfruttare i vantaggi del cloud e valutare come migrare, espandere, estendere e fornire il disaster recovery per i processi nel modo più fluido possibile.  I clienti che migrano verso il cloud devono valutare i casi d'uso per elasticità e burst, uscita dal data center, consolidamento del data center, scenari di fine vita, fusioni, acquisizioni e così via.
+
+Sebbene VMware Cloud su AWS sia l'opzione preferita dalla maggior parte dei clienti perché offre funzionalità ibride uniche, le limitate opzioni di storage nativo ne hanno limitato l'utilità per le organizzazioni con carichi di lavoro ad alta intensità di storage.  Poiché lo storage è direttamente collegato agli host, l'unico modo per scalare lo storage è aggiungere più host, il che può aumentare i costi del 35-40% o più per carichi di lavoro ad alta intensità di storage.  Questi carichi di lavoro necessitano di spazio di archiviazione aggiuntivo e prestazioni separate, non di potenza aggiuntiva, ma ciò significa pagare per host aggiuntivi.  Questo è dove il https://aws.amazon.com/about-aws/whats-new/2022/08/announcing-vmware-cloud-aws-integration-amazon-fsx-netapp-ontap/["integrazione recente"^] di FSx ONTAP risulta utile per carichi di lavoro che richiedono elevate prestazioni e storage con VMware Cloud su AWS.
+
+Consideriamo il seguente scenario: un cliente necessita di otto host per la potenza (vCPU/vMem), ma ha anche un fabbisogno sostanziale di spazio di archiviazione.  In base alla loro valutazione, per soddisfare i requisiti di archiviazione sono necessari 16 host.  Ciò aumenta il TCO complessivo perché devono acquistare tutta quella potenza aggiuntiva quando in realtà hanno bisogno solo di più spazio di archiviazione.  Ciò è applicabile a qualsiasi caso d'uso, tra cui migrazione, disaster recovery, bursting, sviluppo/test e così via.
+
+Questo documento illustra i passaggi necessari per predisporre e collegare FSx ONTAP come datastore NFS per VMware Cloud su AWS.
+
+
+NOTE: Questa soluzione è disponibile anche da VMware.  Si prega di visitare illink:https://docs.vmware.com/en/VMware-Cloud-on-AWS/services/com.vmware.vmc-aws-operations/GUID-D55294A3-7C40-4AD8-80AA-B33A25769CCA.html["Documentazione di VMware Cloud su AWS"] per maggiori informazioni.
+
+
+
+== Opzioni di connettività
+
+
+NOTE: VMware Cloud on AWS supporta sia le distribuzioni multi-AZ che single-AZ di FSx ONTAP.
+
+Questa sezione descrive l'architettura di connettività di alto livello insieme ai passaggi necessari per implementare la soluzione per espandere lo storage in un cluster SDDC senza la necessità di aggiungere host aggiuntivi.
+
+image:fsx-nfs-001.png["Figura che mostra il dialogo di input/output o che rappresenta il contenuto scritto"]
+
+I passaggi di distribuzione di alto livello sono i seguenti:
+
+. Creare Amazon FSx ONTAP in una nuova VPC designata.
+. Creare un gruppo SDDC.
+. Creare VMware Transit Connect e un allegato TGW.
+. Configurare il routing (AWS VPC e SDDC) e i gruppi di sicurezza.
+. Collegare un volume NFS come datastore al cluster SDDC.
+
+
+Prima di effettuare il provisioning e collegare FSx ONTAP come datastore NFS, è necessario innanzitutto configurare un ambiente VMware on Cloud SDDC o aggiornare un SDDC esistente alla versione 1.20 o successiva. Per ulteriori informazioni, consultare il sito link:https://docs.vmware.com/en/VMware-Cloud-on-AWS/services/com.vmware.vmc-aws.getting-started/GUID-3D741363-F66A-4CF9-80EA-AA2866D1834E.html["Introduzione a VMware Cloud su AWS"^] .
+
+
+NOTE: FSx ONTAP non è attualmente supportato con i cluster estesi.
+
+
+
+== Conclusione
+
+Questo documento illustra i passaggi necessari per configurare Amazon FSx ONTAP con VMware Cloud su AWS.  Amazon FSx ONTAP offre eccellenti opzioni per distribuire e gestire carichi di lavoro applicativi insieme ai servizi file, riducendo al contempo il TCO rendendo i requisiti dei dati uniformi al livello applicativo.  Qualunque sia il caso d'uso, scegli VMware Cloud on AWS insieme ad Amazon FSx ONTAP per ottenere rapidamente i vantaggi del cloud, un'infrastruttura e operazioni coerenti da locale ad AWS, portabilità bidirezionale dei carichi di lavoro e capacità e prestazioni di livello aziendale.  Si tratta dello stesso processo e delle stesse procedure note utilizzate per collegare l'archiviazione.  Ricorda che è cambiata solo la posizione dei dati e i nuovi nomi; gli strumenti e i processi sono rimasti gli stessi e Amazon FSx ONTAP aiuta a ottimizzare la distribuzione complessiva.
+
+Per saperne di più su questo processo, non esitate a seguire il video tutorial dettagliato.
+
+.Amazon FSx ONTAP VMware Cloud
+video::6462f4e4-2320-42d2-8d0b-b01200f00ccb[panopto]

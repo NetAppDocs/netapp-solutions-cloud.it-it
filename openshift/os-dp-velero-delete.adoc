@@ -1,0 +1,45 @@
+---
+sidebar: sidebar 
+permalink: openshift/os-dp-velero-delete.html 
+keywords: OpenShift, OCP, Trident, NetApp ONTAP, Red Hat OpenShift, OADP operator, Openshift Data Protection Application operator, Velero 
+summary: Protezione dei dati delle applicazioni container Red Hat OpenShift con NetApp ONTAP 
+---
+= Eliminazione di backup e ripristini utilizzando Velero
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Questa sezione descrive come eliminare backup e ripristini di app nella piattaforma container OpenShift utilizzando Velero.
+
+
+
+== Elenca tutti i backup
+
+È possibile elencare tutti i CR di backup utilizzando lo strumento OC CLI o lo strumento Velero CLI.  Scarica Velero CLI come indicato nelle istruzioni nellink:https://velero.io/docs/v1.3.0/basic-install/#install-the-cli["Documentazione Velero"] .
+
+image:redhat-openshift-oadp-delete-001.png["elenco di backup"]
+
+
+
+== Eliminazione di un backup
+
+È possibile eliminare un Backup CR senza eliminare i dati di Object Storage utilizzando lo strumento OC CLI.  Il backup verrà rimosso dall'output CLI/Console.  Tuttavia, poiché il backup corrispondente non viene rimosso dall'archivio oggetti, riapparirà nell'output della CLI/console.
+
+image:redhat-openshift-oadp-delete-002.png["elimina backup"]
+
+**Se si desidera eliminare il CR di backup e i dati di archiviazione degli oggetti associati, è possibile farlo utilizzando lo strumento Velero CLI.**
+
+image:redhat-openshift-oadp-delete-003.png["elimina il backup E l'Object Storage associato"]
+
+
+
+== Eliminazione del ripristino
+
+È possibile eliminare l'oggetto Restore CR utilizzando OC CLI o Velero CLI
+
+image:redhat-openshift-oadp-delete-004.png["elimina Ripristina"]

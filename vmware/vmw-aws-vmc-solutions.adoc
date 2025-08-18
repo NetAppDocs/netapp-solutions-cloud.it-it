@@ -1,0 +1,50 @@
+---
+sidebar: sidebar 
+permalink: vmware/vmw-aws-vmc-solutions.html 
+keywords: NetApp Solutions, amazon, vmc, vmware managed cloud, enterprise, hybrid, cloud, migrate, migration, disaster recovery, dr 
+summary:  
+---
+= Soluzioni NetApp per Amazon VMware Managed Cloud (VMC)
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Scopri di più sulle soluzioni che NetApp porta su AWS.
+
+VMware definisce i carichi di lavoro cloud in una delle tre categorie seguenti:
+
+* Protezione (inclusi sia Disaster Recovery che Backup/Ripristino)
+* Migrare
+* Estendere
+
+
+Esplora le soluzioni disponibili nelle sezioni seguenti.
+
+[role="tabbed-block"]
+====
+.Proteggere
+--
+* link:vmw-aws-vmc-guest-storage-dr.html["Disaster Recovery con VMC su AWS (connessi tramite guest)"]
+* link:vmw-aws-vmc-backup-restore-veeam.html["Veeam Backup  Restore in VMC con FSx ONTAP"]
+* link:vmw-aws-vmc-dro.html["Disaster Recovery (DRO) con FSx ONTAP e VMC"]
+* link:vmw-aws-fsxn-vmc-ds-dr-veeam.html["Utilizzo di Veeam Replication e FSx ONTAP per il disaster recovery su VMware Cloud su AWS"]
+
+
+--
+.Migrare
+--
+* link:vmw-aws-vmc-migrate-hcx.html["Migrazione dei carichi di lavoro sul datastore FSx ONTAP utilizzando VMware HCX"]
+
+
+--
+.Estendere
+--
+PROSSIMAMENTE!!
+
+--
+====

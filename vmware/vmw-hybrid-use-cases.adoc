@@ -1,0 +1,58 @@
+---
+sidebar: sidebar 
+permalink: vmware/vmw-hybrid-use-cases.html 
+keywords: NetApp Solutions, ehc, enterprise hybrid cloud, use case, hyperscalers, vmware 
+summary:  
+---
+= Casi d'uso per NetApp Hybrid Multicloud con VMware
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Una panoramica dei casi d'uso importanti per l'organizzazione IT quando si pianificano implementazioni cloud ibride o cloud-first.
+
+
+
+== Casi d'uso popolari
+
+I casi d'uso includono:
+
+* Recupero dopo un disastro,
+* Hosting di carichi di lavoro durante la manutenzione del data center, * burst rapidi in cui sono richieste risorse aggiuntive oltre a quelle fornite nel data center locale,
+* Espansione del sito VMware,
+* Migrazione rapida verso il cloud,
+* Sviluppo/test e
+* Modernizzazione delle app sfruttando le tecnologie supplementari del cloud.
+
+
+In questa documentazione, i riferimenti ai carichi di lavoro cloud saranno dettagliati utilizzando i casi d'uso VMware.  Questi casi d'uso sono:
+
+* Protezione (include sia Disaster Recovery che Backup/Ripristino)
+* Migrare
+* Estendere
+
+
+
+
+=== All'interno del percorso IT
+
+La maggior parte delle organizzazioni è impegnata in un percorso di trasformazione e modernizzazione.  Nell'ambito di questo processo, le aziende stanno cercando di utilizzare i propri investimenti VMware esistenti, sfruttando al contempo i vantaggi del cloud ed esplorando modi per rendere il processo di migrazione il più fluido possibile.  Questo approccio renderebbe i loro sforzi di modernizzazione molto più semplici, perché i dati sono già nel cloud.
+
+La risposta più semplice a questo scenario è l'offerta VMware in ogni hyperscaler.  Analogamente a NetApp Cloud Volumes, VMware offre un modo per spostare o estendere gli ambienti VMware on-premise su qualsiasi cloud, consentendo di mantenere le risorse, le competenze e gli strumenti on-premise esistenti eseguendo i carichi di lavoro in modo nativo nel cloud.  Ciò riduce i rischi perché non ci saranno interruzioni del servizio né necessità di modifiche IP e offre al team IT la possibilità di operare come fa in sede utilizzando le competenze e gli strumenti esistenti.  Ciò può portare a migrazioni cloud accelerate e a una transizione molto più fluida verso un'architettura Multicloud ibrida.
+
+
+
+=== Comprendere l'importanza delle opzioni di archiviazione NFS supplementari
+
+Sebbene VMware in qualsiasi cloud offra funzionalità ibride uniche a ogni cliente, le limitate opzioni di archiviazione NFS supplementari ne hanno limitato l'utilità per le organizzazioni con carichi di lavoro ad alta intensità di storage.  Poiché lo storage è direttamente collegato agli host, l'unico modo per scalare lo storage è aggiungere più host, ma ciò può aumentare i costi del 35-40 percento o più per i carichi di lavoro che richiedono un utilizzo intensivo dello storage.  Questi carichi di lavoro necessitano solo di spazio di archiviazione aggiuntivo, non di potenza aggiuntiva.  Ma questo significa pagare per host aggiuntivi.
+
+Consideriamo questo scenario:
+
+Un cliente necessita solo di cinque host per CPU e memoria, ma ha molte esigenze di archiviazione e necessita di 12 host per soddisfare i requisiti di archiviazione.  Questa esigenza finisce per far pendere davvero la bilancia finanziaria, costringendo ad acquistare potenza aggiuntiva quando in realtà serve solo ad aumentare lo spazio di archiviazione.
+
+Quando si pianifica l'adozione e la migrazione al cloud, è sempre importante valutare l'approccio migliore e intraprendere la strada più semplice che riduca gli investimenti totali.  L'approccio più comune e semplice per qualsiasi migrazione di applicazioni è il rehosting (noto anche come lift and shift), in cui non è prevista alcuna conversione di macchine virtuali (VM) o dati.  L'utilizzo di NetApp Cloud Volumes con VMware Software-Defined Data Center (SDDC), integrando al contempo vSAN, offre una semplice opzione di trasferimento dati.
