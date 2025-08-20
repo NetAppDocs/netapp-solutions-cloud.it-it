@@ -41,7 +41,7 @@ Il processo di configurazione può essere suddiviso nei seguenti passaggi:
 * Convalida la connettività di rete e accedi al cloud privato
 
 
-Visualizza il dettagliolink:azure-setup.html["passaggi di configurazione per AVS"] .
+Visualizza il dettagliolink:../vmware/vmw-azure-avs-setup.html["passaggi di configurazione per AVS"] .
 
 
 
@@ -58,7 +58,7 @@ Azure supporta l'archiviazione NetApp nelle seguenti configurazioni:
 * Azure NetApp Files (ANF) come datastore NFS supplementare
 
 
-Visualizza il dettagliolink:azure-guest.html["opzioni di archiviazione di connessione ospite per AVS"] .  Visualizza il dettagliolink:azure-native-nfs-datastore-option.html["opzioni di datastore NFS supplementari per AVS"] .
+Visualizza il dettagliolink:../vmware/vmw-azure-avs-guest-storage.html["opzioni di archiviazione di connessione ospite per AVS"] . Visualizza il dettagliolink:../vmware/vmw-azure-avs-nfs-ds-config.html["opzioni di datastore NFS supplementari per AVS"] .
 
 
 

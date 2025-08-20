@@ -57,7 +57,7 @@ AWS supporta l'archiviazione NetApp nelle seguenti configurazioni:
 * FSx ONTAP come datastore NFS supplementare
 
 
-Visualizza il dettagliolink:aws-guest.html["opzioni di archiviazione di connessione guest per VMC"] .  Visualizza il dettagliolink:aws-native-nfs-datastore-option.html["opzioni di datastore NFS supplementari per VMC"] .
+Visualizza il dettagliolink:../vmware/vmw-aws-vmc-guest-storage.html["opzioni di archiviazione di connessione guest per VMC"] . Visualizza il dettagliolink:../vmware/vmw-aws-vmc-nfs-ds-config.html["opzioni di datastore NFS supplementari per VMC"] .
 
 
 
