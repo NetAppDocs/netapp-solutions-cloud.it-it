@@ -1,0 +1,97 @@
+---
+sidebar: sidebar 
+permalink: vmware/evs-protect-fsxn-restore-vm.html 
+keywords: Amazon, AWS, EVS, Elastic VMware Service, ONTAP, FSx, iscsi 
+summary: Questa sezione illustra i passaggi per ripristinare le VM dai backup. 
+---
+= Procedura di ripristino per le VM protette da SnapCenter Plug-in for VMware
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Questa sezione illustra i passaggi per ripristinare le VM dai backup. SCV può essere utilizzato per ripristinare le VM all'interno di vCenter, consentendo di recuperarle nel datastore originale sull'host ESXi originale (sovrascrivendo il contenuto esistente), per ripristinare VM eliminate o rinominate da una copia di backup, in un datastore diverso sull'host ESXi originale, nel datastore originale su un host ESXi diverso gestito dallo stesso vCenter, o in un datastore diverso su un altro host ESXi all'interno dello stesso ambiente vCenter.
+
+
+
+== Passaggi per eseguire l'operazione di ripristino
+
+Per eseguire l'operazione di ripristino, seguire questi passaggi:
+
+. Nell'interfaccia grafica utente del client web EVS vSphere, vai su "Inventory > Datastores" e seleziona il datastore desiderato. Quindi vai su "Configure > Backups" nella sezione "SnapCenter Plug-in for VMware vSphere".
++
+image:evs-protect-fsxn-009.png["Figura che rappresenta il dialogo per il passaggio precedente"]
+
+. Fare doppio clic su un backup per visualizzare tutte le VM incluse in quel backup. Individuare la VM da ripristinare nell'elenco e selezionare "Ripristina".
++
+image:evs-protect-fsxn-010.png["Figura che rappresenta il dialogo per il passaggio precedente"]
+
+. Nella pagina "Select Scope page", seleziona "Entire Virtual Machine" nel campo "Restore scope", quindi seleziona "Restore location" e inserisci le informazioni ESXi di destinazione in cui il backup deve essere montato.
+. Abilita la casella di controllo "Riavvia VM" se la VM deve essere accesa dopo l'operazione di ripristino.
+. Nella pagina "Select Location", seleziona una posizione principale.
++
+image:evs-protect-fsxn-011.png["Figura che rappresenta il dialogo per il passaggio precedente"]
+
+. Rivedi la pagina "Summary" e poi seleziona "Finish".
++
+image:evs-protect-fsxn-012.png["Figura che rappresenta il dialogo per il passaggio precedente"]
+
+. Monitora l'operazione in corso selezionando "Recent Tasks" nella parte inferiore dello schermo.
++
+image:evs-protect-fsxn-013.png["Figura che rappresenta il dialogo per il passaggio precedente"]
+
+
+
+
+NOTE: Sebbene le VM vengano ripristinate, non vengono aggiunte automaticamente ai loro precedenti gruppi di risorse. Se si desidera proteggere tali VM, aggiungerle manualmente ai gruppi di risorse appropriati.
+
+
+NOTE: L'operazione di ripristino può essere attivata anche a livello di singola VM.
+
+
+
+== Passaggi per ripristinare una VM eliminata
+
+Il ripristino di una VM eliminata è un processo semplice con SCV.
+
+L'operazione di ripristino per una VM eliminata può essere eseguita dal livello del datastore.
+
+. Vai al rispettivo Datastore > Configura > Backups. Lì, seleziona la VM eliminata e seleziona "Restore".
++
+image:evs-protect-fsxn-014.png["Figura che rappresenta il dialogo per il passaggio precedente"]
+
++
+image:evs-protect-fsxn-015.png["Figura che rappresenta il dialogo per il passaggio precedente"]
+
+. Il flusso di screenshot che segue copre il ripristino di una VM su un host ESXi alternativo e un datastore diverso.
++
+image:evs-protect-fsxn-016.png["Figura che rappresenta il dialogo per il passaggio precedente"]
+
++
+image:evs-protect-fsxn-017.png["Figura che rappresenta il dialogo per il passaggio precedente"]
+
++
+image:evs-protect-fsxn-018.png["Figura che rappresenta il dialogo per il passaggio precedente"]
+
++
+image:evs-protect-fsxn-019.png["Figura che rappresenta il dialogo per il passaggio precedente"]
+
++
+image:evs-protect-fsxn-020.png["Figura che rappresenta il dialogo per il passaggio precedente"]
+
+
+
+
+NOTE: Il datastore di destinazione deve disporre di spazio libero adeguato e il vCenter specificato nel campo "Ripristina in posizione alternativa" deve essere risolvibile tramite DNS.
+
+
+NOTE: Per una migliore efficienza di ripristino negli ambienti NFS, attiva l'API VMware vStorage for Array Integration (VAAI).
+
+
+NOTE: I ripristini possono essere eseguiti anche da posizioni secondarie, come una destinazione di SnapMirror.
+
++ image:evs-protect-fsxn-021.png["Figura che rappresenta il dialogo per il passaggio precedente"]

@@ -1,0 +1,55 @@
+---
+sidebar: sidebar 
+permalink: vmware/evs-protect-fsxn-restore-guest-files.html 
+keywords: Amazon, AWS, EVS, Elastic VMware Service, ONTAP, FSx, iscsi 
+summary: Questa sezione illustra i passaggi per ripristinare i file e le cartelle guest protetti da SnapCenter Plug-in for VMware. 
+---
+= Procedura di ripristino per file e cartelle guest protetti da SnapCenter Plug-in for VMware
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+La sezione seguente mostra come ripristinare file e cartelle guest dai VMDK.
+
+
+NOTE: SnapCenter supporta il ripristino di file e cartelle da VMDK solo quando il sistema operativo guest è Windows.
+
+Considerazioni per il ripristino di file e cartelle guest con SCV:
+
+* VMware tools devono essere in esecuzione sulla VM.
+* Il VMDK allegato è accessibile per 24 ore per impostazione predefinita.
+* Su una macchina virtuale è possibile eseguire una sola operazione di ripristino o di attach alla volta.
+* È possibile ripristinare i file di sistema, nascosti e crittografati; tuttavia, i loro attributi originali non saranno preservati.
+* Evitare di ripristinare i file crittografati in cartelle crittografate o di sovrascrivere i file di sistema.
+
+
+Passaggi per il ripristino di file e cartelle guest:
+
+. Fare clic con il pulsante destro del mouse sulla VM di destinazione e selezionare ""NetApp SnapCenter > Ripristino file guest".
++
+image:evs-protect-fsxn-022.png["Figura che rappresenta il dialogo per il passaggio precedente"]
+
+. Selezionare il backup contenente il VMDK richiesto. Specificare il VMDK e la sua posizione (primaria o secondaria).
++
+image:evs-protect-fsxn-023.png["Figura che rappresenta il dialogo per il passaggio precedente"]
+
+. Scegliere "Disk Attachment Method".
++
+image:evs-protect-fsxn-024.png["Figura che rappresenta il dialogo per il passaggio precedente"]
+
++
+** Opzione VM guest: collega il disco alla VM originale (richiede credenziali preconfigurate). Questa è l'opzione utilizzata in questa dimostrazione.
+** Opzione proxy VM: collega il disco a una proxy VM designata (deve essere configurata in anticipo).
+
+
+. Attendere il completamento dell'operazione di collegamento prima di esplorare e ripristinare i file. Una volta completata l'operazione, SnapCenter crea automaticamente una sessione di ripristino file guest. image:evs-protect-fsxn-025.png["Figura che rappresenta il dialogo per il passaggio precedente"]
++
+image:evs-protect-fsxn-026.png["Figura che rappresenta il dialogo per il passaggio precedente"]
+
+. Passare al VMDK nella sessione Guest File Restore, selezionare i file o le cartelle richiesti e ripristinarli nella posizione specificata.
+

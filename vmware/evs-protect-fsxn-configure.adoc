@@ -1,0 +1,120 @@
+---
+sidebar: sidebar 
+permalink: vmware/evs-protect-fsxn-configure.html 
+keywords: Amazon, AWS, EVS, Elastic VMware Service, ONTAP, FSx, iscsi 
+summary: Questa sezione illustra i passaggi per configurare il SnapCenter Plug-in per VMware. 
+---
+= Procedura di configurazione per SnapCenter Plug-in per VMware
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Questa sezione illustra i passaggi per configurare il SnapCenter Plug-in for VMware. Le sezioni seguenti spiegheranno in dettaglio come aggiungere storage, creare una policy di backup e come creare gruppi di risorse.
+
+
+
+== Aggiunta del sistema storage
+
+Il passaggio successivo nella protezione dei carichi di lavoro con SVC è aggiungere il link:https://docs.netapp.com/us-en/sc-plugin-vmware-vsphere/scpivs44_add_storage_01.html["sistema storage"]. L'aggiunta dello storage consente a SCV di rilevare e gestire le operazioni di backup e ripristino all'interno di vCenter. Includere l'endpoint di gestione FSx for NetApp ONTAP o l'IP dell'endpoint di amministrazione della storage virtual machine (SVM) come sistema storage per abilitare backup e ripristino.
+
+. Dal menu di navigazione a sinistra dell'EVS vCenter, selezionare "SnapCenter Plug-in for VMware".
+. Selezionare "Storage System".
+. Selezionare "Aggiungi" per aggiungere i dettagli FSx for ONTAP.
+. Utilizza il metodo "Credenziali come autenticazione" e inserisci FSxadmin come nome utente e password. Quindi seleziona "Aggiungi" per salvare le impostazioni.
+
+
+image:evs-protect-fsxn-002.png["Figura che rappresenta il dialogo per il passaggio precedente"]
+
+
+NOTE: Tutte le SVM vengono aggiunte automaticamente quando il file system viene aggiunto.
+
+Se la versione SCV è 6.2, vai su link:https://mysupport.netapp.com/site/products/all/details/scv/downloads-tab["la pagina di supporto SCV"] e scarica la release SCV 6.2P1.
+
+
+
+== Crea una policy di backup
+
+Una solida strategia di backup dovrebbe definire fattori chiave come la pianificazione dei backup, i dati da sottoporre a backup e il periodo di conservazione dei backup. Le copie Snapshot possono essere pianificate su base oraria o giornaliera per proteggere interi datastore. Pianificare i backup in questo modo non solo protegge i datastore, ma supporta anche le operazioni di backup e ripristino per le VM e i VMDK contenuti in tali datastore.
+
+Prima di avviare i backup per VM e datastore, crea link:https://docs.netapp.com/us-en/sc-plugin-vmware-vsphere/scpivs44_create_backup_policies_for_vms_and_datastores.html["policy di backup"] e un gruppo di risorse. La policy di backup specifica parametri come la pianificazione dei backup e le impostazioni di conservazione.
+
+Ecco i passaggi per creare una policy di backup:
+
+. Vai al menu di navigazione a sinistra in SCV e seleziona "Policies".
+. Nella pagina Policies, seleziona "Create" per avviare la procedura guidata.
+. Nella pagina "New Backup Policy page", immettere un nome per la policy.
+. Specificare il periodo di conservazione, la frequenza di backup e le impostazioni di replica.
+. Seleziona la casella di controllo "Locking Period" per abilitare il blocco degli Snapshot. Puoi selezionare i periodi di blocco degli Snapshot primario e secondario come Giorni/Mesi/Anni.
+
+
+
+NOTE: Indipendentemente dal valore di conservazione definito nella policy SnapMirror, la copia Snapshot secondaria rimane intatta fino alla scadenza del periodo di blocco dello snapshot secondario specificato.
+
+image:evs-protect-fsxn-003.png["Figura che rappresenta il dialogo per il passaggio precedente"]
+
+
+NOTE: Per abilitare i backup coerenti con la VM, VMware tools devono essere installati e in esecuzione. Quando la casella di coerenza VM è selezionata, le VM vengono prima messe in quiescenza, quindi VMware esegue uno snapshot coerente con la VM (escludendo la memoria), poi SCV esegue la sua operazione di backup e infine le operazioni della VM vengono riprese.
+
+
+NOTE: Per replicare le copie Snapshot su un mirror secondario o su un file system di vault, le relazioni devono essere configurate in anticipo.
+
+image:evs-protect-fsxn-004.png["Figura che rappresenta il dialogo per il passaggio precedente"]
+
+Una volta creata la policy, il passaggio successivo consiste nel creare il gruppo di risorse che definirà i datastore NFS o iSCSI e le VM appropriate di cui eseguire il backup.
+
+
+
+== Crea un gruppo di risorse
+
+Un gruppo di risorse funge da container per le VM e i datastore che necessitano di protezione. Le risorse possono essere aggiunte o rimosse da un gruppo di risorse in qualsiasi momento, garantendo flessibilità nella gestione delle configurazioni di backup.
+
+Puoi creare un link:https://docs.netapp.com/us-en/sc-plugin-vmware-vsphere/scpivs44_create_resource_groups_for_vms_and_datastores.html["gruppo di risorse"] utilizzando i seguenti passaggi:
+
+. Vai al riquadro di navigazione a sinistra in SCV e seleziona "Resource Groups".
+. Nella pagina Resource Groups, seleziona "Create" per avviare la procedura guidata di creazione del resource group.
++
+
+NOTE: Un'altra opzione per creare gruppi di risorse è selezionare una singola VM o un singolo datastore e creare un gruppo di risorse che contenga solo quella risorsa.
+
+. Nella pagina "Risorse", seleziona l'ambito (VMs o datastores) e il data center.
+. Nella pagina "Spanning disks", seleziona l'opzione "Virtual Machines with multiple VMDKs across multiple datastores".
+. Successivamente, associa una policy di backup. Seleziona una policy di backup esistente o creane una nuova.
+. Nella pagina "Pianificazioni", configura la pianificazione del backup per ogni policy selezionata.
+. Dopo aver effettuato le selezioni appropriate, seleziona "Fine". Questo creerà un nuovo gruppo di risorse e lo aggiungerà all'elenco dei gruppi di risorse.
+
+
+image:evs-protect-fsxn-005.png["Figura che rappresenta il dialogo per il passaggio precedente"]
+
+
+
+== Backup dei gruppi di risorse
+
+Le operazioni di backup vengono eseguite su tutte le risorse definite all'interno di un gruppo di risorse. Se a un gruppo di risorse è associata una policy e configurata una pianificazione, i backup vengono eseguiti automaticamente in base alla pianificazione.
+
+. Nella barra di navigazione a sinistra della pagina del client web vCenter, seleziona "SnapCenter Plug-in for VMware" e poi "Resource Groups".
+. Nella pagina Resource Groups, trova il resource group designato e seleziona "Run Now" per avviare il backup manuale.
++
+image:evs-protect-fsxn-006.png["Figura che rappresenta il dialogo per il passaggio precedente"]
+
+. Se per il gruppo di risorse sono configurate più policy, selezionare la policy per l'operazione di backup nella finestra di dialogo "Backup Now".
+. Seleziona "OK" per avviare il backup.
+
+
+image:evs-protect-fsxn-007.png["Figura che rappresenta il dialogo per il passaggio precedente"]
+
+Monitora l'andamento dell'operazione selezionando "Recent Tasks" nella parte inferiore della finestra oppure, per maggiori dettagli, selezionando "Job Monitor" nella dashboard.
+
+
+NOTE: Il processo per la creazione di policy di backup, la configurazione di gruppi di risorse e l'esecuzione di operazioni di backup è coerente tra i diversi protocolli di storage, inclusi NFS e iSCSI.
+
+
+NOTE: I backup vengono eseguiti secondo la pianificazione definita nella policy.
+
+Dopo il completamento del backup, può essere visualizzato a livello di datastore o per singole VM selezionando "SnapCenter Plug-in for VMware vSphere" dall'elenco a discesa e quindi scegliendo "Ripristina".
+
+image:evs-protect-fsxn-008.png["Figura che rappresenta il dialogo per il passaggio precedente"]

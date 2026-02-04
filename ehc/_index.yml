@@ -68,12 +68,12 @@ indexpage:
       url: https://netapp-automation.github.io/Backup_and_Recovery_for_VMs_Simulator/?0.1
   - title: Calcolatori TCO
     links:
-    - title: Calcolatrice TCO FSx ONTAP + VMC
-      url: https://cloud.netapp.com/vmc-aws-fsx-ontap/roi
+    - title: FSx ONTAP + EVS Calcolatrice TCO
+      url: https://docs.netapp.com/us-en/workload-vmware/calculate-evs-savings.html#explore-savings-for-evs-environments
     - title: Calcolatore TCO ANF + AVS
-      url: https://bluexp.netapp.com/anf-avs/tcoestimator
+      url: hhttps://tco.solutions.netapp.com/anfavstco/
     - title: Stimatore TCO dei volumi GCVE + NetApp
-      url: https://bluexp.netapp.com/gcve-cvs/roi
+      url: https://tco.solutions.netapp.com/gcvegcnvtco/
   - title: BlueXP disaster recovery
     links:
     - title: Proteggi i dati per VMware con il plug-in SnapCenter e il BlueXP backup
