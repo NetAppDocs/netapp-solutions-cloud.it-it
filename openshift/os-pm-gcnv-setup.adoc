@@ -33,7 +33,7 @@ Il processo di configurazione può essere suddiviso nei seguenti passaggi:
 
 
 .Installa Trident sui cluster OSD (utilizzando la tabella Helm)
-* Utilizzare una tabella Helm per installare Trident sui cluster OSD.  Fare riferimentolink:https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-deploy-helm.html#critical-information-about-astra-trident-24-06["Qui"] per istruzioni su come installare Helm Chart.  La tabella del timone può essere trovatalink:https://github.com/NetApp/trident/tree/master/helm/trident-operator["Qui"] .
+* Utilizza un Helm chart per installare Trident sui cluster OSD. Consulta link:https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-deploy-helm.html["Qui"] per le istruzioni su come installare l'Helm chart.
 
 
 .Integrazione di NetApp Volumes con NetApp Trident per cluster OSD

@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: openshift/os-solutions-versions.html 
-keywords: NetApp Solutions, hybrid cloud, container workloads, containers, Red Hat OpenShift, RedHat OpenShift, vmware, ROSA, ACC, Trident Protect, Advanced Cluster Management, ACM, Hub Cluster 
+keywords: NetApp Solutions, hybrid cloud, container workloads, containers, Red Hat OpenShift, RedHat OpenShift, VMware, ROSA, Trident Protect, Advanced Cluster Management, ACM, Hub Cluster 
 summary:  
 ---
 = Versioni di vari componenti utilizzati nella convalida della soluzione
@@ -86,7 +86,7 @@ Lo scenario 5 della soluzione è stato convalidato utilizzando le versioni come 
 | *Cluster di origine e destinazione* | OpenShift 4.13.25 in locale e in Azure 
 
 
-| * NetApp Trident* | Trident Server e Client e Astra Control Provisioner 23.10.0 
+| * NetApp Trident* | Trident Server e Client 23.10.0 
 
 
 | * NetApp Trident Protect* | Trident Protect 23.10 

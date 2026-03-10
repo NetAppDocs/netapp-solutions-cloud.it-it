@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: openshift/os-solutions-storage-options.html 
-keywords: NetApp Solutions, hybrid cloud, container workloads, containers, Red Hat OpenShift, RedHat OpenShift, VMware, ROSA, ACC, Trident Protect, Advanced Cluster Management, ACM, Hub Cluster, VMware CSI, nconnect, session trunking, SMBC 
+keywords: NetApp Solutions, hybrid cloud, container workloads, containers, Red Hat OpenShift, RedHat OpenShift, VMware, ROSA, Trident Protect, Advanced Cluster Management, ACM, Hub Cluster, VMware CSI, nconnect, session trunking, SMBC 
 summary:  
 ---
 = Integrazioni di NetApp Storage supportate con Red Hat OpenShift Containers
@@ -18,7 +18,7 @@ Indipendentemente dal fatto che i container Red Hat OpenShift siano in esecuzion
 
 Il diagramma seguente illustra i vari storage backend NetApp che possono essere integrati con i cluster OpenShift utilizzando NetApp Trident.
 
-image:a-w-n-astra-trident.png["Figura che mostra il dialogo di input/output o che rappresenta il contenuto scritto"]
+image:a-w-n-trident.png["Figura che mostra il dialogo di input/output o che rappresenta il contenuto scritto"]
 
 ONTAP Storage Virtual Machine (SVM) garantisce una multi-tenancy sicura.  Un singolo cluster OpenShift può connettersi a una singola SVM o a più SVM o persino a più cluster ONTAP .  La classe di archiviazione filtra l'archiviazione back-end in base ai parametri o alle etichette.  Gli amministratori di storage definiscono i parametri per connettersi al sistema di storage utilizzando la configurazione backend Trident.  Una volta stabilita la connessione, viene creato il backend Trident e vengono popolate le informazioni che la classe di archiviazione può filtrare.
 

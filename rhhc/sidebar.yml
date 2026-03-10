@@ -27,8 +27,6 @@ entries:
     url: "/openshift/os-op-setup.html"
   - title: Proteggere i carichi di lavoro dei container su VMware
     url: "/openshift/os-op-data-protection.html"
-  - title: Migrare i carichi di lavoro dei container su VMware
-    url: "/openshift/os-op-data-migration.html"
 - title: Cloud ibrido con componenti autogestiti
   pdf-filename: Cloud ibrido con componenti autogestiti di Red Hat OpenShift (in locale/AWS/GCP/Azure)
   entries:
@@ -42,8 +40,6 @@ entries:
     url: "/openshift/os-sm-azure-setup.html"
   - title: Proteggi i carichi di lavoro dei container su AWS/GCP/Azure
     url: "/openshift/os-sm-data-protection.html"
-  - title: Migrare i carichi di lavoro dei container su AWS/GCP/Azure
-    url: "/openshift/os-sm-data-migration.html"
 - title: Cloud ibrido con componenti gestiti dal provider
   pdf-filename: Cloud ibrido con componenti gestiti dal provider Red Hat OpenShift
   entries:
@@ -55,8 +51,6 @@ entries:
     url: "/openshift/os-pm-gcnv-setup.html"
   - title: Proteggi i carichi di lavoro dei container su AWS
     url: "/openshift/os-pm-aws-dp.html"
-  - title: Migrazione dei carichi di lavoro dei container su AWS
-    url: "/openshift/os-pm-aws-data-migration.html"
   - title: Ulteriori soluzioni ROSA per container e virtualizzazione
     url: "/openshift/os-pm-rosa-additional.html"
 - title: Proteggi i dati utilizzando Trident Protect
