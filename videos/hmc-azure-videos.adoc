@@ -18,18 +18,21 @@ Esplora la libreria video completa di NetApp con soluzioni multicloud ibride per
 
 
 
+[[supplemental-datastores]]
 == Datastore supplementari
 
 .Panoramica del datastore supplementare della soluzione Azure VMware con Azure NetApp Files
 video::8c5ddb30-6c31-4cde-86e2-b01200effbd6[panopto,width=360]
 
 
+[[disaster-recovery]]
 == Ripristino dopo un disastro
 
 .Soluzione Azure VMware DR con Cloud Volumes ONTAP, SnapCenter e JetStream
 video::5cd19888-8314-4cfc-ba30-b01200efff4f[panopto,width=360]
 
 
+[[migration-workflows-hcx]]
 == Flussi di lavoro di migrazione (HCX)
 
 .Dimostrazione di migrazione a freddo con VMware HCX per AVS e ANF

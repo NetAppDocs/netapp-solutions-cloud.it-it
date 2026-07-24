@@ -18,6 +18,7 @@ Questa sezione illustra i passaggi per ripristinare le VM dai backup. SCV può e
 
 
 
+[[steps-to-perform-restore-operation]]
 == Passaggi per eseguire l'operazione di ripristino
 
 Per eseguire l'operazione di ripristino, seguire questi passaggi:
@@ -54,6 +55,7 @@ NOTE: L'operazione di ripristino può essere attivata anche a livello di singola
 
 
 
+[[steps-to-restore-a-deleted-vm]]
 == Passaggi per ripristinare una VM eliminata
 
 Il ripristino di una VM eliminata è un processo semplice con SCV.

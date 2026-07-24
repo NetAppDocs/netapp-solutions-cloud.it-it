@@ -20,6 +20,7 @@ La sicurezza, in particolare nel cloud, dove l'infrastruttura è al di fuori del
 
 
 
+[[intended-audience]]
 == Pubblico di destinazione
 
 Il pubblico a cui è destinato il presente documento include, a titolo esemplificativo ma non esaustivo, i seguenti ruoli:

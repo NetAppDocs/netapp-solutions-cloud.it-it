@@ -18,6 +18,7 @@ Questa sezione descrive come creare un backup su richiesta per le VM in OpenShif
 
 
 
+[[steps-to-create-a-backup-of-an-app]]
 == Passaggi per creare un backup di un'app
 
 Per creare un backup su richiesta di un'app (metadati dell'app e volumi persistenti dell'app), fare clic sulla scheda **Backup** per creare una Risorsa personalizzata di backup (CR).  Viene fornito un file yaml di esempio per creare il Backup CR.  Utilizzando questo yaml, verrà eseguito il backup dell'app e del suo archivio persistente nello spazio dei nomi specificato.  È possibile impostare parametri aggiuntivi come mostrato inlink:https://docs.openshift.com/container-platform/4.14/backup_and_restore/application_backup_and_restore/backing_up_and_restoring/oadp-creating-backup-cr.html["documentazione"] .
@@ -48,6 +49,7 @@ image:redhat-openshift-oadp-backup-002.png["Backup degli oggetti in S3"]
 
 
 
+[[creating-scheduled-backups-for-apps]]
 == Creazione di backup pianificati per le app
 
 Per creare backup pianificati, è necessario creare un CR pianificato.  La pianificazione è semplicemente un'espressione Cron che consente di specificare l'ora in cui si desidera creare il backup.  Di seguito è riportato un esempio di file yaml per creare una Schedule CR.

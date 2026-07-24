@@ -18,6 +18,7 @@ Un caso d'uso comune per VMware Cloud (VMC) su Amazon Web Services (AWS), con il
 
 
 
+[[overview-migrating-virtual-machines-with-vmware-hcx-fsx-ontap-supplemental-datastores-and-vmware-cloud]]
 == Panoramica: migrazione di macchine virtuali con VMware HCX, datastore supplementari FSx ONTAP e VMware Cloud
 
 VMware HCX è principalmente una piattaforma di mobilità progettata per semplificare la migrazione dei carichi di lavoro, il ribilanciamento dei carichi di lavoro e la continuità aziendale tra i cloud.  È incluso come parte di VMware Cloud su AWS e offre numerose modalità per migrare i carichi di lavoro e può essere utilizzato per operazioni di disaster recovery (DR).
@@ -68,6 +69,7 @@ image:fsx-hcx-001.png["Figura che mostra il dialogo di input/output o che rappre
 ====
 
 
+[[solution-deployment]]
 == Distribuzione della soluzione
 
 Per completare l'implementazione di questa soluzione, seguire la serie di passaggi:
@@ -318,12 +320,14 @@ NOTE: Il datastore VMC FSx ONTAP di destinazione deve disporre di spazio suffici
 ====
 
 
+[[conclusion]]
 == Conclusione
 
 Che si punti a un cloud completamente cloud o ibrido e che i dati risiedano su qualsiasi tipo/fornitore di storage in locale, Amazon FSx ONTAP insieme a HCX offrono eccellenti opzioni per distribuire e migrare i carichi di lavoro, riducendo al contempo il TCO rendendo i requisiti dei dati uniformi al livello applicativo.  Qualunque sia il caso d'uso, scegli VMC insieme al datastore FSx ONTAP per ottenere rapidamente i vantaggi del cloud, un'infrastruttura e operazioni coerenti su cloud locali e multipli, portabilità bidirezionale dei carichi di lavoro e capacità e prestazioni di livello aziendale.  Si tratta dello stesso processo e delle stesse procedure note utilizzate per connettere lo storage e migrare le VM utilizzando la replica VMware vSphere, VMware vMotion o persino la copia NFC.
 
 
 
+[[takeaways]]
 == Da asporto
 
 I punti chiave di questo documento includono:
@@ -335,6 +339,7 @@ I punti chiave di questo documento includono:
 
 
 
+[[where-to-find-additional-information]]
 == Dove trovare ulteriori informazioni
 
 Per saperne di più sulle informazioni descritte nel presente documento, fare riferimento ai seguenti link del sito web:

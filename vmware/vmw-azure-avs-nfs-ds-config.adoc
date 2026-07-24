@@ -37,6 +37,7 @@ NOTE: Contattare Azure e NetApp Solution Architects per la pianificazione e il d
 
 
 
+[[detailed-architecture]]
 == Architettura dettagliata
 
 Da una prospettiva di alto livello, questa architettura descrive come ottenere connettività cloud ibrida e portabilità delle app tra ambienti locali e Azure.  Descrive inoltre l'utilizzo di Azure NetApp Files come datastore NFS supplementare e come opzione di archiviazione in-guest per macchine virtuali guest ospitate sulla soluzione Azure VMware.
@@ -45,6 +46,7 @@ image:vmware-dr-001.png["Figura che mostra il dialogo di input/output o che rapp
 
 
 
+[[sizing]]
 == Dimensionamento
 
 L'aspetto più importante nella migrazione o nel ripristino di emergenza è determinare la dimensione corretta per l'ambiente di destinazione.  È molto importante capire quanti nodi sono necessari per eseguire un'operazione di trasferimento da un ambiente locale alla soluzione Azure VMware.
@@ -64,6 +66,7 @@ NOTE: Le VM guest utilizzate con storage interno devono essere calcolate separat
 
 
 
+[[deploying-and-configuring-azure-vmware-solution]]
 == Distribuzione e configurazione della soluzione Azure VMware
 
 Come per le soluzioni on-premise, la pianificazione di una soluzione Azure VMware è fondamentale per un ambiente di produzione di successo per la creazione di macchine virtuali e la migrazione.
@@ -79,6 +82,7 @@ Il processo di configurazione può essere suddiviso in tre parti:
 
 
 
+[[configure-azure-netapp-files-with-azure-vmware-solution]]
 == Configurare Azure NetApp Files con Azure VMware Solution
 
 La nuova integrazione tra Azure NetApp Files consente di creare datastore NFS tramite le API/CLI del provider di risorse della soluzione Azure VMware con volumi Azure NetApp Files e di montare i datastore sui cluster desiderati in un cloud privato.  Oltre a ospitare i VMDK delle VM e delle app, i volumi di file di Azure NetApp possono anche essere montati dalle VM create nell'ambiente SDDC della soluzione Azure VMware.  I volumi possono essere montati sul client Linux e mappati su un client Windows, perché Azure NetApp Files supporta i protocolli Server Message Block (SMB) e Network File System (NFS).
@@ -217,6 +221,7 @@ image:vmware-dr-005.png["Figura che mostra il dialogo di input/output o che rapp
 ====
 
 
+[[sizing-and-performance-optimization]]
 == Ottimizzazione delle dimensioni e delle prestazioni
 
 Azure NetApp Files supporta tre livelli di servizio: Standard (16 MBps per terabyte), Premium (64 MBps per terabyte) e Ultra (128 MBps per terabyte). Per ottenere prestazioni ottimali del carico di lavoro del database è importante predisporre il volume della giusta dimensione. Con Azure NetApp Files, le prestazioni del volume e il limite di velocità effettiva vengono determinati in base ai seguenti fattori:
@@ -244,6 +249,7 @@ Fare riferimento a questolink:https://learn.microsoft.com/en-us/azure/azure-neta
 |===
 
 
+[[performance-considerations]]
 == Considerazioni sulle prestazioni
 
 È importante comprendere che con NFS versione 3 è presente un solo canale attivo per la connessione tra l'host ESXi e una singola destinazione di archiviazione.  Ciò significa che, sebbene possano essere disponibili connessioni alternative per il failover, la larghezza di banda per un singolo datastore e l'archiviazione sottostante sono limitate a ciò che una singola connessione può fornire.
@@ -268,6 +274,7 @@ Fare riferimento a questolink:https://learn.microsoft.com/en-us/azure/azure-neta
 |===
 
 
+[[increasing-the-size-of-the-datastore]]
 == Aumento delle dimensioni del datastore
 
 La riorganizzazione del volume e le modifiche dinamiche del livello di servizio sono completamente trasparenti per l'SDDC.  In Azure NetApp Files, queste funzionalità garantiscono ottimizzazioni continue di prestazioni, capacità e costi.  Aumentare le dimensioni dei datastore NFS ridimensionando il volume dal portale di Azure o utilizzando l'interfaccia della riga di comando.  Al termine, accedi a vCenter, vai alla scheda del datastore, fai clic con il pulsante destro del mouse sul datastore appropriato e seleziona Aggiorna informazioni sulla capacità.  Questo approccio può essere utilizzato per aumentare la capacità del datastore e per aumentarne le prestazioni in modo dinamico, senza tempi di inattività.  Questo processo è inoltre completamente trasparente per le applicazioni.
@@ -284,6 +291,7 @@ La riorganizzazione del volume e le modifiche dinamiche del livello di servizio 
 |===
 
 
+[[workloads]]
 == Carichi di lavoro
 
 .Migrazione

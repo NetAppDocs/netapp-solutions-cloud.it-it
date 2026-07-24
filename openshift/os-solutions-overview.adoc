@@ -18,6 +18,7 @@ NetApp sta riscontrando un aumento significativo di clienti che modernizzano le 
 
 
 
+[[overview]]
 == Panoramica
 
 Poiché sempre più clienti iniziano ad adottare container nelle proprie aziende, NetApp è nella posizione ideale per soddisfare le esigenze di storage persistente delle loro applicazioni stateful e le esigenze classiche di gestione dei dati, come protezione dei dati, sicurezza dei dati e migrazione dei dati.  Tuttavia, queste esigenze vengono soddisfatte utilizzando strategie, strumenti e metodi diversi.

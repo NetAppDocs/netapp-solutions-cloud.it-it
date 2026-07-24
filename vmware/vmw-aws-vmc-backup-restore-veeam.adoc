@@ -18,12 +18,14 @@ Veeam Backup & Replication è una soluzione efficace e affidabile per la protezi
 
 
 
+[[overview]]
 == Panoramica
 
 VMware Cloud (in AWS) supporta l'uso di datastore NFS come storage supplementare e FSx ONTAP è una soluzione sicura per i clienti che hanno bisogno di archiviare grandi quantità di dati per le loro applicazioni cloud, in grado di scalare indipendentemente dal numero di host ESXi nel cluster SDDC.  Questo servizio di storage AWS integrato offre uno storage altamente efficiente con tutte le tradizionali funzionalità NetApp ONTAP .
 
 
 
+[[use-cases]]
 === Casi d'uso
 
 Questa soluzione affronta i seguenti casi d'uso:
@@ -35,6 +37,7 @@ Questa soluzione affronta i seguenti casi d'uso:
 
 
 
+[[nfs-datastores-using-amazon-fsx-ontap]]
 === Datastore NFS che utilizzano Amazon FSx ONTAP
 
 Tutte le macchine virtuali in questa soluzione risiedono su datastore NFS supplementari FSx ONTAP .  L'utilizzo di FSx ONTAP come datastore NFS supplementare presenta numerosi vantaggi.  Ad esempio, consente di:
@@ -82,6 +85,7 @@ Lo scopo di questa soluzione è dimostrare la protezione dei dati delle macchine
 ====
 
 
+[[high-level-architecture]]
 == Architettura di alto livello
 
 Il test/la convalida di questa soluzione sono stati eseguiti in un laboratorio che potrebbe corrispondere o meno all'ambiente di distribuzione finale.  Per ulteriori informazioni, consultare le sezioni seguenti.
@@ -106,6 +110,7 @@ Lo scopo di questa soluzione è dimostrare la protezione dei dati delle macchine
 ====
 
 
+[[solution-deployment]]
 == Distribuzione della soluzione
 
 In questa soluzione forniamo istruzioni dettagliate per distribuire e convalidare una soluzione che utilizza il software Veeam Backup and Replication per eseguire il backup e il ripristino di macchine virtuali di file server SQL Server, Oracle e Windows e Linux in un VMware Cloud SDDC su AWS.  Le macchine virtuali in questa soluzione risiedono su un datastore NFS supplementare ospitato da FSx ONTAP.  Inoltre, viene utilizzato un file system FSx ONTAP separato per ospitare i volumi iSCSI che verranno utilizzati per i repository di backup Veeam.
@@ -120,6 +125,7 @@ Per considerazioni e limitazioni relative all'utilizzo di Veeam Backup and Repli
 
 
 
+[[deploy-veeam-proxy-server]]
 === Distribuisci il server proxy Veeam
 
 Un server proxy Veeam è un componente del software Veeam Backup & Replication che funge da intermediario tra l'origine e la destinazione del backup o della replica.  Il server proxy aiuta a ottimizzare e accelerare il trasferimento dei dati durante i processi di backup elaborando i dati localmente e può utilizzare diverse modalità di trasporto per accedere ai dati tramite le API VMware vStorage per la protezione dei dati o tramite l'accesso diretto all'archiviazione.
@@ -178,6 +184,7 @@ image:aws-vmc-veeam-010.png["Configurare le regole del traffico di rete"]
 ====
 
 
+[[configure-storage-and-backup-repositories]]
 === Configurare l'archiviazione e i repository di backup
 
 Il server Veeam Backup primario e il server Veeam Proxy hanno accesso a un repository di backup sotto forma di storage connesso direttamente.  In questa sezione illustreremo come creare un file system FSx ONTAP , montare iSCSI LUN sui server Veeam e creare repository di backup.
@@ -278,6 +285,7 @@ image:aws-vmc-veeam-016.png["Scegli Monta server"]
 ====
 
 
+[[configure-veeam-backup-jobs]]
 === Configurare i processi di backup Veeam
 
 I processi di backup devono essere creati utilizzando i repository di backup descritti nella sezione precedente.  La creazione di processi di backup è una parte normale del repertorio di qualsiasi amministratore di storage e in questa sede non verranno trattati tutti i passaggi.  Per informazioni più complete sulla creazione di processi di backup in Veeam, vedere https://www.veeam.com/documentation-guides-datasheets.html?productId=8&version=product%3A8%2F221["Documentazione tecnica del Centro assistenza Veeam"^] .
@@ -307,6 +315,7 @@ image:aws-vmc-veeam-018.png["Politica di conservazione a lungo termine"]
 ====
 
 
+[[restore-application-vms-with-veeam-full-restore]]
 === Ripristina le VM delle applicazioni con il ripristino completo di Veeam
 
 Eseguire un ripristino completo con Veeam è il primo passo per eseguire il ripristino di un'applicazione.  Abbiamo verificato che i ripristini completi delle nostre VM erano attivi e che tutti i servizi funzionavano normalmente.
@@ -315,6 +324,7 @@ Il ripristino dei server è una parte normale del repertorio di qualsiasi ammini
 
 
 
+[[restore-sql-server-databases]]
 === Ripristinare i database di SQL Server
 
 Veeam Backup & Replication offre diverse opzioni per il ripristino dei database SQL Server.  Per questa convalida abbiamo utilizzato Veeam Explorer per SQL Server con Instant Recovery per eseguire i ripristini dei nostri database SQL Server.  SQL Server Instant Recovery è una funzionalità che consente di ripristinare rapidamente i database di SQL Server senza dover attendere un ripristino completo del database.  Questo rapido processo di ripristino riduce al minimo i tempi di inattività e garantisce la continuità aziendale.  Ecco come funziona:
@@ -360,6 +370,7 @@ Per informazioni più dettagliate sull'esecuzione di operazioni di ripristino di
 
 
 
+[[restore-oracle-databases-with-veeam-explorer]]
 === Ripristinare i database Oracle con Veeam Explorer
 
 Veeam Explorer per il database Oracle offre la possibilità di eseguire un ripristino standard del database Oracle o un ripristino ininterrotto utilizzando Instant Recovery.  Supporta inoltre la pubblicazione di database per un accesso rapido, il ripristino di database Data Guard e il ripristino da backup RMAN.
@@ -443,6 +454,7 @@ image:aws-vmc-veeam-036.png["Seleziona un punto di ripristino dall'elenco"]
 ====
 
 
+[[conclusion]]
 == Conclusione
 
 VMware Cloud è una piattaforma potente per l'esecuzione di applicazioni aziendali critiche e l'archiviazione di dati sensibili.  Una soluzione di protezione dei dati sicura è essenziale per le aziende che si affidano a VMware Cloud per garantire la continuità aziendale e contribuire a proteggersi dalle minacce informatiche e dalla perdita di dati.  Scegliendo una soluzione di protezione dei dati affidabile e solida, le aziende possono avere la certezza che i loro dati critici siano al sicuro e protetti, qualunque cosa accada.
@@ -451,6 +463,7 @@ Il caso d'uso presentato in questa documentazione si concentra su tecnologie di 
 
 
 
+[[additional-information]]
 == Informazioni aggiuntive
 
 Per saperne di più sulle tecnologie presentate in questa soluzione, fare riferimento alle seguenti informazioni aggiuntive.

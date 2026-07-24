@@ -20,6 +20,7 @@ Niyaz Mohamed, NetApp
 
 
 
+[[overview]]
 == Panoramica
 
 Il disaster recovery nel cloud è un modo resiliente ed economico per proteggere i carichi di lavoro da interruzioni del sito ed eventi di danneggiamento dei dati (ad esempio, ransomware).  Grazie alla tecnologia NetApp SnapMirror , i carichi di lavoro VMware on-premise possono essere replicati su FSx ONTAP in esecuzione su AWS.
@@ -30,10 +31,12 @@ image:dro-vmc-001.png["Questo grafico illustra la struttura e le interconnession
 
 
 
+[[getting-started]]
 == Iniziare
 
 
 
+[[deploy-and-configure-vmware-cloud-on-aws]]
 === Distribuisci e configura VMware Cloud su AWS
 
 link:https://www.vmware.com/products/vmc-on-aws.html["VMware Cloud su AWS"^]fornisce un'esperienza cloud-native per carichi di lavoro basati su VMware nell'ecosistema AWS.  Ogni VMware Software-Defined Data Center (SDDC) viene eseguito in un Amazon Virtual Private Cloud (VPC) e fornisce uno stack VMware completo (incluso vCenter Server), networking software-defined NSX-T, storage software-defined vSAN e uno o più host ESXi che forniscono risorse di elaborazione e storage ai carichi di lavoro.  Per configurare un ambiente VMC su AWS, seguire i passaggi riportati di seguitolink:vmw-aws-vmc-setup.html["collegamento"^] .  Per scopi DR è possibile utilizzare anche un gruppo di spie luminose.
@@ -43,12 +46,14 @@ NOTE: Nella versione iniziale, DRO supporta un cluster di spie luminose esistent
 
 
 
+[[provision-and-configure-fsx-ontap]]
 === Fornire e configurare FSx ONTAP
 
 Amazon FSx ONTAP è un servizio completamente gestito che fornisce un archivio file altamente affidabile, scalabile, ad alte prestazioni e ricco di funzionalità, basato sul famoso file system NetApp ONTAP .  Segui i passaggi quilink:vmw-aws-vmc-nfs-ds-overview.html["collegamento"^] per fornire e configurare FSx ONTAP.
 
 
 
+[[deploy-and-configure-snapmirror-to-fsx-ontap]]
 === Distribuisci e configura SnapMirror su FSx ONTAP
 
 Il passaggio successivo consiste nell'utilizzare NetApp BlueXP e individuare l'istanza FSx ONTAP su AWS fornita e replicare i volumi del datastore desiderati da un ambiente locale a FSx ONTAP con la frequenza appropriata e la conservazione delle copie Snapshot NetApp :
@@ -62,12 +67,14 @@ NOTE: Una relazione SnapMirror è un prerequisito e deve essere creata in antici
 
 
 
+[[dro-installation]]
 == Installazione DRO
 
 Per iniziare a usare DRO, utilizza il sistema operativo Ubuntu su un'istanza EC2 o una macchina virtuale designata per assicurarti di soddisfare i prerequisiti.  Quindi installare il pacchetto.
 
 
 
+[[prerequisites]]
 === Prerequisiti
 
 * Assicurarsi che esista la connettività con i sistemi vCenter e di storage di origine e di destinazione.
@@ -77,6 +84,7 @@ Per iniziare a usare DRO, utilizza il sistema operativo Ubuntu su un'istanza EC2
 
 
 
+[[os-requirements]]
 === Requisiti OS
 
 * Ubuntu 20.04 (LTS) con un minimo di 2 GB e 4 vCPU
@@ -96,6 +104,7 @@ NOTE: IL `deploy.sh` lo script esegue tutti i prerequisiti richiesti.
 
 
 
+[[install-the-package]]
 === Installa il pacchetto
 
 . Scaricare il pacchetto di installazione sulla macchina virtuale designata:
@@ -144,6 +153,7 @@ image:dro-vmc-003.png["Schermata di accesso a Disaster Recovery Orchestrator."]
 
 
 
+[[dro-configuration]]
 == Configurazione DRO
 
 Dopo aver configurato correttamente FSx ONTAP e VMC, è possibile iniziare a configurare DRO per automatizzare il ripristino dei carichi di lavoro locali su VMC utilizzando le copie SnapMirror di sola lettura su FSx ONTAP.
@@ -178,6 +188,7 @@ Il passaggio successivo consiste nel raggruppare le VM necessarie in gruppi funz
 
 
 
+[[resource-groupings]]
 === Raggruppamenti di risorse
 
 Dopo aver aggiunto le piattaforme, è possibile raggruppare le VM che si desidera ripristinare in gruppi di risorse.  I gruppi di risorse DRO consentono di raggruppare un set di VM dipendenti in gruppi logici che contengono i relativi ordini di avvio, ritardi di avvio e convalide facoltative delle applicazioni che possono essere eseguite al momento del ripristino.
@@ -202,6 +213,7 @@ image:dro-vmc-007.png["Screenshot dell'elenco dei gruppi di risorse con due voci
 
 
 
+[[replication-plans]]
 === Piani di replicazione
 
 È necessario un piano per ripristinare le applicazioni in caso di disastro.  Selezionare le piattaforme vCenter di origine e di destinazione dal menu a discesa e scegliere i gruppi di risorse da includere in questo piano, insieme al raggruppamento delle modalità di ripristino e accensione delle applicazioni (ad esempio, controller di dominio, quindi livello 1, quindi livello 2 e così via).  Tali piani sono talvolta chiamati anche blueprint.  Per definire il piano di ripristino, accedere alla scheda *Piano di replica* e fare clic su *Nuovo piano di replica*.
@@ -267,6 +279,7 @@ image:dro-vmc-022.png["Descrizione dell'immagine segnaposto temporanea."]
 
 
 
+[[ransomware-recovery]]
 === Recupero da ransomware
 
 Recuperare i dati da un ransomware può essere un compito arduo.  Nello specifico, può essere difficile per le organizzazioni IT individuare con precisione il punto di ritorno sicuro e, una volta determinato, proteggere i carichi di lavoro recuperati da attacchi ricorrenti, ad esempio da malware inattivi o applicazioni vulnerabili.
@@ -275,6 +288,7 @@ DRO risolve questi problemi consentendoti di ripristinare il tuo sistema da qual
 
 
 
+[[benefits]]
 == Benefici
 
 * Utilizzo della replica efficiente e resiliente SnapMirror .

@@ -35,6 +35,7 @@ Trident Protect consente snapshot, backup, ripristini e disaster recovery di app
 
 
 
+[[create-appvault-for-object-storage]]
 == Crea AppVault per storage a oggetti
 
 .Crea AppVault
@@ -105,6 +106,7 @@ image:rh-os-n-use-case-ocpv-tp-dp-008.png["ONTAP S3 Appvault creato"]
 ====
 
 
+[[create-a-vm-in-openshift-virtualization]]
 == Creare una VM in OpenShift Virtualization
 
 .Creare una VM in OpenShift Virtualization
@@ -132,6 +134,7 @@ image:rh-os-n-use-case-ocpv-tp-dp-007.png["vm, pod e pvc creati"]
 ====
 
 
+[[create-an-app]]
 == Crea un'app
 
 .Crea app
@@ -163,6 +166,7 @@ image:rh-os-n-use-case-ocpv-tp-dp-009.png["App creata"]
 ====
 
 
+[[protect-the-app-by-creating-a-backup]]
 == Proteggi l'app creando un backup
 
 .Crea backup
@@ -217,6 +221,7 @@ image:rh-os-n-use-case-ocpv-tp-dp-017.png["Backup creati su richiesta e secondo 
 ====
 
 
+[[restore-from-backup]]
 == Ripristina dal backup
 
 .Ripristina dai backup
@@ -301,6 +306,7 @@ image:rh-os-n-use-case-ocpv-tp-dp-023.png["VM nel nuovo namespace"]
 ====
 
 
+[[protect-the-app-using-snapshots]]
 == Proteggi l'app utilizzando gli snapshot
 
 .Crea snapshot
@@ -373,6 +379,7 @@ image:rh-os-n-use-case-ocpv-tp-dp-026.png["snapshot pianificato"]
 ====
 
 
+[[restore-from-snapshot]]
 == Ripristina da snapshot
 
 .Ripristina da snapshot
@@ -455,6 +462,7 @@ image:rh-os-n-use-case-ocpv-tp-dp-032.png["VM ripristinata nel nuovo namespace"]
 ====
 
 
+[[restore-a-specific-vm]]
 == Ripristina una VM specifica
 
 .Selezione di VM specifiche in uno spazio dei nomi per creare snapshot/backup e ripristinare
@@ -548,6 +556,7 @@ image:rh-os-n-use-case-ocpv-tp-dp-038.png["macchina virtuale centos creata"]
 ====
 
 
+[[video-demonstration]]
 == Dimostrazione video
 
 Il seguente video mostra una dimostrazione della protezione di una VM tramite snapshot

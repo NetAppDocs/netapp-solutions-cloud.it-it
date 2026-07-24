@@ -18,6 +18,7 @@ Questa sezione illustra i passaggi per configurare il SnapCenter Plug-in for VMw
 
 
 
+[[adding-the-storage-system]]
 == Aggiunta del sistema storage
 
 Il passaggio successivo nella protezione dei carichi di lavoro con SVC è aggiungere il link:https://docs.netapp.com/us-en/sc-plugin-vmware-vsphere/scpivs44_add_storage_01.html["sistema storage"]. L'aggiunta dello storage consente a SCV di rilevare e gestire le operazioni di backup e ripristino all'interno di vCenter. Includere l'endpoint di gestione FSx for NetApp ONTAP o l'IP dell'endpoint di amministrazione della storage virtual machine (SVM) come sistema storage per abilitare backup e ripristino.
@@ -37,6 +38,7 @@ Se la versione SCV è 6.2, vai su link:https://mysupport.netapp.com/site/product
 
 
 
+[[create-a-backup-policy]]
 == Crea una policy di backup
 
 Una solida strategia di backup dovrebbe definire fattori chiave come la pianificazione dei backup, i dati da sottoporre a backup e il periodo di conservazione dei backup. Le copie Snapshot possono essere pianificate su base oraria o giornaliera per proteggere interi datastore. Pianificare i backup in questo modo non solo protegge i datastore, ma supporta anche le operazioni di backup e ripristino per le VM e i VMDK contenuti in tali datastore.
@@ -69,6 +71,7 @@ Una volta creata la policy, il passaggio successivo consiste nel creare il grupp
 
 
 
+[[create-a-resource-group]]
 == Crea un gruppo di risorse
 
 Un gruppo di risorse funge da container per le VM e i datastore che necessitano di protezione. Le risorse possono essere aggiunte o rimosse da un gruppo di risorse in qualsiasi momento, garantendo flessibilità nella gestione delle configurazioni di backup.
@@ -92,6 +95,7 @@ image:evs-protect-fsxn-005.png["Figura che rappresenta il dialogo per il passagg
 
 
 
+[[backing-up-resource-groups]]
 == Backup dei gruppi di risorse
 
 Le operazioni di backup vengono eseguite su tutte le risorse definite all'interno di un gruppo di risorse. Se a un gruppo di risorse è associata una policy e configurata una pianificazione, i backup vengono eseguiti automaticamente in base alla pianificazione.

@@ -18,6 +18,7 @@ In questa sezione verranno illustrati i passaggi per distribuire FSx per ONTAP c
 
 
 
+[[high-level-deployment-steps]]
 == Fasi di distribuzione di alto livello
 
 L'implementazione del file system FSx for ONTAP da utilizzare come datastore NFS per Amazon EVS e la creazione della connettività tra i due servizi includeranno i seguenti passaggi:
@@ -29,6 +30,7 @@ L'implementazione del file system FSx for ONTAP da utilizzare come datastore NFS
 
 
 
+[[prerequisites]]
 == Prerequisiti
 
 Prima di iniziare il processo di configurazione di un FSx per ONTAP come datastore NFS per Amazon EVS, è necessario soddisfare i seguenti prerequisiti:
@@ -49,6 +51,7 @@ NOTE: Il file system FSx for ONTAP deve essere distribuito nella stessa zona di 
 
 
 
+[[create-an-fsx-for-ontap-file-system]]
 == Creare un file system FSx per ONTAP
 
 I seguenti passaggi ti mostreranno come effettuare il provisioning e montare un file system FSx per ONTAP :
@@ -154,6 +157,7 @@ NOTE: Per creare file system FSx aggiuntivi per ONTAP , è possibile seguire i p
 
 
 
+[[validating-vpc-and-virtualization-environment-routing-and-security-groups]]
 == Convalida dei gruppi di routing e sicurezza dell'ambiente VPC e virtualizzato
 
 La convalida dei gruppi di routing e sicurezza VPC e SDDC è importante per garantire che l'ambiente di virtualizzazione Amazon EVS e i componenti del file system FSx for ONTAP possano funzionare correttamente insieme.
@@ -207,6 +211,7 @@ image:evs-mount-fsxn-017.png["Figura che rappresenta il dialogo per il passaggio
 
 
 
+[[attaching-an-fsx-for-ontap-nfs-volume-to-amazon-evs-for-use-as-a-datastore]]
 == Collegamento di un volume NFS FSx for ONTAP ad Amazon EVS per l'utilizzo come datastore
 
 Ora che il file system FSx for ONTAP è stato predisposto e tutti i parametri di connettività corretti sono stati convalidati, è il momento di collegare un volume di storage FSx for ONTAP ad Amazon EVS.  I passaggi seguenti mostrano come accedere a vCenter e montare il volume FSx for ONTAP come datastore NFS:

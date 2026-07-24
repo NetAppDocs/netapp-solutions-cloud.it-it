@@ -18,6 +18,7 @@ Gli archivi dati di Azure NetApp Files (ANF) separano l'archiviazione dall'elabo
 
 
 
+[[overview]]
 == Panoramica
 
 Gli archivi dati NFS basati su volumi Azure NetApp Files (ANF) possono essere utilizzati per replicare i dati da ambienti locali tramite qualsiasi soluzione di terze parti convalidata che fornisca funzionalità di replica delle VM.  Aggiungendo gli archivi dati di Azure NetApp Files , sarà possibile ottimizzare i costi di distribuzione rispetto alla creazione di un SDDC di Azure VMware Solution con un'enorme quantità di host ESXi per ospitare l'archiviazione.  Questo approccio è chiamato "Pilot Light Cluster".  Un cluster di luci pilota è una configurazione host AVS minima (3 nodi AVS) insieme alla capacità di Azure NetApp Files Datastore.
@@ -26,6 +27,7 @@ L'obiettivo è mantenere un'infrastruttura a basso costo con tutti i componenti 
 
 
 
+[[purposes-of-this-document]]
 == Scopi del presente documento
 
 In questo articolo viene descritto come utilizzare il datastore di Azure NetApp Files con Veeam Backup and Replication per configurare il disaster recovery per le VM VMware locali (AVS) utilizzando la funzionalità del software di replica delle VM Veeam.
@@ -40,10 +42,12 @@ image:dr-veeam-anf-001.png["Figura che mostra il dialogo di input/output o che r
 
 
 
+[[solution-deployment]]
 == Distribuzione della soluzione
 
 
 
+[[high-level-steps]]
 === Gradini di alto livello
 
 . Il software Veeam Backup and Replication è in esecuzione in un ambiente locale con connettività di rete adeguata.
@@ -58,6 +62,7 @@ Per scopi DR è possibile utilizzare un ambiente con luce pilota allestito con u
 
 
 
+[[pre-requisites-for-veeam-vm-replication-to-avs-and-anf-datastores]]
 === Prerequisiti per la replica delle VM Veeam sui datastore AVS e ANF
 
 . Assicurarsi che la VM di backup di Veeam Backup & Replication sia connessa sia ai cluster AVS SDDC di origine che a quelli di destinazione.
@@ -69,6 +74,7 @@ Per ulteriori informazioni, fare riferimento alla sezione "Considerazioni e limi
 
 
 
+[[deployment-details]]
 === Dettagli di distribuzione
 
 .Passaggio 1: replicare le VM
@@ -225,6 +231,7 @@ image:dr-veeam-anf-022.png["Figura che mostra il dialogo di input/output o che r
 ====
 
 
+[[conclusion]]
 == Conclusione
 
 La funzionalità di datastore Azure NetApp Files consente a Veeam o a qualsiasi strumento di terze parti convalidato di fornire una soluzione DR a basso costo sfruttando i cluster Pilot Light anziché creare un cluster di grandi dimensioni solo per ospitare repliche di VM.  Ciò fornisce un modo efficace per gestire un piano di disaster recovery personalizzato e su misura e per riutilizzare i prodotti di backup esistenti internamente per il disaster recovery, consentendo il disaster recovery basato su cloud tramite l'uscita dai data center DR locali.  In caso di emergenza è possibile effettuare il failover cliccando su un pulsante oppure effettuare il failover automaticamente se si verifica un'emergenza.

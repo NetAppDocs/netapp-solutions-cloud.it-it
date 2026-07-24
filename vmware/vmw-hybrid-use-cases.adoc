@@ -18,6 +18,7 @@ Una panoramica dei casi d'uso importanti per l'organizzazione IT quando si piani
 
 
 
+[[popular-use-cases]]
 == Casi d'uso popolari
 
 I casi d'uso includono:
@@ -39,6 +40,7 @@ In questa documentazione, i riferimenti ai carichi di lavoro cloud saranno detta
 
 
 
+[[inside-the-it-journey]]
 === All'interno del percorso IT
 
 La maggior parte delle organizzazioni è impegnata in un percorso di trasformazione e modernizzazione.  Nell'ambito di questo processo, le aziende stanno cercando di utilizzare i propri investimenti VMware esistenti, sfruttando al contempo i vantaggi del cloud ed esplorando modi per rendere il processo di migrazione il più fluido possibile.  Questo approccio renderebbe i loro sforzi di modernizzazione molto più semplici, perché i dati sono già nel cloud.
@@ -47,6 +49,7 @@ La risposta più semplice a questo scenario è l'offerta VMware in ogni hypersca
 
 
 
+[[understanding-the-importance-of-supplemental-nfs-storage-options]]
 === Comprendere l'importanza delle opzioni di archiviazione NFS supplementari
 
 Sebbene VMware in qualsiasi cloud offra funzionalità ibride uniche a ogni cliente, le limitate opzioni di archiviazione NFS supplementari ne hanno limitato l'utilità per le organizzazioni con carichi di lavoro ad alta intensità di storage.  Poiché lo storage è direttamente collegato agli host, l'unico modo per scalare lo storage è aggiungere più host, ma ciò può aumentare i costi del 35-40 percento o più per i carichi di lavoro che richiedono un utilizzo intensivo dello storage.  Questi carichi di lavoro necessitano solo di spazio di archiviazione aggiuntivo, non di potenza aggiuntiva.  Ma questo significa pagare per host aggiuntivi.

@@ -24,6 +24,7 @@ image:dr-draas-vmfs-030.png["Figura che mostra il dialogo di input/output o che 
 
 
 
+[[getting-started]]
 == Iniziare
 
 Per iniziare a utilizzare il BlueXP disaster recovery, utilizzare la console BlueXP e quindi accedere al servizio.
@@ -56,6 +57,7 @@ NOTE: Al momento della stesura di questo documento, il supporto per i datastore 
 
 
 
+[[bluexp-disaster-recovery-configuration]]
 == Configurazione BlueXP disaster recovery
 
 Il primo passo per prepararsi al disaster recovery è individuare e aggiungere le risorse di archiviazione e vCenter locali al BlueXP disaster recovery.
@@ -81,6 +83,7 @@ Una volta aggiunti i vCenter, viene attivata la rilevazione automatica.
 
 
 
+[[configuring-storage-replication-between-source-and-destination-site]]
 == Configurazione della replica di archiviazione tra il sito di origine e quello di destinazione
 
 SnapMirror utilizza gli snapshot ONTAP per gestire il trasferimento dei dati da una posizione all'altra.  Inizialmente, una copia completa basata su uno snapshot del volume di origine viene copiata sulla destinazione per eseguire una sincronizzazione di base.  Quando si verificano modifiche ai dati all'origine, viene creato un nuovo snapshot e confrontato con lo snapshot di base.  I blocchi che risultano modificati vengono quindi replicati nella destinazione, con lo snapshot più recente che diventa la baseline corrente o lo snapshot comune più recente.  Ciò consente di ripetere il processo e di inviare aggiornamenti incrementali alla destinazione.
@@ -91,6 +94,7 @@ L'interruzione della relazione SnapMirror rende il volume di destinazione scrivi
 
 
 
+[[how-to-set-it-up-for-vmware-disaster-recovery]]
 == Come configurarlo per VMware Disaster Recovery
 
 Il processo per creare una replica SnapMirror rimane lo stesso per qualsiasi applicazione.  Il processo può essere manuale o automatizzato.  Il modo più semplice è sfruttare BlueXP per configurare la replica SnapMirror , utilizzando un semplice trascinamento del sistema ONTAP di origine nell'ambiente sulla destinazione per avviare la procedura guidata che guida attraverso il resto del processo.
@@ -113,6 +117,7 @@ NOTE: Oltre agli approcci sopra descritti, la replica SnapMirror può essere cre
 
 
 
+[[what-can-bluexp-disaster-recovery-do-for-you]]
 == Cosa può fare per te il BlueXP disaster recovery ?
 
 Dopo aver aggiunto i siti di origine e di destinazione, il BlueXP disaster recovery esegue automaticamente un'analisi approfondita e visualizza le VM insieme ai metadati associati.  Il BlueXP disaster recovery rileva automaticamente anche le reti e i gruppi di porte utilizzati dalle VM e li popola.
@@ -189,6 +194,7 @@ image:dr-draas-vmfs-023.png["Figura che mostra il dialogo di input/output o che 
 
 
 
+[[what-happens-during-a-failover-or-test-failover-operation]]
 == Cosa succede durante un'operazione di failover o di test failover?
 
 Durante un'operazione di failover di prova, il BlueXP disaster recovery crea un volume FlexClone sul sistema di archiviazione ONTAP di destinazione utilizzando la copia Snapshot più recente o uno snapshot selezionato del volume di destinazione.

@@ -18,6 +18,7 @@ Scopri di più sulle soluzioni che NetApp offre all'ambiente VMware in ciascuno 
 
 
 
+[[netapp-solutions-for-vmware-environments]]
 == Soluzioni NetApp per ambienti VMware
 
 Che si operi in un modello di cloud ibrido o in un modello "cloud first", NetApp offre un'ampia gamma di soluzioni per soddisfare i casi d'uso più comuni per la gestione dei carichi di lavoro in un modello cloud o cloud ibrido.

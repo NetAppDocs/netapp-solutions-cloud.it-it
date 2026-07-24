@@ -23,6 +23,7 @@ NOTE: NetApp Volumes-SW richiede che i server Active Directory si trovino nella 
 
 
 
+[[active-directory-credentials]]
 == Credenziali di Active Directory
 
 Quando SMB o LDAP per NFS sono abilitati, Google Cloud NetApp Volumes interagisce con i controller di Active Directory per creare un oggetto account macchina da utilizzare per l'autenticazione.  Non c'è differenza rispetto al modo in cui un client SMB di Windows si unisce a un dominio e richiede gli stessi diritti di accesso alle unità organizzative (OU) in Active Directory.
@@ -31,6 +32,7 @@ In molti casi, i gruppi di sicurezza non consentono l'uso di un account amminist
 
 
 
+[[permissions-needed-to-create-smb-machine-accounts]]
 === Autorizzazioni necessarie per creare account macchina SMB
 
 Per aggiungere oggetti macchina Google Cloud NetApp Volumes a un Active Directory, è necessario un account che abbia diritti amministrativi sul dominio o che abbia https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/plan/delegating-administration-by-using-ou-objects["autorizzazioni delegate per creare e modificare oggetti account macchina"^] è richiesto a una OU specificata.  È possibile farlo con la procedura guidata Delega del controllo in Active Directory creando un'attività personalizzata che fornisca all'utente l'accesso alla creazione/eliminazione di oggetti computer con le seguenti autorizzazioni di accesso:
@@ -48,6 +50,7 @@ NOTE: Il nome utente e la password trasmessi al dominio Active Directory sfrutta
 
 
 
+[[active-directory-connection-details]]
 == Dettagli della connessione Active Directory
 
 The https://docs.cloud.google.com/netapp/volumes/docs/configure-and-use/active-directory/about-ad["Dettagli di connessione ad Active Directory"^] forniscono indicazioni agli amministratori per fornire informazioni specifiche sullo schema di Active Directory per il posizionamento degli account macchina, come ad esempio:
@@ -66,6 +69,7 @@ NOTE: Per impostazione predefinita, la maggior parte dei server Windows non disa
 
 
 
+[[kerberos-realm-details]]
 == Dettagli del dominio Kerberos
 
 Questa opzione non si applica ai server SMB.  Viene invece utilizzato durante la configurazione di NFS Kerberos per il sistema Google Cloud NetApp Volumes .  Una volta inseriti questi dettagli, il dominio NFS Kerberos viene configurato (simile a un file krb5.conf su Linux) e viene utilizzato quando NFS Kerberos viene specificato durante la creazione del volume Google Cloud NetApp Volumes , poiché la connessione Active Directory funge da NFS Kerberos Distribution Center (KDC).
@@ -75,6 +79,7 @@ NOTE: Al momento, i KDC non Windows non sono supportati per l'utilizzo con Googl
 
 
 
+[[region]]
 == Regione
 
 Una regione consente di specificare la posizione in cui risiede la connessione Active Directory.  Questa regione deve essere la stessa regione del volume Google Cloud NetApp Volumes .
@@ -84,6 +89,7 @@ Una regione consente di specificare la posizione in cui risiede la connessione A
 
 
 
+[[backup-users]]
 == Utenti di backup
 
 Questa opzione consente di specificare gli utenti Windows che dispongono delle autorizzazioni di backup per il volume Google Cloud NetApp Volumes .  I privilegi di backup (SeBackupPrivilege) sono necessari per alcune applicazioni per eseguire correttamente il backup e il ripristino dei dati nei volumi NAS.  Questo utente ha un livello elevato di accesso ai dati nel volume, quindi dovresti considerare https://docs.microsoft.com/en-us/windows/security/threat-protection/security-policy-settings/audit-audit-the-use-of-backup-and-restore-privilege["abilitando la verifica dell'accesso di quell'utente"^] .  Dopo l'abilitazione, gli eventi di controllo vengono visualizzati in Visualizzatore eventi > Registri di Windows > Sicurezza.
@@ -92,6 +98,7 @@ image:ncvs-gc-019.png["Figura che mostra il dialogo di input/output o che rappre
 
 
 
+[[security-privilege-users]]
 == Utenti con privilegi di sicurezza
 
 Questa opzione consente di specificare gli utenti Windows che dispongono delle autorizzazioni di modifica della sicurezza per il volume Google Cloud NetApp Volumes .  I privilegi di sicurezza (SeSecurityPrivilege) sono necessari per alcune applicazioni(https://docs.netapp.com/us-en/ontap/smb-hyper-v-sql/add-sesecurityprivilege-user-account-task.html["come SQL Server"^] ) per impostare correttamente i permessi durante l'installazione.  Questo privilegio è necessario per gestire il registro di sicurezza.  Sebbene questo privilegio non sia potente quanto SeBackupPrivilege, NetApp consiglia https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/basic-audit-privilege-use["controllo dell'accesso degli utenti"^] con questo livello di privilegio, se necessario.
@@ -100,6 +107,8 @@ Per ulteriori informazioni, vedere  https://docs.microsoft.com/en-us/windows/sec
 
 
 
+[[how-google-cloud-netapp-volumes-shows-up-in-active-directory]]
+[[how-cloud-volumes-service-shows-up-in-active-directory]]
 == Come Google Cloud NetApp Volumes viene visualizzato in Active Directory
 
 Google Cloud NetApp Volumes viene visualizzato in Active Directory come un normale oggetto account macchina.  Le convenzioni di denominazione sono le seguenti.

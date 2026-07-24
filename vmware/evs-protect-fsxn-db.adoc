@@ -18,6 +18,7 @@ La sezione seguente mostra come proteggere i database in esecuzione su VMware VM
 
 
 
+[[setting-up-scsql]]
 == Impostazione di SCSQL
 
 La configurazione per l'utilizzo di SCSQL per proteggere i database sui VMDK è la seguente:
@@ -49,6 +50,7 @@ image:evs-protect-fsxn-027.png["Figura che rappresenta il dialogo per il passagg
 
 
 
+[[setting-up-a-backup-policy]]
 == Impostazione di una policy di backup
 
 I passaggi seguenti mostreranno come impostare una policy di backup.
@@ -81,6 +83,7 @@ image:evs-protect-fsxn-032.png["Figura che rappresenta il dialogo per il passagg
 
 
 
+[[monitoring-a-backup]]
 == Monitoraggio di un backup
 
 Una volta impostata una policy di backup, puoi monitorare le operazioni di backup mentre avvengono. Puoi farlo cliccando su Backup now per avviare un'operazione di backup su richiesta oppure attendendo che la tua policy di backup pianificata entri in funzione.
@@ -94,6 +97,7 @@ image:evs-protect-fsxn-033.png["Figura che rappresenta il dialogo per il passagg
 
 
 
+[[restore-of-databases-residing-on-the-vmdks]]
 == Ripristino dei database residenti sui VMDK
 
 Il database sul VMDK può essere ripristinato a un punto specifico nel tempo.
