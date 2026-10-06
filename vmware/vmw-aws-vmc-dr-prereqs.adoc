@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: vmware/vmw-aws-vmc-dr-prereqs.html 
 keywords: overview, dr, snapcenter, data replication, snapmirror 
-summary: 'In questa soluzione, SnapCenter fornisce snapshot coerenti con l"applicazione per i dati delle applicazioni SQL Server e Oracle.  Questa configurazione, insieme alla tecnologia SnapMirror , garantisce la replicazione dei dati ad alta velocità tra il nostro cluster AFF locale e FSx ONTAP .  Inoltre, Veeam Backup & Replication offre funzionalità di backup e ripristino per le nostre macchine virtuali.' 
+summary: 'Esamina i requisiti e la pianificazione per una soluzione di ripristino di emergenza che utilizza snapshot SnapCenter coerenti con l"applicazione, la replica SnapMirror in FSx ONTAP e Veeam Backup and Replication per le VM.' 
 ---
 = Requisiti, prerequisiti e pianificazione della soluzione DR
 :hardbreaks:
