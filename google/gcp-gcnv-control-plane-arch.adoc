@@ -28,7 +28,7 @@ Gestione dell'identità e degli accessi(https://cloud.google.com/iam/docs/overvi
 [[authorizationpermission-overview]]
 === Panoramica delle autorizzazioni/permessi
 
-IAM offre autorizzazioni granulari integrate per Google Cloud NetApp Volumes.  Puoi trovare un https://cloud.google.com/architecture/partners/netapp-cloud-volumes/security-considerations?hl=en_US["elenco completo dei permessi granulari qui"^] .
+IAM offre autorizzazioni granulari integrate per Google Cloud NetApp Volumes. Puoi trovare un https://docs.cloud.google.com/netapp/volumes/docs/plan-and-prepare/iam["elenco completo dei permessi granulari qui"^].
 
 IAM offre anche due ruoli predefiniti denominati `netappcloudvolumes.admin` E `netappcloudvolumes.viewer` .  Questi ruoli possono essere assegnati a utenti specifici o account di servizio.
 
@@ -52,14 +52,14 @@ Per effettuare chiamate API Google Cloud NetApp Volumes tramite script o https:/
 * Utilizzo https://cloud.google.com/iam/docs/impersonating-service-accounts["Impersonificazione dell'account di servizio"^] con `roles/iam.serviceAccountTokenCreator` .  Il codice (script, Terraform e così via) viene eseguito con https://google.aip.dev/auth/4110["Credenziali predefinite dell'applicazione"^] e impersona l'account di servizio per ottenerne le autorizzazioni.  Questo approccio rispecchia le migliori pratiche di sicurezza di Google.
 
 
-Vedere https://cloud.google.com/architecture/partners/netapp-cloud-volumes/api?hl=en_US["Creazione dell'account di servizio e della chiave privata"^] per maggiori informazioni consultare la documentazione di Google Cloud.
+Vedi https://docs.cloud.google.com/netapp/volumes/docs/apis["Creazione dell'account di servizio e della chiave privata"^] la documentazione di Google Cloud per ulteriori informazioni.
 
 
 
 [[google-cloud-netapp-volumes-api]]
 == API Google Cloud NetApp Volumes
 
-L'API Google Cloud NetApp Volumes utilizza un'API basata su REST utilizzando HTTPS (TLSv1.2) come trasporto di rete sottostante.  Puoi trovare l'ultima definizione API https://cloudvolumesgcp-api.netapp.com/swagger.json["Qui"^] e informazioni su come utilizzare l'API su https://cloud.google.com/architecture/partners/netapp-cloud-volumes/api?hl=en_US["API di Cloud Volumes nella documentazione di Google Cloud"^] .
+L'API di Google Cloud NetApp Volumes utilizza un'API basata su REST che usa HTTPS (TLSv1.2) come trasporto di rete sottostante. Puoi trovare la definizione più recente dell'API e informazioni su come utilizzarla all'indirizzo https://docs.cloud.google.com/netapp/volumes/docs/apis["API di Cloud Volumes nella documentazione di Google Cloud"^].
 
 L'endpoint API è gestito e protetto da NetApp tramite la funzionalità HTTPS standard (TLSv1.2).
 

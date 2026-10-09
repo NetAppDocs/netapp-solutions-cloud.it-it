@@ -16,7 +16,7 @@ summary: 'La sicurezza, in particolare nel cloud, dove l"infrastruttura è al di
 Oliver Krause, Justin Parisi, NetApp
 
 [role="lead"]
-La sicurezza, in particolare nel cloud, dove l'infrastruttura è al di fuori del controllo degli amministratori di storage, è fondamentale per affidare i propri dati alle offerte di servizi fornite dai provider cloud.  Questo documento è una panoramica delle offerte di sicurezza che https://cloud.netapp.com/cloud-volumes-service-for-gcp["Google Cloud NetApp Volumes fornisce in Google Cloud"^] .
+La sicurezza, soprattutto nel cloud dove l'infrastruttura è al di fuori del controllo degli amministratori dello storage, è fondamentale per affidare i propri dati ai servizi offerti dai provider di cloud. Questo documento fornisce una panoramica delle offerte di sicurezza che https://www.netapp.com/google-cloud/netapp-volumes/["Google Cloud NetApp Volumes fornisce in Google Cloud"^].
 
 
 

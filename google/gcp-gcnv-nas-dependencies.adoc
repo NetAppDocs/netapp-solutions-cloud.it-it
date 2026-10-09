@@ -59,7 +59,7 @@ Per gli account macchina Kerberos NFS, la reimpostazione della password avviene 
 [[network-ports-for-use-with-ldap-and-kerberos]]
 == Porte di rete per l'utilizzo con LDAP e Kerberos
 
-Quando si utilizzano LDAP e Kerberos, è necessario determinare le porte di rete utilizzate da questi servizi.  Puoi trovare un elenco completo delle porte utilizzate da Google Cloud NetApp Volumes in https://cloud.google.com/architecture/partners/netapp-cloud-volumes/security-considerations?hl=en_US["Documentazione Google Cloud NetApp Volumes sulle considerazioni sulla sicurezza"^] .
+Quando utilizzi LDAP e Kerberos, dovresti determinare le porte di rete usate da questi servizi. Puoi trovare un elenco completo delle porte usate da Google Cloud NetApp Volumes nel https://docs.cloud.google.com/netapp/volumes/docs/plan-and-prepare/security-considerations["Documentazione Google Cloud NetApp Volumes sulle considerazioni sulla sicurezza"^].
 
 
 
@@ -326,7 +326,7 @@ Active Directory e Kerberos dipendono entrambi dal DNS per la risoluzione dei no
 
 Tieni presente che le risorse all'interno di un progetto Google utilizzano per impostazione predefinita Google Cloud DNS, che non è connesso ad Active Directory DNS.  I client che utilizzano Cloud DNS non possono risolvere i percorsi UNC restituiti da Google Cloud NetApp Volumes.  I client Windows aggiunti al dominio Active Directory sono configurati per utilizzare il DNS di Active Directory e possono risolvere tali percorsi UNC.
 
-Per aggiungere un client ad Active Directory, è necessario configurare la sua configurazione DNS in modo che utilizzi il DNS di Active Directory.  Facoltativamente, puoi configurare Cloud DNS per inoltrare le richieste ad Active Directory DNS.  Vedere https://cloud.google.com/architecture/partners/netapp-cloud-volumes/faqs-netapp["Perché il mio client non riesce a risolvere il nome NetBIOS SMB?"^] per maggiori informazioni.
+Per aggiungere un client ad Active Directory, devi configurare il suo DNS in modo che usi il DNS di Active Directory. Facoltativamente, puoi configurare Cloud DNS per inoltrare le richieste al DNS di Active Directory. Vedi https://docs.cloud.google.com/netapp/volumes/docs/configure-and-use/active-directory/about-ad["Perché il mio client non riesce a risolvere il nome NetBIOS SMB?"^]per ulteriori informazioni.
 
 
 NOTE: Google Cloud NetApp Volumes al momento non supporta DNSSEC e le query DNS vengono eseguite in testo normale.

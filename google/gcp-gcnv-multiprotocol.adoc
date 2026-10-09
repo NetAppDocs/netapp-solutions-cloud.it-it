@@ -14,7 +14,7 @@ summary: 'Google Cloud NetApp Volumes offre la possibilità di condividere gli s
 
 
 [role="lead"]
-Google Cloud NetApp Volumes offre la possibilità di condividere gli stessi set di dati con client SMB e NFS mantenendo le autorizzazioni di accesso appropriate(https://cloud.google.com/architecture/partners/netapp-cloud-volumes/managing-dual-protocol-access["doppio protocollo"^] ).  Ciò avviene coordinando la mappatura delle identità tra i protocolli e utilizzando un server LDAP back-end centralizzato per fornire le identità UNIX a Google Cloud NetApp Volumes.  È possibile utilizzare Windows Active Directory per semplificare l'utilizzo sia agli utenti Windows che a quelli UNIX.
+Google Cloud NetApp Volumes offre la possibilità di condividere gli stessi set di dati sia con client SMB che NFS, mantenendo al contempo le autorizzazioni di accesso appropriate (https://docs.cloud.google.com/netapp/volumes/docs/configure-and-use/active-directory/ad-ldap-access["doppio protocollo"^]). Ciò avviene coordinando la mappatura delle identità tra i protocolli e utilizzando un LDAP server back-end centralizzato per fornire le identità UNIX a Google Cloud NetApp Volumes. Puoi utilizzare Windows Active Directory per fornire utenti Windows e UNIX e semplificarne l'utilizzo.
 
 
 
@@ -38,7 +38,7 @@ Ad esempio, se un utente Windows denominato `joe` tenta di accedere a un volume 
 
 In alternativa, se un utente UNIX denominato `joe` tenta di accedere a un volume Google Cloud NetApp Volumes con autorizzazioni Windows, l'utente UNIX deve essere in grado di mapparsi a un utente Windows valido.  In caso contrario, l'accesso al volume verrà negato.
 
-Attualmente, solo Active Directory è supportato per la gestione delle identità UNIX esterne con LDAP.  Per ulteriori informazioni sulla configurazione dell'accesso a questo servizio, vedere https://cloud.google.com/architecture/partners/netapp-cloud-volumes/creating-smb-volumes["Creazione di una connessione AD"^] .
+Attualmente, solo Active Directory è supportato per la gestione esterna delle identità UNIX con LDAP. Per ulteriori informazioni sulla configurazione dell'accesso a questo servizio, vedere  https://docs.cloud.google.com/netapp/volumes/docs/configure-and-use/active-directory/create-ad-policy["Creazione di una connessione AD"^].
 
 
 

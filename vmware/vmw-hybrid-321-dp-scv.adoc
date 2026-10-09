@@ -581,7 +581,7 @@ NOTE: L'etichetta SnapMirror immessa qui viene utilizzata per identificare a qua
 ====
 Il passaggio finale consiste nell'attivare la protezione dei dati per i singoli datastore e le macchine virtuali.  I passaggi seguenti descrivono come attivare i backup su AWS.
 
-Per maggiori informazioni fare riferimento a https://docs.netapp.com/us-en/bluexp-backup-recovery/task-backup-vm-data-to-aws.html["Eseguire il backup degli archivi dati su Amazon Web Services"] .
+Per ulteriori informazioni, consulta https://docs.netapp.com/us-en/data-services-backup-recovery/br-use-vmware-backup.html["Esegui il backup dei carichi di lavoro VMware"^].
 
 . Dalla pagina principale di BlueXP backup and recovery per macchine virtuali, accedere al menu a discesa delle impostazioni per il datastore di cui eseguire il backup e selezionare *Attiva backup*.
 +
@@ -663,7 +663,7 @@ image:bxp-scv-hybrid-035.png["Scegli primario o secondario"]
 
 Il BlueXP backup and recovery per macchine virtuali consentono di ripristinare le macchine virtuali nella loro posizione originale.  Le funzioni di ripristino sono accessibili tramite la console web BlueXP .
 
-Per maggiori informazioni fare riferimento a https://docs.netapp.com/us-en/bluexp-backup-recovery/task-restore-vm-data.html["Ripristina i dati delle macchine virtuali dal cloud"] .
+Per ulteriori informazioni consulta https://docs.netapp.com/us-en/data-services-backup-recovery/br-use-vmware-restore.html["Ripristina i dati delle macchine virtuali dal cloud"^].
 
 .Ripristina macchine virtuali dal BlueXP backup and recovery
 [%collapsible%open]
