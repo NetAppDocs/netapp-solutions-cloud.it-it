@@ -70,7 +70,7 @@ Google Cloud NetApp Volumes funge da client LDAP e utilizza query di ricerca LDA
 
 Per utilizzare Active Directory come server LDAP UNIX, è necessario popolare gli attributi UNIX necessari sugli utenti e sui gruppi che si intende utilizzare per le identità UNIX.  Google Cloud NetApp Volumes utilizza un modello di schema LDAP predefinito che interroga gli attributi in base a https://tools.ietf.org/id/draft-howard-rfc2307bis-01.txt["RFC-2307-bis"^] .  Di conseguenza, la tabella seguente mostra gli attributi minimi necessari di Active Directory da popolare per utenti e gruppi e a cosa serve ciascun attributo.
 
-Per ulteriori informazioni sull'impostazione degli attributi LDAP in Active Directory, vedere https://cloud.google.com/architecture/partners/netapp-cloud-volumes/managing-dual-protocol-access["Gestione dell'accesso a doppio protocollo."^]
+Per ulteriori informazioni sull'impostazione degli attributi LDAP in Active Directory, vedi https://docs.cloud.google.com/netapp/volumes/docs/configure-and-use/active-directory/ad-ldap-access["Gestione dell'accesso a doppio protocollo."^]
 
 |===
 | Attributo | Cosa fa 

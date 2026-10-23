@@ -59,7 +59,7 @@ parameters:
 allowVolumeExpansion: true
 ----
 .Distribuisci un'applicazione utilizzando OpenShift GitOps (Argo CD)
-* Installare l'operatore OpenShift GitOps sul cluster.  Fare riferimento alle istruzionilink:https://docs.openshift.com/gitops/1.13/installing_gitops/installing-openshift-gitops.html["Qui"] .
+* Installa l'operatore OpenShift GitOps sul cluster. Fai riferimento alle istruzioni link:https://docs.redhat.com/en/documentation/red_hat_openshift_gitops/1.13/html/installing_gitops/index["Qui"^].
 * Configurare una nuova istanza Argo CD per il cluster.  Fare riferimento alle istruzionilink:https://docs.openshift.com/gitops/1.13/argocd_instance/setting-up-argocd-instance.html["Qui"] .
 
 

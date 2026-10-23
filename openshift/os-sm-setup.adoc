@@ -37,7 +37,7 @@ Il processo di configurazione può essere suddiviso nei seguenti passaggi:
 Crea un cluster OpenShift su AWS tramite la procedura guidata Advanced Cluster Management (ACM).  Fare riferimento alle istruzionilink:https://docs.openshift.com/dedicated/osd_install_access_delete_cluster/creating-an-aws-cluster.html["Qui"] .
 
 
-NOTE: È anche possibile creare il cluster in AWS dalla console OpenShift Hybrid Cloud.  Fare riferimentolink:https://docs.openshift.com/container-platform/4.10/installing/installing_aws/installing-aws-default.html["Qui"] per istruzioni.
+NOTE: Puoi anche creare il cluster in AWS dalla console Hybrid Cloud di OpenShift. Consulta link:https://docs.redhat.com/en/documentation/openshift_container_platform/4.10/html/installing/installing-on-aws["Qui"^] per le istruzioni.
 
 
 TIP: Quando si crea il cluster tramite ACM, è possibile personalizzare l'installazione modificando il file yaml dopo aver compilato i dettagli nella visualizzazione del modulo.  Dopo aver creato il cluster, è possibile effettuare l'accesso tramite SSH ai nodi del cluster per la risoluzione dei problemi o per ulteriori configurazioni manuali.  Utilizza la chiave ssh fornita durante l'installazione e il nome utente core per effettuare l'accesso.

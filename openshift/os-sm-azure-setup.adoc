@@ -28,10 +28,10 @@ Il processo di configurazione può essere suddiviso nei seguenti passaggi:
 .Installare un cluster OCP su Azure dalla CLI.
 [%collapsible%open]
 ====
-* Assicurati di aver soddisfatto tutti i prerequisiti indicatilink:https://docs.openshift.com/container-platform/4.13/installing/installing_azure/installing-azure-vnet.html["Qui"] .
+* Assicurati di aver soddisfatto tutti i prerequisiti indicati link:https://docs.redhat.com/en/documentation/openshift_container_platform/4.10/html-single/installing/index#installing-azure-vnet["Qui"^].
 * Creare una VPN, subnet e gruppi di sicurezza di rete e una zona DNS privata.  Crea un gateway VPN e una connessione VPN da sito a sito.
 * Per la connettività VPN tra locale e Azure, è stata creata e configurata una VM pfsense.  Per le istruzioni, vederelink:https://docs.netgate.com/pfsense/en/latest/recipes/ipsec-s2s-psk.html["Qui"] .
-* Ottenere il programma di installazione e il segreto pull e distribuire il cluster seguendo i passaggi forniti nella documentazionelink:https://docs.openshift.com/container-platform/4.13/installing/installing_azure/installing-azure-vnet.html["Qui"] .
+* Ottieni il programma di installazione e il pull secret e distribuisci il cluster seguendo i passaggi indicati nella documentazione link:https://docs.redhat.com/en/documentation/openshift_container_platform/4.10/html-single/installing/index#installing-azure-vnet["Qui"^].
 * L'installazione del cluster è completata e verranno forniti un file kubeconfig, nonché nome utente e password per accedere alla console del cluster.
 
 
