@@ -16,7 +16,7 @@ summary: Protezione dei dati delle applicazioni container Red Hat OpenShift con 
 [role="lead"]
 Questa sezione del documento di riferimento fornisce dettagli sulla creazione di backup di Container Apps utilizzando OpenShift API for Data Protection (OADP) con Velero su NetApp ONTAP S3 o NetApp StorageGRID S3.  I backup delle risorse con ambito namespace, inclusi i volumi persistenti (PV) dell'app, vengono creati utilizzando gli snapshot CSI Trident .
 
-L'archiviazione persistente per le app contenitore può essere supportata dall'archiviazione ONTAP integrata nel cluster OpenShift utilizzandolink:https://docs.netapp.com/us-en/trident/["Trident CSI"] .  In questa sezione utilizziamolink:https://docs.openshift.com/container-platform/4.14/backup_and_restore/application_backup_and_restore/installing/installing-oadp-ocs.html["API OpenShift per la protezione dei dati (OADP)"] per eseguire il backup delle app, compresi i relativi volumi di dati
+Lo storage persistente per le app container può essere supportato dallo storage ONTAP integrato nel cluster OpenShift utilizzando link:https://docs.netapp.com/us-en/trident/["Trident CSI"]. In questa sezione utilizziamo link:https://docs.redhat.com/en/documentation/openshift_container_platform/4.14/html/backup_and_restore/oadp-application-backup-and-restore#installing-oadp-ocs["API OpenShift per la protezione dei dati (OADP)"] per eseguire il backup delle app, inclusi i relativi volumi di dati, su
 
 * Archiviazione di oggetti ONTAP
 * StorageGrid
@@ -44,4 +44,4 @@ OADP 1.3 è disponibile nell'hub operatore del cluster OpenShift 4.12 e versioni
 * postgresql installato tramite helm.
 
 
-link:https://docs.netapp.com/us-en/trident/["Trident CSI"] link:https://docs.openshift.com/container-platform/4.14/backup_and_restore/application_backup_and_restore/installing/installing-oadp-ocs.html["API OpenShift per la protezione dei dati (OADP)"] link:https://velero.io/["Velero"]
+link:https://docs.netapp.com/us-en/trident/["Trident CSI"] link:https://docs.redhat.com/en/documentation/openshift_container_platform/4.14/html/backup_and_restore/oadp-application-backup-and-restore#installing-oadp-ocs["API OpenShift per la protezione dei dati (OADP)"] link:https://velero.io/["Velero"]

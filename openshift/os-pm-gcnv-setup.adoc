@@ -24,7 +24,7 @@ Il processo di configurazione può essere suddiviso nei seguenti passaggi:
 
 .Installa i cluster OSD in Google Cloud
 * Se si desidera utilizzare una VPC esistente per il cluster, è necessario creare la VPC, due subnet, un router cloud e due NAT cloud GCP per il cluster OSD.  Fare riferimentolink:https://cloud.redhat.com/experts/gcp/osd_preexisting_vpc/["Qui"] per istruzioni.
-* Fare riferimentolink:https://docs.openshift.com/dedicated/osd_install_access_delete_cluster/creating-a-gcp-cluster.html#osd-create-gcp-cluster-ccs_osd-creating-a-cluster-on-gcp["Qui"] per istruzioni su come installare i cluster OSD su GCP utilizzando il modello di fatturazione Customer Cloud Subscription (CCS).  OSD è incluso anche su Google Cloud Marketplace.  È disponibile un video che mostra come installare OSD utilizzando la soluzione Google Cloud Marketplacelink:https://www.youtube.com/watch?v=p9KBFvMDQJM["Qui"] .
+* Consulta link:https://docs.redhat.com/en/documentation/openshift_dedicated/4/html/openshift_dedicated_clusters_on_google_cloud/index#osd-create-gcp-cluster-ccs_osd-creating-a-cluster-on-gcp["Qui"^] per istruzioni su come installare i cluster OSD su GCP utilizzando il modello di fatturazione Customer Cloud Subscription (CCS). OSD è incluso anche in Google Cloud Marketplace. Un video che mostra come installare OSD utilizzando la soluzione Google Cloud Marketplace si trova link:https://www.youtube.com/watch?v=p9KBFvMDQJM["Qui"].
 
 
 .Abilita Google Cloud NetApp Volumes
@@ -60,7 +60,7 @@ allowVolumeExpansion: true
 ----
 .Distribuisci un'applicazione utilizzando OpenShift GitOps (Argo CD)
 * Installa l'operatore OpenShift GitOps sul cluster. Fai riferimento alle istruzioni link:https://docs.redhat.com/en/documentation/red_hat_openshift_gitops/1.13/html/installing_gitops/index["Qui"^].
-* Configurare una nuova istanza Argo CD per il cluster.  Fare riferimento alle istruzionilink:https://docs.openshift.com/gitops/1.13/argocd_instance/setting-up-argocd-instance.html["Qui"] .
+* SetUp una nuova istanza di Argo CD per il cluster. Consulta le istruzioni link:https://docs.redhat.com/en/documentation/red_hat_openshift_gitops/1.13/html/argo_cd_instance/setting-up-argocd-instance["Qui"^].
 
 
 Apri la console di Argo CD e distribuisci un'app. Ad esempio, puoi distribuire un'app Jenkins utilizzando Argo CD con un Helm Chart. Quando crei l'applicazione, fornisci i seguenti dettagli: Project: default cluster: +'https://kubernetes.default.svc'+[] (senza virgolette) Namespace: Jenkins L'url per l'Helm Chart: +'https://charts.bitnami.com/bitnami'+[] (senza virgolette)
