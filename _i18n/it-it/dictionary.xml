@@ -1323,7 +1323,6 @@
   <block id="643c48205940ae10b1f2c5f6f8aa5f64" category="paragraph">L'installazione avviene tramite l'Advanced Cluster Management Operator sul cluster Hub.  Fare riferimento alle istruzioni<block ref="4bb39576c102d9630dc961b3998ecbd9" category="inline-link-macro-rx"></block> .</block>
   <block id="c0090a527266898baf1b6d9a9978eeb3" category="example-title">Installa due cluster OCP aggiuntivi (origine e destinazione)</block>
   <block id="a4fcf9c2586b5e93f63d9c1290438839" category="list-text">I cluster aggiuntivi possono essere distribuiti utilizzando ACM sul cluster Hub.</block>
-  <block id="24ed1bd1ba2dc78d194e4186a2a7b0a1" category="list-text">Fare riferimento alle istruzioni<block ref="61a11e403c83c9c41ff797a7a780dbff" category="inline-link-macro-rx"></block> .</block>
   <block id="4cb2dca6265c22cd883513131d603c5f" category="example-title">Configurare l'archiviazione NetApp ONTAP</block>
   <block id="31114fdb67ca9ac1afd2af9e1a830e4e" category="list-text">Installare un cluster ONTAP con connettività alle VM OCP nell'ambiente VMWare.</block>
   <block id="15a89333d6100097518836f27ebc981d" category="list-text">Creare una SVM.</block>
@@ -6304,4 +6303,5 @@
   <block id="aeaece73e35427cd110235fe07465efa" category="inline-link-macro">architettura classica di Red Hat OpenShift Service on AWS</block>
   <block id="71dc7e7b294a93352ae90298511cd77a" category="list-text"><block ref="71dc7e7b294a93352ae90298511cd77a" category="inline-link-macro-rx"></block></block>
   <block id="5e8103bb1916579dd98fa386e2c79112" category="list-text">Configura VMware Cloud su AWS; consulta l'articolo di VMware Cloud Tech Zone <block ref="e8043ec5591ebbd4394405d542308830" category="inline-link-macro-rx"></block> per distribuire e configurare VMware Cloud su AWS SDDC e FSx ONTAP come datastore NFS. (Per il DR, puoi usare un ambiente pilot-light configurato al minimo. Le VM eseguiranno il failover su questo cluster in caso di incidente e potrai aggiungere altri nodi).</block>
+  <block id="5b1325f759c14b5e2dece9541c225fe7" category="list-text">Fai riferimento alle istruzioni <block ref="79bea77f03fef0626d8f9094b6973fe2" category="inline-link-macro-rx"></block>.</block>
 </blocks>
