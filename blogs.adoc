@@ -21,7 +21,7 @@ Leggi i blog che offrono indicazioni pratiche e best practice per integrare lo s
 [[vmware-integration-with-aws-and-amazon-fsx-for-ontap]]
 == Integrazione VMware con AWS e Amazon FSx per ONTAP
 
-* link:https://bluexp.netapp.com/blog/aws-fsxn-blg-migrate-vmware-to-amazon-ec2-iscsi-based-fsx-for-ontap["Migrare le VM VMware su AWS utilizzando Amazon EC2 e il protocollo iSCSI Amazon FSx ONTAP"]
+* link:https://www.netapp.com/blog/aws-fsxn-blg-migrate-vmware-to-amazon-ec2-iscsi-based-fsx-for-ontap/["Migrare le VM VMware su AWS utilizzando Amazon EC2 e il protocollo iSCSI Amazon FSx ONTAP"]
 * link:https://aws.amazon.com/about-aws/whats-new/2025/06/amazon-elastic-vmware-service-fsx-netapp-ontap/["Amazon EVS ora si integra con FSx per ONTAP"]
 * link:https://www.netapp.com/blog/amazon-elastic-vmware-service-fsx-ontap/["Amazon EVS annuncia il supporto per FSx per ONTAP"]
 * link:https://www.netapp.com/blog/aws-fsxo-blg-configure-hybrid-cloud-with-fsx-for-netapp-ontap-and-vmware-cloud-on-aws-sddc-using-vmware-hcx/["Configurare Hybrid Cloud con FSx ONTAP e VMware Cloud su AWS SDDC utilizzando VMware HCX"]
@@ -51,7 +51,7 @@ Leggi i blog che offrono indicazioni pratiche e best practice per integrare lo s
 [[data-protection-and-management]]
 == Protezione e gestione dei dati
 
-* link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/3-2-1-Data-Protection-for-VMware-with-SnapCenter-Plug-in-and-BlueXP-backup-and/ba-p/446180["Protezione dei dati 3-2-1 per VMware con plug-in SnapCenter e BlueXP Backup e ripristino per VM"]
+* link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/3-2-1-Data-Protection-for-VMware-with-SnapCenter-Plug-in-and-BlueXP-backup-and/ba-p/446180["Protezione dei dati 3-2-1 per VMware con SnapCenter Plug-in e NetApp Backup and Recovery per le VM"]
 * link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/Observability-for-the-Modern-Datacenter-with-NetApp-Cloud-Insights/ba-p/447495["Osservabilità per il data center moderno con NetApp Cloud Insights"]
 
 

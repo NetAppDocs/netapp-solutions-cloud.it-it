@@ -102,11 +102,11 @@ publish: Internal
 pullSecret:
 ....
 ====
-.Distribuisci Cloud Volumes ONTAP in Azure utilizzando BlueXP.
+.Distribuisci Cloud Volumes ONTAP in Azure utilizzando NetApp Console.
 [%collapsible%open]
 ====
-* Installa un connettore in Azure.  Fare riferimento alle istruzioni https://docs.netapp.com/us-en/bluexp-setup-admin/task-install-connector-azure-bluexp.html["Qui"] .
-* Distribuisci un'istanza CVO in Azure utilizzando il connettore.  Fare riferimento al collegamento alle istruzioni: https://docs.netapp.com/us-en/bluexp-cloud-volumes-ontap/task-getting-started-azure.html [qui.]
+* Installa un agente NetApp Console in Azure. Fai riferimento alle istruzioni https://docs.netapp.com/us-en/console-setup-admin/task-install-agent-azure-console.html["Qui"].
+* Distribuisci un'istanza CVO in Azure utilizzando l'agente. Consulta le istruzioni link:https://docs.netapp.com/us-en/storage-management-cloud-volumes-ontap/task-getting-started-azure.html["Qui"].
 
 
 ====

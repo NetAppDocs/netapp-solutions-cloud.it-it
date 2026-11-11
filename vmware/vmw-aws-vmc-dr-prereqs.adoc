@@ -311,25 +311,25 @@ Devi essere in grado di svolgere le seguenti attività:
 
 
 =====
-.Verifica dell'account Cloud Manager
+.Verifica dell'account NetApp Console
 [%collapsible%open]
 =====
-È necessario essere in grado di distribuire risorse con NetApp Cloud Manager.  Per verificare se è possibile, completa le seguenti attività:
+Devi essere in grado di distribuire risorse con NetApp Console. Per verificare che puoi farlo, completa le seguenti attività:
 
-* https://docs.netapp.com/us-en/bluexp-setup-admin/concept-modes.html["Iscriviti a Cloud Central"^]se non l'hai già fatto.
-* https://docs.netapp.com/us-en/cloud-manager-setup-admin/task-logging-in.html["Accedi a Cloud Manager"^] .
-* https://docs.netapp.com/us-en/cloud-manager-setup-admin/task-setting-up-netapp-accounts.html["Configurare spazi di lavoro e utenti"^] .
-* https://docs.netapp.com/us-en/cloud-manager-setup-admin/concept-connectors.html["Crea un connettore"^] .
+* https://docs.netapp.com/us-en/console-setup-admin/concept-overview.html["Scopri come funziona NetApp Console"].
+* https://docs.netapp.com/us-en/console-setup-admin/task-logging-in.html["Accedi a NetApp Console"^].
+* https://docs.netapp.com/us-en/console-setup-admin/concept-agents.html#when-you-need-a-console-agent["Scopri quando ti serve un agente Console"].
+* https://docs.netapp.com/us-en/console-setup-admin/task-install-agent-aws-console.html["Distribuisci l'agente di NetApp Console su AWS"^].
 
 
-=====
-.Amazon FSx ONTAP
-[%collapsible%open]
 =====
 Dopo aver creato un account AWS, devi essere in grado di eseguire le seguenti attività:
 
 * Creare un utente amministrativo IAM in grado di effettuare il provisioning Amazon FSx per il file system NetApp ONTAP .
 
+
+[]
+=====
 
 =====
 ====
@@ -669,8 +669,8 @@ image:dr-vmc-aws-009.png["Figura che mostra il dialogo di input/output o che rap
 ====
 
 
-[[bluexp-backup-and-recovery-tools]]
-== Strumenti BlueXP backup and recovery
+[[netapp-backup-and-recovery-tools]]
+== NetApp Strumenti di backup e ripristino
 
 Per eseguire un failover delle nostre VM applicative e dei volumi del database sui servizi VMware Cloud Volume in esecuzione su AWS, è stato necessario installare e configurare un'istanza in esecuzione sia di SnapCenter Server che di Veeam Backup and Replication Server.  Una volta completato il failover, questi strumenti devono essere configurati anche per riprendere le normali operazioni di backup finché non viene pianificato ed eseguito un failback nel data center locale.
 

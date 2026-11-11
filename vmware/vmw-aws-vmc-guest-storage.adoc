@@ -317,7 +317,7 @@ image:aws-cvo-guest-002.png["Figura che mostra il dialogo di input/output o che 
 
 image:aws-cvo-guest-003.png["Figura che mostra il dialogo di input/output o che rappresenta il contenuto scritto"]
 
-. Seleziona i servizi aggiuntivi per la distribuzione Cloud Volumes ONTAP , tra cui BlueXP Classification, BlueXP backup and recovery e Cloud Insights.  Fare clic su Continua.
+. Seleziona i servizi aggiuntivi per la distribuzione di Cloud Volumes ONTAP, inclusi NetApp Data Classification, NetApp Backup and Recovery e Data Infrastructure Insights. Fai clic su Continue.
 
 
 image:aws-cvo-guest-004.png["Figura che mostra il dialogo di input/output o che rappresenta il contenuto scritto"]

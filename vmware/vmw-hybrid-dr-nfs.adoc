@@ -1,50 +1,53 @@
 ---
 sidebar: sidebar 
 permalink: vmware/vmw-hybrid-dr-nfs.html 
-keywords: dr, draas, bluexp, disaster recovery, nfs datastore 
-summary: Questa sezione del documento descrive la configurazione di BlueXP DRaaS per impostare il disaster recovery per le VM VMware on-premise su un altro sito designato. 
+keywords: dr, draas, console, disaster recovery, nfs datastore 
+summary: Questa sezione del documento descrive la configurazione di NetApp Disaster Recovery per configurare il disaster recovery delle VM VMware on-premises su Datastore NFS verso un altro sito designato. 
 ---
-= DR tramite BlueXP DRaaS per datastore NFS
-:hardbreaks:
+= NetApp Disaster Recovery per datastore NFS
 :allow-uri-read: 
-:nofooter: 
-:icons: font
-:linkattrs: 
-:imagesdir: ../media/
 
+
+
+
+[[netapp-disaster-recovery-for-nfs-datastores]]
+== NetApp Disaster Recovery per datastore NFS
 
 [role="lead"]
 L'implementazione del disaster recovery tramite replica a livello di blocco dal sito di produzione al sito di disaster recovery è un metodo resiliente ed economico per proteggere i carichi di lavoro da interruzioni del sito ed eventi di danneggiamento dei dati, come gli attacchi ransomware.  Utilizzando la replica NetApp SnapMirror , i carichi di lavoro VMware in esecuzione su sistemi ONTAP locali con datastore NFS possono essere replicati su un altro sistema di storage ONTAP situato in un data center di ripristino designato in cui è distribuito anche VMware.
 
-Questa sezione del documento descrive la configurazione di BlueXP DRaaS per impostare il disaster recovery per le VM VMware on-premise su un altro sito designato.  Come parte di questa configurazione, l'account BlueXP , il connettore BlueXP e gli array ONTAP sono stati aggiunti all'interno dell'area di lavoro BlueXP , necessari per abilitare la comunicazione da VMware vCenter allo storage ONTAP .  Inoltre, questo documento spiega nel dettaglio come configurare la replica tra siti e come impostare e testare un piano di ripristino.  L'ultima sezione contiene istruzioni su come eseguire un failover completo del sito e su come effettuare il failback quando il sito primario viene ripristinato e acquistato online.
+Questa sezione del documento descrive la configurazione di NetApp Disaster Recovery per configurare il disaster recovery per le VM VMware on-premise verso un altro sito designato. Questa configurazione include l'agente Console, l'onboarding degli array ONTAP, la definizione dei siti e l'associazione di VMware vCenter. Inoltre, questo documento descrive in dettaglio come configurare la replica tra i siti e come configurare e testare un piano di recovery. L'ultima sezione contiene istruzioni per eseguire un failover completo del sito e come eseguire il failback quando il sito primario viene ripristinato e riportato online.
 
-Utilizzando il servizio BlueXP disaster recovery , integrato nella console NetApp BlueXP , le aziende possono individuare facilmente i propri VMware vCenter e storage ONTAP in sede.  Le organizzazioni possono quindi creare raggruppamenti di risorse, creare un piano di disaster recovery, associarlo a gruppi di risorse e testare o eseguire failover e failback.  SnapMirror fornisce la replicazione dei blocchi a livello di storage per mantenere i due siti aggiornati con modifiche incrementali, con un Recovery Point Objective (RPO) fino a 5 minuti.  Inoltre, è possibile simulare procedure di disaster recovery senza compromettere la produzione o incorrere in costi di archiviazione aggiuntivi.
+Utilizzando Disaster Recovery, parte di NetApp Data Services, le aziende possono facilmente individuare i propri vCenters VMware on-premise e lo storage ONTAP. Le organizzazioni possono quindi creare gruppi di risorse, creare un piano di recovery, associarlo ai gruppi di risorse e testare o eseguire failover e failback. SnapMirror fornisce la replica a blocchi a livello di storage per mantenere aggiornati i due siti con modifiche incrementali, con un Recovery Point Objective (RPO) fino a 5 minuti. Inoltre, è possibile simulare le procedure di disaster recovery senza influire sulla produzione o sostenere costi aggiuntivi per lo storage.
 
-Il BlueXP disaster recovery sfrutta la tecnologia FlexClone di ONTAP per creare una copia efficiente in termini di spazio del datastore NFS dall'ultimo snapshot replicato sul sito di disaster recovery.  Dopo aver completato il test di disaster recovery, i clienti possono facilmente eliminare l'ambiente di test senza influire sulle risorse di produzione effettivamente replicate.  In caso di un failover effettivo, il servizio BlueXP disaster recovery orchestra tutti i passaggi necessari per ripristinare automaticamente le macchine virtuali protette sul sito di disaster recovery designato con pochi clic.  Il servizio invertirà anche la relazione SnapMirror con il sito primario e replicherà eventuali modifiche dal secondario al primario per un'operazione di failback, quando necessario.  Tutte queste funzionalità hanno un costo molto inferiore rispetto ad altre alternative note.
+Disaster Recovery sfrutta la tecnologia FlexClone di ONTAP per creare una copia efficiente in termini di spazio del datastore NFS a partire dall'ultima Snapshot replicata nel sito di disaster recovery. Dopo aver completato il test di disaster recovery, puoi eliminare facilmente l'ambiente di test senza influire sulle risorse di produzione replicate effettive. In caso di failover effettivo, Disaster Recovery orchestra tutti i passaggi necessari per avviare automaticamente le macchine virtuali protette nel sito di disaster recovery designato con pochi clic. Il servizio invertirà anche la relazione di SnapMirror verso il sito primario e replicherà eventuali modifiche dal secondario al primario per un'operazione di failback, quando necessario. Tutte queste funzionalità sono disponibili a una frazione del costo rispetto ad altre alternative ben note.
 
 image:dr-draas-nfs-001.png["Figura che mostra il dialogo di input/output o che rappresenta il contenuto scritto"]
 
 
+NOTE: Per informazioni aggiornate e sulle versioni supportate di vCenter Server, ESXi e ONTAP per il Disaster Recovery, consulta link:https://docs.netapp.com/us-en/data-services-disaster-recovery/get-started/dr-intro.html["Configurazioni supportate per il disaster recovery"].
+
+
 
 [[getting-started]]
-== Iniziare
+=== Iniziare
 
-Per iniziare a utilizzare il BlueXP disaster recovery, utilizzare la console BlueXP e quindi accedere al servizio.
+Per iniziare con NetApp Disaster Recovery, usa NetApp Console e poi accedi al servizio.
 
-. Accedi a BlueXP.
-. Dal menu di navigazione a sinistra BlueXP , seleziona Protezione > Ripristino di emergenza.
-. Viene visualizzata la Dashboard BlueXP disaster recovery .
+. Accedi a Console.
+. Dal menu di navigazione a sinistra di Console, seleziona Protection > Disaster Recovery.
+. Compare la Disaster Recovery Dashboard.
 +
 image:dr-draas-nfs-002.png["Figura che mostra il dialogo di input/output o che rappresenta il contenuto scritto"]
 
 
 
-Prima di configurare il piano di disaster recovery, assicurarsi che siano soddisfatti i seguenti prerequisiti:
+Prima di configurare il piano di Disaster Recovery, assicurati che siano soddisfatti i seguenti prerequisiti:
 
-* BlueXP Connector è configurato in NetApp BlueXP.
-* Le istanze del connettore BlueXP dispongono di connettività con i sistemi di archiviazione e vCenter di origine e di destinazione.
-* Cluster NetApp Data ONTAP per fornire datastore NFS di storage.
-* In BlueXP sono stati aggiunti sistemi di storage NetApp on-premise che ospitano datastore NFS per VMware.
+* L'agente della console è stato distribuito.
+* L'agente dispone di connettività ai sistemi vCenter di origine e di destinazione e ai sistemi storage.
+* È disponibile un cluster ONTAP con SVM abilitata per il servizio NFS.
+* In Console vengono aggiunti i sistemi di storage NetApp on-premises che ospitano datastore NFS per VMware.
 * Quando si utilizzano nomi DNS, è necessario che sia attiva la risoluzione DNS.  In caso contrario, utilizzare gli indirizzi IP per vCenter.
 * La replica SnapMirror è configurata per i volumi di datastore basati su NFS designati.
 * Assicurarsi che l'ambiente disponga di versioni supportate dei server vCenter Server ed ESXi.
@@ -53,18 +56,18 @@ Prima di configurare il piano di disaster recovery, assicurarsi che siano soddis
 Una volta stabilita la connettività tra il sito di origine e quello di destinazione, procedere con la configurazione, che dovrebbe richiedere un paio di clic e circa 3-5 minuti.
 
 
-NOTE: NetApp consiglia di distribuire il connettore BlueXP nel sito di destinazione o in un terzo sito, in modo che il connettore BlueXP possa comunicare tramite la rete con le risorse di origine e di destinazione.
+NOTE: NetApp consiglia di distribuire l'agente Console nel sito di destinazione o in un terzo sito, in modo che l'agente Console possa comunicare attraverso la rete con le risorse di origine e di destinazione.
 
 image:dr-draas-nfs-003.png["Figura che mostra il dialogo di input/output o che rappresenta il contenuto scritto"]
 
 
 
-[[bluexp-disaster-recovery-configuration]]
-== Configurazione BlueXP disaster recovery
+[[netapp-disaster-recovery-configuration]]
+=== NetApp Disaster Recovery: configurazione
 
-Il primo passo per prepararsi al disaster recovery è individuare e aggiungere le risorse di archiviazione e vCenter locali al BlueXP disaster recovery.
+Il primo passo nella preparazione al ripristino di emergenza consiste nell'individuare e aggiungere vCenter e le risorse di storage a NetApp Disaster Recovery.
 
-Aprire la console BlueXP e selezionare *Protezione > Ripristino di emergenza* dal menu di navigazione a sinistra.  Selezionare *Scopri server vCenter* oppure utilizzare il menu in alto, selezionare *Siti > Aggiungi > Aggiungi vCenter*.
+Apri Console e seleziona *Protezione > Disaster Recovery* dalla navigazione a sinistra. Fai clic su *Siti*, inserisci un nome e seleziona il tipo di posizione. Quindi, fai clic sul pulsante *Aggiungi vCenter*.
 
 image:dr-draas-nfs-004.png["Figura che mostra il dialogo di input/output o che rappresenta il contenuto scritto"]
 
@@ -85,25 +88,25 @@ Una volta aggiunti i vCenter, viene attivata la rilevazione automatica.
 
 
 [[configuring-storage-replication-between-source-site-array-and-destination-site-array]]
-== Configurazione della replica di archiviazione tra l'array del sito di origine e l'array del sito di destinazione
+=== Configurazione della replica di archiviazione tra l'array del sito di origine e l'array del sito di destinazione
 
-SnapMirror fornisce la replica dei dati in un ambiente NetApp .  Basata sulla tecnologia NetApp Snapshot, la replica SnapMirror è estremamente efficiente perché replica solo i blocchi che sono stati modificati o aggiunti dall'aggiornamento precedente.  SnapMirror può essere facilmente configurato tramite NetApp OnCommand System Manager o ONTAP CLI.  BlueXP DRaaS crea anche la relazione SnapMirror a condizione che il cluster e il peering SVM siano configurati in anticipo.
+SnapMirror fornisce la replica dei dati in un ambiente NetApp. Basata sulla tecnologia Snapshot di NetApp, la replica di SnapMirror è estremamente efficiente perché replica solo i blocchi modificati o aggiunti dall'aggiornamento precedente. SnapMirror si configura facilmente utilizzando NetApp OnCommand System Manager o la CLI di ONTAP. NetApp Data Services crea anche la relazione di SnapMirror, a condizione che il cluster e il peering SVM siano configurati in anticipo.
 
-Nei casi in cui lo storage primario non è completamente perso, SnapMirror fornisce un mezzo efficiente per risincronizzare i siti primario e DR.  SnapMirror può risincronizzare i due siti, trasferendo solo i dati modificati o nuovi dal sito DR al sito primario, semplicemente invertendo le relazioni SnapMirror .  Ciò significa che i piani di replica in BlueXP DRaaS possono essere risincronizzati in entrambe le direzioni dopo un failover senza dover ricopiare l'intero volume.  Se una relazione viene risincronizzata nella direzione inversa, solo i nuovi dati scritti dall'ultima sincronizzazione riuscita della copia Snapshot vengono inviati alla destinazione.
+Nei casi in cui lo storage primario non sia completamente perso, SnapMirror fornisce un mezzo efficiente per risincronizzare i siti primario e di DR. SnapMirror può risincronizzare i due siti, trasferendo dal sito di DR al sito primario solo i dati modificati o nuovi, semplicemente invertendo le relazioni di SnapMirror. Ciò significa che i piani di replica dei dati nel Disaster Recovery possono essere risincronizzati in entrambe le direzioni dopo un failover senza ricopiare l'intero volume. Se una relazione viene risincronizzata nella direzione inversa, solo i nuovi dati scritti dall'ultima sincronizzazione riuscita della copia Snapshot vengono inviati di nuovo alla destinazione.
 
 
-NOTE: Se la relazione SnapMirror è già configurata per il volume tramite CLI o System Manager, BlueXP DRaaS rileva la relazione e continua con il resto delle operazioni del flusso di lavoro.
+NOTE: Se la relazione di SnapMirror è già configurata per il volume tramite CLI o System Manager, NetApp Data Services rileva la relazione e prosegue con il resto delle operazioni del flusso di lavoro.
 
 
 
 [[how-to-set-it-up-for-vmware-disaster-recovery]]
-== Come configurarlo per VMware Disaster Recovery
+=== Come configurarlo per VMware Disaster Recovery
 
-Il processo per creare una replica SnapMirror rimane lo stesso per qualsiasi applicazione.  Il processo può essere manuale o automatizzato.  Il modo più semplice è sfruttare BlueXP per configurare la replica SnapMirror , utilizzando un semplice trascinamento del sistema ONTAP di origine nell'ambiente sulla destinazione per avviare la procedura guidata che guida attraverso il resto del processo.
+La procedura per creare la replica di SnapMirror rimane la stessa per qualsiasi applicazione. Il processo può essere manuale o automatizzato. Il modo più semplice è utilizzare NetApp Console per configurare la replica di SnapMirror tramite un semplice drag & drop del sistema ONTAP di origine nell'ambiente verso la destinazione, in modo da attivare la procedura guidata che ti accompagna nel resto del processo.
 
 image:dr-draas-nfs-007.png["Figura che mostra il dialogo di input/output o che rappresenta il contenuto scritto"]
 
-BlueXP DRaaS può anche automatizzare la stessa operazione, a condizione che siano soddisfatti i due criteri seguenti:
+Disaster Recovery può anche automatizzare la stessa operazione a condizione che siano soddisfatti i due criteri seguenti:
 
 * I cluster di origine e di destinazione hanno una relazione peer.
 * L'SVM di origine e l'SVM di destinazione hanno una relazione peer.
@@ -113,18 +116,18 @@ image:dr-draas-nfs-008.png["Figura che mostra il dialogo di input/output o che r
 
 
 
-NOTE: Se la relazione SnapMirror è già configurata per il volume tramite CLI, BlueXP DRaaS rileva la relazione e continua con il resto delle operazioni del flusso di lavoro.
+NOTE: Se la relazione di SnapMirror è già configurata per il volume tramite CLI, Disaster Recovery la rileva e prosegue con il resto delle operazioni del flusso di lavoro.
 
 
 
-[[what-can-bluexp-disaster-recovery-do-for-you]]
-== Cosa può fare per te il BlueXP disaster recovery ?
+[[what-can-disaster-recovery-do-for-you]]
+=== Cosa può fare il Disaster Recovery per te?
 
-Dopo aver aggiunto i siti di origine e di destinazione, il BlueXP disaster recovery esegue automaticamente un'analisi approfondita e visualizza le VM insieme ai metadati associati.  Il BlueXP disaster recovery rileva automaticamente anche le reti e i gruppi di porte utilizzati dalle VM e li popola.
+Dopo aver aggiunto i siti di origine e di destinazione, Disaster Recovery esegue automaticamente un rilevamento approfondito e visualizza le macchine virtuali insieme ai metadati associati. Disaster Recovery rileva inoltre automaticamente le reti e i gruppi di porte utilizzati dalle macchine virtuali e li compila.
 
 image:dr-draas-nfs-009.png["Figura che mostra il dialogo di input/output o che rappresenta il contenuto scritto"]
 
-Dopo aver aggiunto i siti, le VM possono essere raggruppate in gruppi di risorse.  I gruppi di risorse BlueXP disaster recovery consentono di raggruppare un set di VM dipendenti in gruppi logici che contengono i relativi ordini di avvio e ritardi di avvio che possono essere eseguiti al momento del ripristino.  Per iniziare a creare gruppi di risorse, vai su *Gruppi di risorse* e fai clic su *Crea nuovo gruppo di risorse*.
+Dopo aver aggiunto i siti, le VM possono essere raggruppate in gruppi di risorse. I gruppi di risorse di Disaster Recovery ti consentono di raggruppare un insieme di VM dipendenti in gruppi logici che contengono i relativi ordini di avvio e ritardi di avvio che possono essere eseguiti durante il ripristino. Per iniziare a creare gruppi di risorse, vai a *Resource Groups* e fai clic su *Create New Resource Group*.
 
 image:dr-draas-nfs-010.png["Figura che mostra il dialogo di input/output o che rappresenta il contenuto scritto"]
 
@@ -163,7 +166,7 @@ La schermata seguente mostra l'opzione per filtrare macchine virtuali o datastor
 
 image:dr-draas-nfs-017.png["Figura che mostra il dialogo di input/output o che rappresenta il contenuto scritto"]
 
-Una volta selezionati i gruppi di risorse, creare i mapping di failover.  In questo passaggio, specificare come le risorse dall'ambiente di origine vengono mappate alla destinazione.  Ciò include risorse di elaborazione e reti virtuali.  Personalizzazione IP, pre- e post-script, ritardi di avvio, coerenza delle applicazioni e così via. Per informazioni dettagliate, fare riferimento alink:https://docs.netapp.com/us-en/bluexp-disaster-recovery/use/drplan-create.html#select-applications-to-replicate-and-assign-resource-groups["Creare un piano di replicazione"] .
+Una volta selezionati i gruppi di risorse, crea le mappature di failover. In questa fase, specifica come le risorse dell'ambiente di origine vengono mappate nella destinazione. Ciò include risorse di calcolo e reti virtuali. La personalizzazione IP, gli script pre e post, i ritardi di avvio, la coerenza delle applicazioni e così via. Per informazioni dettagliate, consulta link:https://docs.netapp.com/us-en/data-services-disaster-recovery/use/drplan-create.html#select-applications-to-replicate-and-assign-resource-groups["Creare un piano di replicazione"].
 
 image:dr-draas-nfs-018.png["Figura che mostra il dialogo di input/output o che rappresenta il contenuto scritto"]
 
@@ -183,13 +186,13 @@ image:dr-draas-nfs-021.png["Figura che mostra il dialogo di input/output o che r
 Una volta fatto, rivedi le mappature create e poi clicca su *Aggiungi piano*.
 
 
-NOTE: In un piano di replicazione è possibile includere VM di volumi diversi e SVM.  A seconda del posizionamento della VM (sia sullo stesso volume o su volumi separati all'interno della stessa SVM, volumi separati su SVM diverse), il BlueXP disaster recovery crea uno snapshot del gruppo di coerenza.
+NOTE: Le macchine virtuali (VM) provenienti da volumi e SVM diversi possono essere incluse in un piano di replica. A seconda del posizionamento delle VM (che si trovino sullo stesso volume o su volumi separati all'interno dello stesso SVM, oppure su volumi separati in SVM diversi), Disaster Recovery crea uno Snapshot del gruppo di coerenza.
 
 image:dr-draas-nfs-022.png["Figura che mostra il dialogo di input/output o che rappresenta il contenuto scritto"]
 
 image:dr-draas-nfs-023.png["Figura che mostra il dialogo di input/output o che rappresenta il contenuto scritto"]
 
-BlueXP DRaaS è costituito dai seguenti flussi di lavoro:
+Il disaster recovery comprende i seguenti flussi di lavoro:
 
 * Failover di test (incluse simulazioni automatiche periodiche)
 * Test di failover di pulizia
@@ -200,17 +203,17 @@ BlueXP DRaaS è costituito dai seguenti flussi di lavoro:
 
 
 [[test-failover]]
-== Failover di prova
+=== Failover di prova
 
-Il failover di test in BlueXP DRaaS è una procedura operativa che consente agli amministratori VMware di convalidare completamente i propri piani di ripristino senza interrompere gli ambienti di produzione.
+Il test di failover in Disaster Recovery è una procedura operativa che consente agli amministratori VMware di convalidare completamente i loro piani di recovery senza interrompere gli ambienti di produzione. Durante un test di failover, Disaster Recovery crea copie NetApp FlexClone efficienti in termini di spazio dei volumi datastore NFS replicati sul sistema storage di DR. Questi volumi FlexClone vengono quindi montati sugli host ESXi nel sito di DR e le VM vengono avviate in una rete di test isolata. Questo processo consente agli amministratori di verificare che i loro piani di disaster recovery funzioneranno come previsto in caso di un disastro reale.
 
 image:dr-draas-nfs-024.png["Figura che mostra il dialogo di input/output o che rappresenta il contenuto scritto"]
 
-BlueXP DRaaS incorpora la possibilità di selezionare lo snapshot come funzionalità opzionale nell'operazione di failover di test.  Questa funzionalità consente all'amministratore VMware di verificare che tutte le modifiche apportate di recente all'ambiente vengano replicate nel sito di destinazione e siano quindi presenti durante il test.  Tali modifiche includono patch al sistema operativo guest della VM
+La funzionalità di Disaster Recovery include la possibilità di selezionare lo Snapshot come opzione facoltativa nell'operazione di failover di test. Questa funzionalità consente all'amministratore VMware di verificare che tutte le modifiche apportate di recente nell'ambiente siano replicate al sito di destinazione e siano quindi presenti durante il test. Tali modifiche includono le patch al sistema operativo guest della VM
 
 image:dr-draas-nfs-025.png["Figura che mostra il dialogo di input/output o che rappresenta il contenuto scritto"]
 
-Quando l'amministratore VMware esegue un'operazione di failover di prova, BlueXP DRaaS automatizza le seguenti attività:
+Quando l'amministratore VMware esegue un'operazione di failover di prova, Disaster Recovery automatizza le seguenti attività:
 
 * Attivazione delle relazioni SnapMirror per aggiornare l'archiviazione nel sito di destinazione con tutte le modifiche recenti apportate nel sito di produzione.
 * Creazione di volumi NetApp FlexClone dei volumi FlexVol sull'array di archiviazione DR.
@@ -227,7 +230,7 @@ image:dr-draas-nfs-026.png["Figura che mostra il dialogo di input/output o che r
 
 
 [[cleanup-failover-test-operation]]
-== Operazione di test di failover di pulizia
+=== Operazione di test di failover di pulizia
 
 L'operazione di test di failover di pulizia avviene dopo il completamento del test del piano di replica e quando l'amministratore VMware risponde al prompt di pulizia.
 
@@ -235,7 +238,7 @@ image:dr-draas-nfs-027.png["Figura che mostra il dialogo di input/output o che r
 
 Questa azione reimposterà le macchine virtuali (VM) e lo stato del piano di replica allo stato pronto.
 
-Quando l'amministratore VMware esegue un'operazione di ripristino, BlueXP DRaaS completa il seguente processo:
+Quando l'amministratore VMware esegue un'operazione di ripristino, Disaster Recovery completa il seguente processo:
 
 . Spegne ogni VM recuperata nella copia FlexClone utilizzata per il test.
 . Elimina il volume FlexClone utilizzato per presentare le VM recuperate durante il test.
@@ -244,13 +247,13 @@ Quando l'amministratore VMware esegue un'operazione di ripristino, BlueXP DRaaS 
 
 
 [[planned-migration-and-fail-over]]
-== Migrazione pianificata e failover
+=== Migrazione pianificata e failover
 
-BlueXP DRaaS dispone di due metodi per eseguire un failover reale: migrazione pianificata e failover.  Il primo metodo, la migrazione pianificata, incorpora l'arresto delle VM e la sincronizzazione della replicazione dello storage nel processo per ripristinare o spostare efficacemente le VM nel sito di destinazione.  La migrazione pianificata richiede l'accesso al sito di origine.  Il secondo metodo, il failover, è un failover pianificato/non pianificato in cui le VM vengono ripristinate nel sito di destinazione dall'ultimo intervallo di replicazione dell'archiviazione che è stato possibile completare.  A seconda dell'RPO progettato nella soluzione, è possibile che si verifichi una certa perdita di dati nello scenario DR.
+Il Disaster Recovery prevede due metodi per eseguire un failover effettivo: la migrazione pianificata e il failover. Il primo metodo, la migrazione pianificata, include l'arresto delle VM e la sincronizzazione della replica dello storage nel processo per ripristinare o spostare efficacemente le VM nel sito di destinazione. La migrazione pianificata richiede l'accesso al sito di origine. Il secondo metodo, il failover, è un failover pianificato/non pianificato in cui le VM vengono ripristinate nel sito di destinazione dall'ultimo intervallo di replica dello storage che è stato completato con successo. A seconda del RPO definito nella soluzione, è prevedibile una certa perdita di dati nello scenario di Disaster Recovery.
 
 image:dr-draas-nfs-028.png["Figura che mostra il dialogo di input/output o che rappresenta il contenuto scritto"]
 
-Quando l'amministratore VMware esegue un'operazione di failover, BlueXP DRaaS automatizza le seguenti attività:
+Quando l'amministratore VMware esegue un'operazione di failover, Disaster Recovery automatizza le seguenti attività:
 
 * Interrompere ed eseguire il failover delle relazioni NetApp SnapMirror .
 * Collegare i datastore NFS replicati agli host ESXi nel sito DR.
@@ -265,7 +268,7 @@ image:dr-draas-nfs-029.png["Figura che mostra il dialogo di input/output o che r
 
 
 [[failback]]
-== Rifasamento
+=== Rifasamento
 
 Un failback è una procedura facoltativa che ripristina la configurazione originale dei siti di origine e di destinazione dopo un ripristino.
 
@@ -273,7 +276,7 @@ image:dr-draas-nfs-030.png["Figura che mostra il dialogo di input/output o che r
 
 Gli amministratori VMware possono configurare ed eseguire una procedura di failback quando sono pronti a ripristinare i servizi sul sito di origine.
 
-*NOTA:* BlueXP DRaaS replica (risincronizza) tutte le modifiche sulla macchina virtuale di origine prima di invertire la direzione della replica.  Questo processo inizia da una relazione che ha completato il failover verso una destinazione e prevede i seguenti passaggi:
+*NOTA:* Disaster Recovery replica (risincronizza) tutte le modifiche sulla macchina virtuale di origine originale prima di invertire la direzione della replica. Questo processo inizia da una relazione che ha completato il failover verso una destinazione e prevede i seguenti passaggi:
 
 * Spegnere e annullare la registrazione delle macchine virtuali e dei volumi sul sito di destinazione.
 * Interrompere la relazione SnapMirror sulla sorgente originale per renderla di lettura/scrittura.
@@ -281,21 +284,21 @@ Gli amministratori VMware possono configurare ed eseguire una procedura di failb
 * Montare il volume sulla sorgente, accendere e registrare le macchine virtuali di origine.
 
 
-Per maggiori dettagli sull'accesso e la configurazione di BlueXP DRaaS, vederelink:https://docs.netapp.com/us-en/bluexp-disaster-recovery/get-started/dr-intro.html["Scopri di più su BlueXP Disaster Recovery per VMware"] .
+Per ulteriori dettagli su come accedere e configurare Disaster Recovery, consulta la documentazione link:https://docs.netapp.com/us-en/data-services-disaster-recovery/get-started/dr-intro.html["Scopri NetApp Disaster Recovery for VMware"].
 
 
 
 [[monitoring-and-dashboard]]
-== Monitoraggio e dashboard
+=== Monitoraggio e dashboard
 
-Da BlueXP o dalla CLI ONTAP è possibile monitorare lo stato di integrità della replica per i volumi del datastore appropriati, mentre lo stato di un failover o di un failover di prova può essere monitorato tramite Job Monitoring.
+Da Console o da ONTAP CLI, puoi monitorare lo stato di integrità della replica per i volumi datastore appropriati e tenere traccia dello stato di un failover o di un failover di test tramite Job Monitoring.
 
 image:dr-draas-nfs-031.png["Figura che mostra il dialogo di input/output o che rappresenta il contenuto scritto"]
 
 
 NOTE: Se un lavoro è in corso o in coda e si desidera interromperlo, è disponibile un'opzione per annullarlo.
 
-Grazie alla dashboard BlueXP disaster recovery , puoi valutare con sicurezza lo stato dei siti di disaster recovery e dei piani di replica.  Ciò consente agli amministratori di identificare rapidamente siti e piani integri, disconnessi o degradati.
+Con la dashboard di disaster recovery, puoi valutare con sicurezza lo stato dei siti di disaster recovery e dei piani di replica. Questo ti consente di identificare rapidamente siti e piani integri, disconnessi o degradati.
 
 image:dr-draas-nfs-032.png["Figura che mostra il dialogo di input/output o che rappresenta il contenuto scritto"]
 

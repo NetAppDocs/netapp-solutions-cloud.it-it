@@ -62,9 +62,9 @@ indexpage:
       url: https://netapp-automation.github.io/dro-simulator/?intro-1
     - title: DRO per ANF con simulatore AVS
       url: https://netapp-automation.github.io/dro-simulator-avs-anf/?intro-1
-    - title: Simulatore DRaaS BlueXP
+    - title: Simulatore di NetApp Disaster Recovery
       url: https://netapp-automation.github.io/DRaaS_Simulator/?0.1
-    - title: BlueXP - Simulatore di backup e ripristino per VM
+    - title: Simulatore di NetApp Backup and Recovery per VM
       url: https://netapp-automation.github.io/Backup_and_Recovery_for_VMs_Simulator/?0.1
   - title: Calcolatori TCO
     links:
@@ -74,14 +74,14 @@ indexpage:
       url: https://tco.solutions.netapp.com/anfavstco/
     - title: Stimatore TCO dei volumi GCVE + NetApp
       url: https://tco.solutions.netapp.com/gcvegcnvtco/
-  - title: BlueXP disaster recovery
+  - title: NetApp Disaster Recovery
     links:
-    - title: Proteggi i dati per VMware con il plug-in SnapCenter e il BlueXP backup
-        and recovery per le VM
+    - title: Proteggi i dati per VMware con SnapCenter Plug-in e NetApp Backup and
+        Recovery for VMs
       url: "../vmware/vmw-hybrid-321-dp-scv.html"
-    - title: Ripristino di emergenza tramite BlueXP
+    - title: Disaster recovery con NetApp
       url: "../vmware/vmw-hybrid-dr-overview.html"
-    - title: Ripristino di emergenza tramite BlueXP per datastore NFS
+    - title: NetApp Disaster recovery per datastore NFS
       url: "../vmware/vmw-hybrid-dr-nfs.html"
-    - title: Ripristino di emergenza tramite BlueXP per datastore VMFS
+    - title: NetApp Disaster recovery per datastore VMFS
       url: "../vmware/vmw-hybrid-dr-vmfs.html"

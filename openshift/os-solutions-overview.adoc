@@ -49,9 +49,9 @@ Le opzioni di storage basate su ** NetApp ONTAP** elencate di seguito offrono si
 
 image:rhhc-ontap-features.png["Figura che mostra il dialogo di input/output o che rappresenta il contenuto scritto"]
 
-** NetApp BlueXP** ti consente di gestire tutte le tue risorse di storage e dati da un unico piano di controllo/interfaccia.
+**NetApp Console** ti consente di gestire tutte le tue risorse di storage e dati da un unico piano di controllo/interfaccia.
 
-È possibile utilizzare BlueXP per creare e amministrare l'archiviazione cloud (ad esempio, Cloud Volumes ONTAP e Azure NetApp Files), per spostare, proteggere e analizzare i dati e per controllare numerosi dispositivi di archiviazione locali e edge.
+Puoi utilizzare NetApp Console per creare e amministrare cloud storage (ad esempio, Cloud Volumes ONTAP e Azure NetApp Files), per spostare, proteggere e analizzare i dati e per controllare molti dispositivi di storage on-prem e edge.
 
 ** NetApp Trident** è uno Storage Orchestrator conforme a CSI che consente un utilizzo rapido e semplice di storage persistente supportato da una varietà di opzioni di storage NetApp sopra menzionate.  Si tratta di un software open source gestito e supportato da NetApp.
 

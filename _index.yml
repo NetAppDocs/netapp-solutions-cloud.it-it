@@ -30,7 +30,7 @@ indexpage:
       url: "/vmware/vmw-azure-avs-overview.html"
     - title: NetApp per GCP/GCVE
       url: "/vmware/vmw-gcp-gcve-overview.html"
-    - title: BlueXP disaster recovery per VMware
+    - title: NetApp Disaster Recovery per VMware
       url: "/vmware/vmw-hybrid-dr-overview.html"
   - title: Soluzioni cloud NetApp per OpenShift
     links:

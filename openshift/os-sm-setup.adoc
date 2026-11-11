@@ -43,7 +43,7 @@ NOTE: Puoi anche creare il cluster in AWS dalla console Hybrid Cloud di OpenShif
 TIP: Quando si crea il cluster tramite ACM, è possibile personalizzare l'installazione modificando il file yaml dopo aver compilato i dettagli nella visualizzazione del modulo.  Dopo aver creato il cluster, è possibile effettuare l'accesso tramite SSH ai nodi del cluster per la risoluzione dei problemi o per ulteriori configurazioni manuali.  Utilizza la chiave ssh fornita durante l'installazione e il nome utente core per effettuare l'accesso.
 
 ====
-.Distribuisci Cloud Volumes ONTAP in AWS utilizzando BlueXP.
+.Distribuisci Cloud Volumes ONTAP in AWS tramite NetApp Console.
 [%collapsible%open]
 ====
 * Installare il connettore nell'ambiente VMware locale.  Fare riferimento alle istruzionilink:https://docs.netapp.com/us-en/cloud-manager-setup-admin/task-install-connector-on-prem.html#install-the-connector["Qui"] .

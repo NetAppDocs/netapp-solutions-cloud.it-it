@@ -310,14 +310,14 @@ Utilizzare copie snapshot Azure NetApp Files per la protezione generale e utiliz
 
 NOTE: Con i datastore ANF, l'opzione Ripristina su nuovo volume può essere utilizzata per clonare un intero volume di datastore e il volume ripristinato può essere montato come un altro datastore sugli host all'interno di AVS SDDC.  Dopo aver montato un datastore, le VM al suo interno possono essere registrate, riconfigurate e personalizzate come se fossero VM clonate singolarmente.
 
-.BlueXP backup and recovery per macchine virtuali
+.NetApp Backup and Recovery for Virtual Machines
 [%collapsible%open]
 =====
-BlueXP backup and recovery per macchine virtuali fornisce un'interfaccia utente grafica del client Web vSphere su vCenter per proteggere le macchine virtuali di Azure VMware Solution e i datastore dei file di Azure NetApp tramite criteri di backup.  Queste policy possono definire la pianificazione, la conservazione e altre funzionalità.  La funzionalità BlueXP backup and recovery per macchine virtuali può essere implementata utilizzando il comando Esegui.
+NetApp Backup and Recovery for Virtual Machines fornisce una GUI del client web vSphere su vCenter per proteggere le macchine virtuali di Azure VMware Solution e i datastore di Azure NetApp files tramite policy di backup. Queste policy possono definire pianificazione, periodo di conservazione e altre funzionalità. La funzionalità di NetApp Backup and Recovery for Virtual Machine può essere distribuita utilizzando il comando Run.
 
 È possibile installare i criteri di configurazione e protezione completando i seguenti passaggi:
 
-. Installare il BlueXP backup and recovery per macchine virtuali nel cloud privato Azure VMware Solution utilizzando il comando Esegui.
+. Installa NetApp Backup and Recovery for Virtual Machine nel cloud privato Azure VMware Solution usando il comando Run.
 . Aggiungere le credenziali di abbonamento cloud (valore client e segreto), quindi aggiungere un account di abbonamento cloud (account NetApp e gruppo di risorse associato) che contenga le risorse che si desidera proteggere.
 . Creare una o più policy di backup che gestiscano la conservazione, la frequenza e altre impostazioni per i backup dei gruppi di risorse.
 . Crea un contenitore per aggiungere una o più risorse che devono essere protette con criteri di backup.
