@@ -17,11 +17,11 @@ summary:
 Ecco altra documentazione di riferimento:
 
 . link:https://docs.vmware.com/en/VMware-vSphere/index.html["VMware vSphere"^]
-. link:https://access.redhat.com/documentation/en-us/openshift_container_platform/4.12["Documentazione del prodotto della piattaforma OpenShift Container"^]
+. link:https://docs.redhat.com/en/documentation/openshift_container_platform/4.12["Documentazione del prodotto della piattaforma OpenShift Container"^]
 . link:https://docs.redhat.com/en/documentation/openshift_container_platform/4.17/html/installation_overview/index["Installazione di cluster della piattaforma container OpenShift"^]
-. link:https://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.4["Documentazione avanzata del prodotto di gestione dei cluster"]
-. link:https://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.4/html/clusters/managing-your-clusters#creating-a-cluster["Creazione di un cluster utilizzando ACM"^]
-. link:https://access.redhat.com/documentation/en-us/red_hat_quay/2.9/html-single/deploy_red_hat_quay_on_openshift/index["Distribuzione di Red Hat Quay su OpenShift"^]
+. link:https://docs.redhat.com/en/documentation/red_hat_advanced_cluster_management_for_kubernetes/2.4["Documentazione avanzata del prodotto di gestione dei cluster"^]
+. link:https://docs.redhat.com/en/documentation/red_hat_advanced_cluster_management_for_kubernetes/2.4/html/clusters/managing-your-clusters#creating-a-cluster["Creazione di un cluster utilizzando ACM"^]
+. link:https://docs.redhat.com/en/documentation/red_hat_quay/2.9/html-single/deploy_red_hat_quay_on_openshift/index["Distribuzione di Red Hat Quay su OpenShift"^]
 . link:https://docs.netapp.com/us-en/trident/["Trident"^]
 . link:https://docs.netapp.com/us-en/ontap/["ONTAP 9"^]
 . link:https://github.com/NetApp/Verda["NetApp Verda"^] - Verda (Open source) offre una raccolta di hook di esecuzione di riferimento per le più diffuse applicazioni cloud native ad alta intensità di dati

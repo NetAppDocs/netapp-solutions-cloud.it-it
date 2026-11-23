@@ -56,7 +56,7 @@ Il tipo di crittografia più potente attualmente disponibile per Kerberos è AES
 
 Kerberos fornisce tre diversi livelli di sicurezza per i mount NFS, che consentono di scegliere il livello di sicurezza Kerberos.
 
-Secondo RedHat https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/storage_administration_guide/s1-nfs-client-config-options["Opzioni di montaggio comuni"^] documentazione:
+Secondo la documentazione di RedHat https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/6/html/storage_administration_guide/s1-nfs-client-config-options["Opzioni di montaggio comuni"^]:
 
 ....
 sec=krb5 uses Kerberos V5 instead of local UNIX UIDs and GIDs to authenticate users.
