@@ -174,7 +174,7 @@ image:aws-fsx-guest-026.png["Figura che mostra il dialogo di input/output o che 
 video::0d03e040-634f-4086-8cb5-b01200fb8515[panopto]
 Il traffico iSCSI per FSx attraversa VMware Transit Connect/AWS Transit Gateway tramite i percorsi forniti nella sezione precedente.  Per configurare una LUN in Amazon FSx ONTAP, seguire la documentazione disponibilelink:https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/supported-fsx-clients.html["Qui"] .
 
-Sui client Linux, assicurarsi che il demone iSCSI sia in esecuzione.  Dopo aver eseguito il provisioning dei LUN, fare riferimento alla guida dettagliata sulla configurazione iSCSI con Ubuntu (come esempio)link:https://ubuntu.com/server/docs/service-iscsi["Qui"] .
+Sui client Linux, assicurati che il daemon iSCSI sia in esecuzione. Dopo aver effettuato il provisioning delle LUN, fai riferimento alla guida dettagliata sulla configurazione iSCSI con Ubuntu (come esempio) link:https://ubuntu.com/server/docs/how-to/storage/iscsi-initiator-or-client/["Qui"^].
 
 In questo documento viene illustrato come collegare l'iSCSI LUN a un host Windows:
 
@@ -445,7 +445,7 @@ Quando l'host Windows accede per la prima volta a un nuovo LUN, questo non ha al
 
 image:aws-cvo-guest-034.png["Figura che mostra il dialogo di input/output o che rappresenta il contenuto scritto"]
 
-Sui client Linux, assicurarsi che il demone iSCSI sia in esecuzione.  Dopo aver eseguito il provisioning dei LUN, fare riferimento alle istruzioni dettagliate sulla configurazione iSCSI per la propria distribuzione Linux.  Ad esempio, la configurazione iSCSI di Ubuntu può essere trovatalink:https://ubuntu.com/server/docs/service-iscsi["Qui"] .  Per verificare, eseguire lsblk cmd dalla shell.
+Sui client Linux, assicurati che il demone iSCSI sia in esecuzione. Dopo aver predisposto le LUN, fai riferimento alla guida dettagliata sulla configurazione di iSCSI per la tua distribuzione Linux. Ad esempio, puoi trovare la configurazione iSCSI di Ubuntu link:https://ubuntu.com/server/docs/how-to/storage/iscsi-initiator-or-client/["Qui"^]. Per verificare, esegui il comando lsblk dalla shell.
 
 ====
 .Montare il volume Cloud Volumes ONTAP NFS sul client Linux
